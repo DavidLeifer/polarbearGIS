@@ -1,0 +1,34 @@
+{
+  "name": "ol-ext-parcel-bundler",
+  "version": "1.0.0",
+  "description": "ol-ext + parcel bundler",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html -p 1236 --out-dir ./.dist",
+    "build": "parcel build index.html --public-url ./"
+  },
+  "keywords": [
+    "ol",
+    "ol-ext",
+    "parcel"
+  ],
+  "author": "Viglino",
+  "license": "MIT",
+  "devDependencies": {
+    "cssnano": "^4.1.10",
+    "parcel-bundler": "^1.9.4"
+  },
+  "dependencies": {
+    "ol": "^5.3.3",
+    "ol-ext": "^3.1.17"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidLeifer/pandamoniumGIS.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DavidLeifer/pandamoniumGIS/issues"
+  },
+  "homepage": "https://github.com/DavidLeifer/pandamoniumGIS#readme"
+}

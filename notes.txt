@@ -1,0 +1,252 @@
+sudo apt-get install unzip
+sudo apt-get install wget
+y
+
+#polar_landing
+#https://drive.google.com/file/d/1BmEveFAfZtponioIzz37gPWyckJk-uFy/view?usp=sharing
+cd /var/www/html/
+
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1BmEveFAfZtponioIzz37gPWyckJk-uFy' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1BmEveFAfZtponioIzz37gPWyckJk-uFy" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+
+sudo unzip xyz-timeseries-data
+
+cd polar_landing
+sudo mv index.html /var/www/html
+sudo mv index.js /var/www/html
+sudo mv index.scss /var/www/html
+cd ..
+sudo mkdir images
+cd polar_landing
+cd images
+sudo mv fart.png /var/www/html/images
+sudo mv Part2Section2.png /var/www/html/images
+sudo mv ppt_cor.png /var/www/html/images
+sudo mv temp_cor.png /var/www/html/images
+sudo mv polar_radar.png /var/www/html/images
+
+cd ..
+cd ..
+sudo rm -R polar_landing
+sudo rm xyz-timeseries-data
+
+#ppt_cor_xyz.zip
+#https://drive.google.com/file/d/1gk20RXafRluaVIZ473SgLp0N-YfFjAKn/view?usp=sharing
+
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1gk20RXafRluaVIZ473SgLp0N-YfFjAKn' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1gk20RXafRluaVIZ473SgLp0N-YfFjAKn" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+
+sudo unzip xyz-timeseries-data
+sudo rm xyz-timeseries-data
+
+#tmean_bil2tif_LaElNeu_analysis_xyz
+#https://drive.google.com/file/d/1kjvAl3BRLuD6fNSOftoqDHZRjOqjbyDk/view?usp=sharing
+
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1kjvAl3BRLuD6fNSOftoqDHZRjOqjbyDk' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1kjvAl3BRLuD6fNSOftoqDHZRjOqjbyDk" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+
+sudo unzip xyz-timeseries-data
+sudo rm xyz-timeseries-data
+
+#ppt_bil2tif_LaElNeu_analysis_xyz
+#https://drive.google.com/file/d/17W2rT_OMYgCq9w8T66By9los9m_y8ITb/view?usp=sharing
+
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=17W2rT_OMYgCq9w8T66By9los9m_y8ITb' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=17W2rT_OMYgCq9w8T66By9los9m_y8ITb" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+
+sudo unzip xyz-timeseries-data
+sudo rm xyz-timeseries-data
+
+#tmean_cor_xyz
+#https://drive.google.com/file/d/1c-ZPMmlcGAxfWLKP5QxPgrVDuMZOiT69/view?usp=sharing
+
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1c-ZPMmlcGAxfWLKP5QxPgrVDuMZOiT69' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1c-ZPMmlcGAxfWLKP5QxPgrVDuMZOiT69" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+
+sudo unzip xyz-timeseries-data
+sudo rm xyz-timeseries-data
+
+cd /var/www/html/
+sudo rm -R polar_radar
+
+#polar_radar
+#https://drive.google.com/file/d/1wCTA1W04c9Wq3mF7oo4cCXG7rVdfqe1F/view?usp=sharing
+
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1wCTA1W04c9Wq3mF7oo4cCXG7rVdfqe1F' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1wCTA1W04c9Wq3mF7oo4cCXG7rVdfqe1F" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+
+sudo unzip xyz-timeseries-data
+sudo rm xyz-timeseries-data
+
+#pandamoniumGIS_part2Section2-dist
+https://drive.google.com/file/d/1jAXkqqCsqFsf6lqeYHpRg8SFCPgYikte/view?usp=sharing
+
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1jAXkqqCsqFsf6lqeYHpRg8SFCPgYikte' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1jAXkqqCsqFsf6lqeYHpRg8SFCPgYikte" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+
+sudo unzip xyz-timeseries-data
+sudo rm xyz-timeseries-data
+
+#pandamoniumGIS20210110_tmeanbuild-dist
+https://drive.google.com/file/d/1gdv_qDwgYJuCQ30ElpbM45fZkvDEZbNX/view?usp=sharing
+
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1gdv_qDwgYJuCQ30ElpbM45fZkvDEZbNX' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1gdv_qDwgYJuCQ30ElpbM45fZkvDEZbNX" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+
+sudo unzip xyz-timeseries-data
+sudo rm xyz-timeseries-data
+
+#polarbearGIS-dist
+https://drive.google.com/file/d/12lBkkzfT2sAG3BSMcftTql2LOJtmat0i/view?usp=sharing
+
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=12lBkkzfT2sAG3BSMcftTql2LOJtmat0i' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=12lBkkzfT2sAG3BSMcftTql2LOJtmat0i" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+
+sudo unzip xyz-timeseries-data
+sudo rm xyz-timeseries-data
+
+
+sudo mv /var/www/html/dist /var/www/html/polarbearGIS
+sudo mv /var/www/html/pandamoniumGIS20210110_tmeanbuild-dist /var/www/html/pandamoniumGIS20210110_tmeanbuild
+
+
+
+
+
+
+sudo curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+#sudo npm install -g npm@latest
+sudo npm install -g npm@6.14.0
+#sudo npm init
+sudo npm install ol
+sudo npm install -g parcel-bundler
+sudo npm install ol-ext
+sudo npm install forever -g
+sudo npm install http-proxy --save
+sudo npm uninstall http-proxy-rules --save
+sudo npm install node-report
+
+#report node
+node -r node-report app.js
+
+
+#RUN FOREVER IN PROJECT DIR
+cd polarbearGIS
+sudo forever start -c "npm start" ./
+cd pandamoniumGIS_part2Section2_build
+sudo forever start -c "npm start" ./
+cd ..
+cd pandamoniumGIS20210110_tmeanbuild
+sudo forever start -c "npm start" ./
+
+sudo forever list
+
+sudo forever stop 0
+
+sudo apt-get install psmisc
+sudo kill -9 [process_ID]
+sudo killall node
+ps aux | grep node
+
+#build static mini you dummy
+sudo npm run-script build
+
+
+
+
+
+
+
+
+#port forwarding
+#sudo iptables -t nat -I PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8080
+#domain setup: https://cloud.google.com/dns/docs/tutorials/create-domain-tutorial
+
+sudo chmod -R ugo+rw /var/lib/tomcat8/webapps/geoserver/data/data/oregonmaptile
+
+polarbearGIS
+
+cd /var/lib/tomcat8/webapps
+
+sudo chmod -R ugo+rw /var/lib/tomcat8/webapps/geoserver/data/www/localdata
+
+sudo rm -r dirname
+sudo rm -r npm-maptile-v2
+
+#didnt work version of python
+/Applications/QGIS3.10.app/Contents/Frameworks/Python.framework/Versions/3.7/bin/python3.7
+
+/Applications/QGIS.app/Contents/MacOS/bin/python3.7 -m pip install --upgrade pandas
+/Applications/QGIS.app/Contents/MacOS/bin/python3.7 -m pip install descartes
+/Applications/QGIS.app/Contents/MacOS/bin/python3.7 -m pip install brewer2mpl
+
+export QT_QPA_PLATFORM_PLUGIN_PATH=/Applications/QGIS.app/Contents/PlugIns
+
+/Applications/QGIS.app/Contents/MacOS/bin/python3.7 /Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/panda_testing/pandamoniumGIS/scripts/python/ppt_cor.py
+
+COMPILE QGIS FROM DAVE FORKED SOURCE
+https://github.com/qgis/QGIS/blob/master/INSTALL.md#1-introduction
+https://github.com/qgis/QGIS/blob/f32725658f205af4ac9718d3a3b74f13eaa98d3e/python/plugins/processing/algs/qgis/TilesXYZ.py
+PYTHON HTML FILE OUTPUT TO CHANGE
+https://github.com/DavidLeifer/QGIS/blob/master/python/plugins/processing/algs/qgis/TilesXYZ.py
+MBTILES WITH DOCKER CONTAINERS
+https://cloud.google.com/compute/docs/containers
+https://github.com/consbio/mbtileserver
+CRON JOB
+https://phoenixnap.com/kb/set-up-cron-job-linux
+
+USAGE
+#clone directory structure from git
+git clone https://github.com/DavidLeifer/pandamoniumGIS.git
+cd pandamoniumGIS
+chmod u+x pipeline.sh
+./pipeline.sh
+
+#raterio docs https://readthedocs.org/projects/rasterio/downloads/pdf/latest/
+/Library/Frameworks/Python.framework/Versions/3.6/Resources/Python.app/Contents/MacOS/Python
+/Applications/QGIS.app/Contents/MacOS/bin/python3.7 
+/Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/panda_testing/pandamoniumGIS/scripts/python/ppt_cor.py
+
+git init
+git add .
+git commit -m "commit 40"
+git remote add origin https://github.com/DavidLeifer/polarbearGIS.git
+git push -u origin main
+
+git clone https://github.com/DavidLeifer/polarbearGIS.git
+
+#go to different branch
+git clone -b pandamoniumGIS20210110_tmeanbuild https://github.com/DavidLeifer/pandamoniumGIS.git
+cd pandamoniumGIS
+git init
+git add .
+git checkout -b pandamoniumGIS20210110_tmeanbuild
+git commit -m "commit 5"
+git push -u origin pandamoniumGIS20210110_tmeanbuild
+
+https://rdrr.io/cran/spatialEco/man/download.prism.html
+
+nslookup davidjleifer.com
+
+sudo gcloud compute firewall-rules create port1234v2 --allow tcp:1234 --source-ranges=0.0.0.0/0 --description=""
+
+#https://openlayers.org/en/latest/doc/tutorials/bundle.html
+npm install -g npm
+
+#start the three servers at the same damn time
+sudo npm start & cd pandamoniumGIS20210110_tmeanbuild && sudo npm start & cd pandamoniumGIS_part2Section2_build && sudo npm start
+
+#final project
+http://arm-doe.github.io/pyart/notebooks/the_pyart_radar_object_and_indexing.html
+https://www.ncdc.noaa.gov/data-access/radar-data/noaa-big-data-project
+https://en.wikipedia.org/wiki/January%E2%80%93February_2019_North_American_cold_wave
+https://openlayers.org/en/latest/examples/wms-time.html
+
+
+gcloud beta compute ssl-certificates describe www-ssl-cert \
+    --global \
+    --format="get(name,managed.status)"
+
+
+gcloud beta compute ssl-certificates describe www-ssl-cert \
+    --global \
+    --format="get(managed.domainStatus)"
+
+
+
+
+
+
