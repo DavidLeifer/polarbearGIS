@@ -29,6 +29,10 @@ var extent = transformExtent([-89.30, 24.71, -64.70, 48.07], 'EPSG:4326', 'EPSG:
 var white = new Fill({color: 'white'})
 var green = new Fill({color: 'green'})
 var red = new Fill({color: 'red'});
+//rgba opacity
+var invis = new Fill({color: 'rgba(255, 0, 0, 0)'});
+
+//create color style vars
 var white_style = new Style({
       image: new Circle({
         radius: 7,
@@ -53,6 +57,15 @@ var red_style = new Style({
         fill: red,
         stroke: new Stroke({
           color: [255,255,255], width: 2
+        })
+      })
+});
+var invis_style = new Style({
+      image: new Circle({
+        radius: 0,
+        fill: invis,
+        stroke: new Stroke({
+          color: [255,255,255,0], width: 0
         })
       })
 });
@@ -147,10 +160,22 @@ var map = new Map({
   }),
 });
 
+//make invis
+polarVortex_six30_layer.setStyle(invis_style)
+polarVortex_six45_layer.setStyle(invis_style)
+polarVortex_seven_layer.setStyle(invis_style)
+polarVortex_seven15_layer.setStyle(invis_style)
+polarVortex_seven30_layer.setStyle(invis_style)
+polarVortex_seven45_layer.setStyle(invis_style)
+polarVortex_eight_layer.setStyle(invis_style)
+
 /* Add to map */
 map.addLayer(point_source_layer);
 map.addLayer(basemap);
 map.addLayer(radar);
+
+/* invisible initials */
+
 
 // Define the available dates
 var dates = ['2019-01-29T18:30:00.000Z', '2019-01-29T18:45:00.000Z', '2019-01-29T19:00:00.000Z', '2019-01-29T19:15:00.000Z', 
@@ -165,8 +190,8 @@ radar.getSource().updateParams({'TIME': dates[sliderRange.value]});
 
 // Update the current slider value (each time you drag the slider handle)
 sliderRange.oninput = function() {
-dateValue.innerHTML = dates[this.value];
-radar.getSource().updateParams({'TIME': dates[this.value]});
+  dateValue.innerHTML = dates[this.value];
+  radar.getSource().updateParams({'TIME': dates[this.value]});
 }
 
 //Proimise and await. who came up with that, its a(time)sync function
