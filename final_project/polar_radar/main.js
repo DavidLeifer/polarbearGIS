@@ -12,190 +12,19 @@ import {getCenter} from 'ol/extent';
 import {transformExtent} from 'ol/proj';
 import {transform} from 'ol/proj';
 import {Style, Fill, Stroke, Circle} from 'ol/style';
+
 import 'regenerator-runtime/runtime';
+import points from '../data/polarVortex_rounded_small.geojson';
+import polarVortex_six30 from '../data/polarVortex_six30.geojson';
+import polarVortex_six45 from '../data/polarVortex_six45.geojson';
+import polarVortex_seven from '../data/polarVortex_seven.geojson';
+import polarVortex_seven15 from '../data/polarVortex_seven15.geojson';
+import polarVortex_seven30 from '../data/polarVortex_seven30.geojson';
+import polarVortex_seven45 from '../data/polarVortex_seven45.geojson';
+import polarVortex_eight from '../data/polarVortex_eight.geojson';
 
-import geojson from '../data/*.geojson'
-
-//create extent and use it in the VectorLayer called all_ween
 var extent = transformExtent([-89.30, 24.71, -64.70, 48.07], 'EPSG:4326', 'EPSG:3857');
 
-//define make before adding to it
-var map = new Map({
-  target: 'map',
-  view: new View({
-    center: transform([-77.3765, 38.1667], 'EPSG:4326', 'EPSG:3857'),
-    zoom: 5,
-  }),
-});
-
-//define basemap and radar as a TileLayer
-const basemap = new TileLayer({
-  source: new Stamen({
-    layer: 'terrain',
-  }),
-});
-const radar = new TileLayer({
-  extent: extent,
-  source: new TileWMS({
-    attributions: ['Iowa State University'],
-    url: 'https://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r-t.cgi',
-    params: {'LAYERS': 'nexrad-n0r-wmst'},
-  }),
-});
-
-/* Add to map */
-map.addLayer(basemap);
-map.addLayer(radar);
-
-//empty array for our dates
-var dates = [];
-var all_ween_array = []
-//loop over each property of of the geojson object and add it to the map
-for (const property in geojson) {
-    const ween = new VectorSource({
-      url: geojson[property],
-      format: new GeoJSON(),
-    });
-    //create the layers for the point_changer function
-    const all_ween = new VectorLayer({
-      extent: extent,
-      source: ween,
-    });
-    //push property (our datetime) to empty array called dates
-    const property_t = property.replace(/\s/g, 'T')
-    dates.push(property_t + ".000Z")
-    //push layer to empty all_ween_array
-    all_ween_array.push(all_ween)
-    //console.log(`${property}: ${geojson[property]}`);
-};
-//console.log(all_ween_array)
-//console.log(dates)
-
-radar.addEventListener('change', point_changer, false);
-function point_changer(){
-  var el = document.getElementById('date_value').textContent;
-  console.log(el)
-  if (el == dates[0]){
-    map.addLayer(all_ween_array[0]);
-    map.removeLayer(all_ween_array[1]);
-    map.removeLayer(all_ween_array[2]);
-    map.removeLayer(all_ween_array[3]);
-    map.removeLayer(all_ween_array[4]);
-    map.removeLayer(all_ween_array[5]);
-    map.removeLayer(all_ween_array[6]);
-    map.removeLayer(all_ween_array[7]);
-    map.removeLayer(all_ween_array[8]);
-    map.removeLayer(all_ween_array[9]);
-  }
-  else if (el == dates[1]){
-    map.removeLayer(all_ween_array[0]);
-    map.addLayer(all_ween_array[1]);
-    map.removeLayer(all_ween_array[2]);
-    map.removeLayer(all_ween_array[3]);
-    map.removeLayer(all_ween_array[4]);
-    map.removeLayer(all_ween_array[5]);
-    map.removeLayer(all_ween_array[6]);
-    map.removeLayer(all_ween_array[7]);
-    map.removeLayer(all_ween_array[8]);
-    map.removeLayer(all_ween_array[9]);
-  }
-  else if (el == dates[2]){
-    map.removeLayer(all_ween_array[0]);
-    map.removeLayer(all_ween_array[1]);
-    map.addLayer(all_ween_array[2]);
-    map.removeLayer(all_ween_array[3]);
-    map.removeLayer(all_ween_array[4]);
-    map.removeLayer(all_ween_array[5]);
-    map.removeLayer(all_ween_array[6]);
-    map.removeLayer(all_ween_array[7]);
-    map.removeLayer(all_ween_array[8]);
-    map.removeLayer(all_ween_array[9]);
-  }
-  else if (el == dates[3]){
-    map.removeLayer(all_ween_array[0]);
-    map.removeLayer(all_ween_array[1]);
-    map.removeLayer(all_ween_array[2]);
-    map.addLayer(all_ween_array[3]);
-    map.removeLayer(all_ween_array[4]);
-    map.removeLayer(all_ween_array[5]);
-    map.removeLayer(all_ween_array[6]);
-    map.removeLayer(all_ween_array[7]);
-    map.removeLayer(all_ween_array[8]);
-    map.removeLayer(all_ween_array[9]);
-  }
-  else if (el == dates[4]){
-    map.removeLayer(all_ween_array[0]);
-    map.removeLayer(all_ween_array[1]);
-    map.removeLayer(all_ween_array[2]);
-    map.removeLayer(all_ween_array[3]);
-    map.addLayer(all_ween_array[4]);
-    map.removeLayer(all_ween_array[5]);
-    map.removeLayer(all_ween_array[6]);
-    map.removeLayer(all_ween_array[7]);
-    map.removeLayer(all_ween_array[8]);
-    map.removeLayer(all_ween_array[9]);
-  }
-  else if (el == dates[5]){
-    map.removeLayer(all_ween_array[0]);
-    map.removeLayer(all_ween_array[1]);
-    map.removeLayer(all_ween_array[2]);
-    map.removeLayer(all_ween_array[3]);
-    map.removeLayer(all_ween_array[4]);
-    map.addLayer(all_ween_array[5]);
-    map.removeLayer(all_ween_array[6]);
-    map.removeLayer(all_ween_array[7]);
-    map.removeLayer(all_ween_array[8]);
-    map.removeLayer(all_ween_array[9]);
-  }
-  else if (el == dates[6]){
-    map.removeLayer(all_ween_array[0]);
-    map.removeLayer(all_ween_array[1]);
-    map.removeLayer(all_ween_array[2]);
-    map.removeLayer(all_ween_array[3]);
-    map.removeLayer(all_ween_array[4]);
-    map.removeLayer(all_ween_array[5]);
-    map.addLayer(all_ween_array[6]);
-    map.removeLayer(all_ween_array[7]);
-    map.removeLayer(all_ween_array[8]);
-    map.removeLayer(all_ween_array[9]);
-  }
-  else if (el == dates[7]){
-    map.removeLayer(all_ween_array[0]);
-    map.removeLayer(all_ween_array[1]);
-    map.removeLayer(all_ween_array[2]);
-    map.removeLayer(all_ween_array[3]);
-    map.removeLayer(all_ween_array[4]);
-    map.removeLayer(all_ween_array[5]);
-    map.removeLayer(all_ween_array[6]);
-    map.addLayer(all_ween_array[7]);
-    map.removeLayer(all_ween_array[8]);
-    map.removeLayer(all_ween_array[9]);
-  }
-  else if (el == dates[8]){
-    map.removeLayer(all_ween_array[0]);
-    map.removeLayer(all_ween_array[1]);
-    map.removeLayer(all_ween_array[2]);
-    map.removeLayer(all_ween_array[3]);
-    map.removeLayer(all_ween_array[4]);
-    map.removeLayer(all_ween_array[5]);
-    map.removeLayer(all_ween_array[6]);
-    map.removeLayer(all_ween_array[7]);
-    map.addLayer(all_ween_array[8]);
-    map.removeLayer(all_ween_array[9]);
-  }
-  else if (el == dates[9]){
-    map.removeLayer(all_ween_array[0]);
-    map.removeLayer(all_ween_array[1]);
-    map.removeLayer(all_ween_array[2]);
-    map.removeLayer(all_ween_array[3]);
-    map.removeLayer(all_ween_array[4]);
-    map.removeLayer(all_ween_array[5]);
-    map.removeLayer(all_ween_array[6]);
-    map.removeLayer(all_ween_array[7]);
-    map.removeLayer(all_ween_array[8]);
-    map.addLayer(all_ween_array[9]);
-  }
-};
 // style vars
 var white = new Fill({color: 'white'})
 var green = new Fill({color: 'green'})
@@ -241,144 +70,117 @@ var invis_style = new Style({
       })
 });
 
+//create the sources for the layers
+const polarVortex_six30_points = new VectorSource({
+    url: polarVortex_six30,
+    format: new GeoJSON(),
+});
+const polarVortex_six45_points = new VectorSource({
+    url: polarVortex_six45,
+    format: new GeoJSON(),
+});
+const polarVortex_seven_points = new VectorSource({
+    url: polarVortex_seven,
+    format: new GeoJSON(),
+});
+const polarVortex_seven15_points = new VectorSource({
+    url: polarVortex_seven15,
+    format: new GeoJSON(),
+});
+const polarVortex_seven30_points = new VectorSource({
+    url: polarVortex_seven30,
+    format: new GeoJSON(),
+});
+const polarVortex_seven45_points = new VectorSource({
+    url: polarVortex_seven45,
+    format: new GeoJSON(),
+});
+const polarVortex_eight_points = new VectorSource({
+    url: polarVortex_eight,
+    format: new GeoJSON(),
+});
+//make example point_source
+const point_source = new VectorSource({
+    url: points,
+    format: new GeoJSON(),
+});
+const basemap = new TileLayer({
+  source: new Stamen({
+    layer: 'terrain',
+  }),
+});
+//create the layers for the point_changer function
+const polarVortex_six30_layer = new VectorLayer({
+  extent: extent,
+  source: polarVortex_six30_points,
+});
+const polarVortex_six45_layer = new VectorLayer({
+  extent: extent,
+  source: polarVortex_six45_points,
+});
+const polarVortex_seven_layer = new VectorLayer({
+  extent: extent,
+  source: polarVortex_seven_points,
+});
+const polarVortex_seven15_layer = new VectorLayer({
+  extent: extent,
+  source: polarVortex_seven15_points,
+});
+const polarVortex_seven30_layer = new VectorLayer({
+  extent: extent,
+  source: polarVortex_seven30_points,
+});
+const polarVortex_seven45_layer = new VectorLayer({
+  extent: extent,
+  source: polarVortex_seven45_points,
+});
+const polarVortex_eight_layer = new VectorLayer({
+  extent: extent,
+  source: polarVortex_eight_points,
+});
+//make example point layer
+const point_source_layer = new VectorLayer({
+  extent: extent,
+  source: point_source,
+});
+const radar = new TileLayer({
+  extent: extent,
+  source: new TileWMS({
+    attributions: ['Iowa State University'],
+    url: 'https://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r-t.cgi',
+    params: {'LAYERS': 'nexrad-n0r-wmst'},
+  }),
+});
+
+var map = new Map({
+  target: 'map',
+  view: new View({
+    center: transform([-77.3765, 38.1667], 'EPSG:4326', 'EPSG:3857'),
+    zoom: 5,
+  }),
+});
+
 //make invis
-all_ween_array[0].setStyle(invis_style)
-all_ween_array[1].setStyle(invis_style)
-all_ween_array[2].setStyle(invis_style)
-all_ween_array[3].setStyle(invis_style)
-all_ween_array[4].setStyle(invis_style)
-all_ween_array[5].setStyle(invis_style)
-all_ween_array[6].setStyle(invis_style)
-all_ween_array[7].setStyle(invis_style)
-all_ween_array[8].setStyle(invis_style)
-all_ween_array[9].setStyle(invis_style)
+polarVortex_six30_layer.setStyle(invis_style)
+polarVortex_six45_layer.setStyle(invis_style)
+polarVortex_seven_layer.setStyle(invis_style)
+polarVortex_seven15_layer.setStyle(invis_style)
+polarVortex_seven30_layer.setStyle(invis_style)
+polarVortex_seven45_layer.setStyle(invis_style)
+polarVortex_eight_layer.setStyle(invis_style)
 
-//Proimise and await. who came up with that, its a(time)sync function
-function resolveAfter2Seconds(x) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(x);
-    }, 500);
-    radar.addEventListener('change', style_points, false);
-  });
-};
-async function style_points() {
-  var x = await resolveAfter2Seconds(10);
-  //var uidIndex_ = polarVortex_six30_layer.get("source").uidIndex_;
-  all_ween_array[0].getSource().forEachFeature(function(feature){
-    if ((feature.get('compound') === 0)) {
-      feature.setStyle(white_style)
-    }
-    else if (feature.get('compound') > 0) {
-      feature.setStyle(green_style)
-    }
-    else{
-      feature.setStyle(red_style)
-    }
-  })
-  all_ween_array[1].getSource().forEachFeature(function(feature){
-    if ((feature.get('compound') === 0)) {
-      feature.setStyle(white_style)
-    }
-    else if (feature.get('compound') > 0) {
-      feature.setStyle(green_style)
-    }
-    else{
-      feature.setStyle(red_style)
-    }
-  })
-  all_ween_array[2].getSource().forEachFeature(function(feature){
-    if ((feature.get('compound') === 0)) {
-      feature.setStyle(white_style)
-    }
-    else if (feature.get('compound') > 0) {
-      feature.setStyle(green_style)
-    }
-    else{
-      feature.setStyle(red_style)
-    }
-  })
-  all_ween_array[3].getSource().forEachFeature(function(feature){
-    if ((feature.get('compound') === 0)) {
-      feature.setStyle(white_style)
-    }
-    else if (feature.get('compound') > 0) {
-      feature.setStyle(green_style)
-    }
-    else{
-      feature.setStyle(red_style)
-    }
-  })
-  all_ween_array[4].getSource().forEachFeature(function(feature){
-    if ((feature.get('compound') === 0)) {
-      feature.setStyle(white_style)
-    }
-    else if (feature.get('compound') > 0) {
-      feature.setStyle(green_style)
-    }
-    else{
-      feature.setStyle(red_style)
-    }
-  })
-  all_ween_array[5].getSource().forEachFeature(function(feature){
-    if ((feature.get('compound') === 0)) {
-      feature.setStyle(white_style)
-    }
-    else if (feature.get('compound') > 0) {
-      feature.setStyle(green_style)
-    }
-    else{
-      feature.setStyle(red_style)
-    }
-  })
-  all_ween_array[6].getSource().forEachFeature(function(feature){
-    if ((feature.get('compound') === 0)) {
-      feature.setStyle(white_style)
-    }
-    else if (feature.get('compound') > 0) {
-      feature.setStyle(green_style)
-    }
-    else{
-      feature.setStyle(red_style)
-    }
-  })
-  all_ween_array[7].getSource().forEachFeature(function(feature){
-    if ((feature.get('compound') === 0)) {
-      feature.setStyle(white_style)
-    }
-    else if (feature.get('compound') > 0) {
-      feature.setStyle(green_style)
-    }
-    else{
-      feature.setStyle(red_style)
-    }
-  })
-  all_ween_array[8].getSource().forEachFeature(function(feature){
-    if ((feature.get('compound') === 0)) {
-      feature.setStyle(white_style)
-    }
-    else if (feature.get('compound') > 0) {
-      feature.setStyle(green_style)
-    }
-    else{
-      feature.setStyle(red_style)
-    }
-  })
-  all_ween_array[9].getSource().forEachFeature(function(feature){
-    if ((feature.get('compound') === 0)) {
-      feature.setStyle(white_style)
-    }
-    else if (feature.get('compound') > 0) {
-      feature.setStyle(green_style)
-    }
-    else{
-      feature.setStyle(red_style)
-    }
-  })
-};
-style_points()
+/* Add to map */
+map.addLayer(point_source_layer);
+map.addLayer(basemap);
+map.addLayer(radar);
 
-//define the slider and do some stuff
+/* invisible initials */
+
+
+// Define the available dates
+var dates = ['2019-01-29T18:30:00.000Z', '2019-01-29T18:45:00.000Z', '2019-01-29T19:00:00.000Z', '2019-01-29T19:15:00.000Z', 
+             '2019-01-29T19:30:00.000Z', '2019-01-29T19:45:00.000Z', '2019-01-29T20:00:00.000Z']
+
 var sliderRange = document.getElementById("myRange");
 sliderRange.max = dates.length-1;
 
@@ -391,3 +193,171 @@ sliderRange.oninput = function() {
   dateValue.innerHTML = dates[this.value];
   radar.getSource().updateParams({'TIME': dates[this.value]});
 }
+
+//Proimise and await. who came up with that, its a(time)sync function
+function resolveAfter2Seconds(x) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(x);
+    }, 500);
+    radar.addEventListener('change', style_points, false);
+  });
+};
+
+async function style_points() {
+	var x = await resolveAfter2Seconds(10);
+	//var uidIndex_ = polarVortex_six30_layer.get("source").uidIndex_;
+	polarVortex_six30_layer.getSource().forEachFeature(function(feature){
+	    if ((feature.get('compound') === 0)) {
+		  feature.setStyle(white_style)
+		}
+		else if (feature.get('compound') > 0) {
+		  feature.setStyle(green_style)
+		}
+		else{
+		  feature.setStyle(red_style)
+		}
+	})
+	polarVortex_six45_layer.getSource().forEachFeature(function(feature){
+	    if ((feature.get('compound') === 0)) {
+		  feature.setStyle(white_style)
+		}
+		else if (feature.get('compound') > 0) {
+		  feature.setStyle(green_style)
+		}
+		else{
+		  feature.setStyle(red_style)
+		}
+	})
+	polarVortex_seven_layer.getSource().forEachFeature(function(feature){
+	    if ((feature.get('compound') === 0)) {
+		  feature.setStyle(white_style)
+		}
+		else if (feature.get('compound') > 0) {
+		  feature.setStyle(green_style)
+		}
+		else{
+		  feature.setStyle(red_style)
+		}
+	})
+	polarVortex_seven15_layer.getSource().forEachFeature(function(feature){
+	    if ((feature.get('compound') === 0)) {
+		  feature.setStyle(white_style)
+		}
+		else if (feature.get('compound') > 0) {
+		  feature.setStyle(green_style)
+		}
+		else{
+		  feature.setStyle(red_style)
+		}
+	})
+	polarVortex_seven30_layer.getSource().forEachFeature(function(feature){
+	    if ((feature.get('compound') === 0)) {
+		  feature.setStyle(white_style)
+		}
+		else if (feature.get('compound') > 0) {
+		  feature.setStyle(green_style)
+		}
+		else{
+		  feature.setStyle(red_style)
+		}
+	})
+	polarVortex_seven45_layer.getSource().forEachFeature(function(feature){
+	    if ((feature.get('compound') === 0)) {
+		  feature.setStyle(white_style)
+		}
+		else if (feature.get('compound') > 0) {
+		  feature.setStyle(green_style)
+		}
+		else{
+		  feature.setStyle(red_style)
+		}
+	})
+	polarVortex_eight_layer.getSource().forEachFeature(function(feature){
+	    if ((feature.get('compound') === 0)) {
+		  feature.setStyle(white_style)
+		}
+		else if (feature.get('compound') > 0) {
+		  feature.setStyle(green_style)
+		}
+		else{
+		  feature.setStyle(red_style)
+		}
+	})
+};
+
+style_points()
+map.addLayer(polarVortex_six30_layer);
+
+radar.addEventListener('change', point_changer, false);
+function point_changer(){
+  var el = document.getElementById('date_value').textContent;
+  console.log(el)
+  if (el == "2019-01-29T18:30:00.000Z"){
+  	map.addLayer(polarVortex_six30_layer);
+  	map.removeLayer(polarVortex_six45_layer);
+  	map.removeLayer(polarVortex_seven_layer);
+  	map.removeLayer(polarVortex_seven15_layer);
+  	map.removeLayer(polarVortex_seven30_layer);
+  	map.removeLayer(polarVortex_seven45_layer);
+  	map.removeLayer(polarVortex_eight_layer);
+  }
+  else if (el == "2019-01-29T18:45:00.000Z"){
+  	map.addLayer(polarVortex_six45_layer);
+  	map.removeLayer(polarVortex_six30_layer);
+  	map.removeLayer(polarVortex_seven_layer);
+  	map.removeLayer(polarVortex_seven15_layer);
+  	map.removeLayer(polarVortex_seven30_layer);
+  	map.removeLayer(polarVortex_seven45_layer);
+  	map.removeLayer(polarVortex_eight_layer);
+  }
+  else if (el == "2019-01-29T19:00:00.000Z"){
+  	map.addLayer(polarVortex_seven_layer);
+  	map.removeLayer(polarVortex_six30_layer);
+  	map.removeLayer(polarVortex_six45_layer);
+  	map.removeLayer(polarVortex_seven15_layer);
+  	map.removeLayer(polarVortex_seven30_layer);
+  	map.removeLayer(polarVortex_seven45_layer);
+  	map.removeLayer(polarVortex_eight_layer);
+  }
+  else if (el == "2019-01-29T19:15:00.000Z"){
+  	map.addLayer(polarVortex_seven15_layer);
+  	map.removeLayer(polarVortex_six30_layer);
+  	map.removeLayer(polarVortex_six45_layer);
+  	map.removeLayer(polarVortex_seven_layer);
+  	map.removeLayer(polarVortex_seven30_layer);
+  	map.removeLayer(polarVortex_seven45_layer);
+  	map.removeLayer(polarVortex_eight_layer);
+  }
+  else if (el == "2019-01-29T19:30:00.000Z"){
+  	map.addLayer(polarVortex_seven30_layer);
+  	map.removeLayer(polarVortex_six30_layer);
+  	map.removeLayer(polarVortex_six45_layer);
+  	map.removeLayer(polarVortex_seven_layer);
+  	map.removeLayer(polarVortex_seven15_layer);
+  	map.removeLayer(polarVortex_seven45_layer);
+  	map.removeLayer(polarVortex_eight_layer);
+  }
+  else if (el == "2019-01-29T19:45:00.000Z"){
+  	map.addLayer(polarVortex_seven45_layer);
+  	map.removeLayer(polarVortex_six30_layer);
+  	map.removeLayer(polarVortex_six45_layer);
+  	map.removeLayer(polarVortex_seven_layer);
+  	map.removeLayer(polarVortex_seven15_layer);
+  	map.removeLayer(polarVortex_seven30_layer);
+  	map.removeLayer(polarVortex_eight_layer);
+  }
+  else if (el == "2019-01-29T20:00:00.000Z"){
+  	map.addLayer(polarVortex_eight_layer);
+  	map.removeLayer(polarVortex_six30_layer);
+  	map.removeLayer(polarVortex_six45_layer);
+  	map.removeLayer(polarVortex_seven_layer);
+  	map.removeLayer(polarVortex_seven15_layer);
+  	map.removeLayer(polarVortex_seven30_layer);
+  	map.removeLayer(polarVortex_seven45_layer);
+  }
+
+};
+
+
+

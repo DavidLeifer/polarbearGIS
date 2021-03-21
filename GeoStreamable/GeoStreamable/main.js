@@ -43,16 +43,14 @@ const radar = new TileLayer({
   }),
 });
 
-//make invis
-//polarVortex_six30_layer.setStyle(invis_style)
-
 /* Add to map */
 map.addLayer(basemap);
 map.addLayer(radar);
 
-//empty array for our date
-var date = [];
-//loop over each property of of the geojson object and add it to the map
+//empty array for our dates and all_ween_array
+var dates = [];
+var all_ween_array = []
+//loop over each property of the geojson object and add it to the all_ween_array
 for (const property in geojson) {
     const ween = new VectorSource({
       url: geojson[property],
@@ -63,39 +61,141 @@ for (const property in geojson) {
       extent: extent,
       source: ween,
     });
+    //push property (our datetime) to empty array called dates
+    const property_t = property.replace(/\s/g, 'T')
+    dates.push(property_t + ".000Z")
+    //push layer to empty all_ween_array
+    all_ween_array.push(all_ween)
     //console.log(`${property}: ${geojson[property]}`);
-    //Proimise and await. who came up with that, its a(time)sync function
-    function resolveAfter2Seconds(x) {
-      return new Promise(resolve => {
-        setTimeout(() => {
-          resolve(x);
-        }, 2000);
-        radar.addEventListener('change', style_points, false);
-      });
-    };
-    async function style_points() {
-      var x = await resolveAfter2Seconds(10);
-      //var uidIndex_ = polarVortex_six30_layer.get("source").uidIndex_;
-      all_ween.getSource().forEachFeature(function(feature){
-        if ((feature.get('compound') === 0)) {
-          feature.setStyle(white_style)
-        }
-        else if (feature.get('compound') > 0) {
-          feature.setStyle(green_style)
-        }
-        else{
-          feature.setStyle(red_style)
-        }
-      })
-    };
-    style_points()
-    map.addLayer(all_ween);
-    // Define the available dates
+};
+//console.log(all_ween_array)
+//console.log(dates)
 
-    date.push(property)
-}
-console.log(date)
-
+radar.addEventListener('change', point_changer, false);
+function point_changer(){
+  var el = document.getElementById('date_value').textContent;
+  console.log(el)
+  if (el == dates[0]){
+    map.addLayer(all_ween_array[0]);
+    map.removeLayer(all_ween_array[1]);
+    map.removeLayer(all_ween_array[2]);
+    map.removeLayer(all_ween_array[3]);
+    map.removeLayer(all_ween_array[4]);
+    map.removeLayer(all_ween_array[5]);
+    map.removeLayer(all_ween_array[6]);
+    map.removeLayer(all_ween_array[7]);
+    map.removeLayer(all_ween_array[8]);
+    map.removeLayer(all_ween_array[9]);
+  }
+  else if (el == dates[1]){
+    map.removeLayer(all_ween_array[0]);
+    map.addLayer(all_ween_array[1]);
+    map.removeLayer(all_ween_array[2]);
+    map.removeLayer(all_ween_array[3]);
+    map.removeLayer(all_ween_array[4]);
+    map.removeLayer(all_ween_array[5]);
+    map.removeLayer(all_ween_array[6]);
+    map.removeLayer(all_ween_array[7]);
+    map.removeLayer(all_ween_array[8]);
+    map.removeLayer(all_ween_array[9]);
+  }
+  else if (el == dates[2]){
+    map.removeLayer(all_ween_array[0]);
+    map.removeLayer(all_ween_array[1]);
+    map.addLayer(all_ween_array[2]);
+    map.removeLayer(all_ween_array[3]);
+    map.removeLayer(all_ween_array[4]);
+    map.removeLayer(all_ween_array[5]);
+    map.removeLayer(all_ween_array[6]);
+    map.removeLayer(all_ween_array[7]);
+    map.removeLayer(all_ween_array[8]);
+    map.removeLayer(all_ween_array[9]);
+  }
+  else if (el == dates[3]){
+    map.removeLayer(all_ween_array[0]);
+    map.removeLayer(all_ween_array[1]);
+    map.removeLayer(all_ween_array[2]);
+    map.addLayer(all_ween_array[3]);
+    map.removeLayer(all_ween_array[4]);
+    map.removeLayer(all_ween_array[5]);
+    map.removeLayer(all_ween_array[6]);
+    map.removeLayer(all_ween_array[7]);
+    map.removeLayer(all_ween_array[8]);
+    map.removeLayer(all_ween_array[9]);
+  }
+  else if (el == dates[4]){
+    map.removeLayer(all_ween_array[0]);
+    map.removeLayer(all_ween_array[1]);
+    map.removeLayer(all_ween_array[2]);
+    map.removeLayer(all_ween_array[3]);
+    map.addLayer(all_ween_array[4]);
+    map.removeLayer(all_ween_array[5]);
+    map.removeLayer(all_ween_array[6]);
+    map.removeLayer(all_ween_array[7]);
+    map.removeLayer(all_ween_array[8]);
+    map.removeLayer(all_ween_array[9]);
+  }
+  else if (el == dates[5]){
+    map.removeLayer(all_ween_array[0]);
+    map.removeLayer(all_ween_array[1]);
+    map.removeLayer(all_ween_array[2]);
+    map.removeLayer(all_ween_array[3]);
+    map.removeLayer(all_ween_array[4]);
+    map.addLayer(all_ween_array[5]);
+    map.removeLayer(all_ween_array[6]);
+    map.removeLayer(all_ween_array[7]);
+    map.removeLayer(all_ween_array[8]);
+    map.removeLayer(all_ween_array[9]);
+  }
+  else if (el == dates[6]){
+    map.removeLayer(all_ween_array[0]);
+    map.removeLayer(all_ween_array[1]);
+    map.removeLayer(all_ween_array[2]);
+    map.removeLayer(all_ween_array[3]);
+    map.removeLayer(all_ween_array[4]);
+    map.removeLayer(all_ween_array[5]);
+    map.addLayer(all_ween_array[6]);
+    map.removeLayer(all_ween_array[7]);
+    map.removeLayer(all_ween_array[8]);
+    map.removeLayer(all_ween_array[9]);
+  }
+  else if (el == dates[7]){
+    map.removeLayer(all_ween_array[0]);
+    map.removeLayer(all_ween_array[1]);
+    map.removeLayer(all_ween_array[2]);
+    map.removeLayer(all_ween_array[3]);
+    map.removeLayer(all_ween_array[4]);
+    map.removeLayer(all_ween_array[5]);
+    map.removeLayer(all_ween_array[6]);
+    map.addLayer(all_ween_array[7]);
+    map.removeLayer(all_ween_array[8]);
+    map.removeLayer(all_ween_array[9]);
+  }
+  else if (el == dates[8]){
+    map.removeLayer(all_ween_array[0]);
+    map.removeLayer(all_ween_array[1]);
+    map.removeLayer(all_ween_array[2]);
+    map.removeLayer(all_ween_array[3]);
+    map.removeLayer(all_ween_array[4]);
+    map.removeLayer(all_ween_array[5]);
+    map.removeLayer(all_ween_array[6]);
+    map.removeLayer(all_ween_array[7]);
+    map.addLayer(all_ween_array[8]);
+    map.removeLayer(all_ween_array[9]);
+  }
+  else if (el == dates[9]){
+    map.removeLayer(all_ween_array[0]);
+    map.removeLayer(all_ween_array[1]);
+    map.removeLayer(all_ween_array[2]);
+    map.removeLayer(all_ween_array[3]);
+    map.removeLayer(all_ween_array[4]);
+    map.removeLayer(all_ween_array[5]);
+    map.removeLayer(all_ween_array[6]);
+    map.removeLayer(all_ween_array[7]);
+    map.removeLayer(all_ween_array[8]);
+    map.addLayer(all_ween_array[9]);
+  }
+};
 // style vars
 var white = new Fill({color: 'white'})
 var green = new Fill({color: 'green'})
@@ -141,10 +241,144 @@ var invis_style = new Style({
       })
 });
 
-// Define the available dates
-var dates = ['2019-01-29T18:30:00.000Z', '2019-01-29T18:45:00.000Z', '2019-01-29T19:00:00.000Z', '2019-01-29T19:15:00.000Z', 
-             '2019-01-29T19:30:00.000Z', '2019-01-29T19:45:00.000Z', '2019-01-29T20:00:00.000Z']
+//make invis
+all_ween_array[0].setStyle(invis_style)
+all_ween_array[1].setStyle(invis_style)
+all_ween_array[2].setStyle(invis_style)
+all_ween_array[3].setStyle(invis_style)
+all_ween_array[4].setStyle(invis_style)
+all_ween_array[5].setStyle(invis_style)
+all_ween_array[6].setStyle(invis_style)
+all_ween_array[7].setStyle(invis_style)
+all_ween_array[8].setStyle(invis_style)
+all_ween_array[9].setStyle(invis_style)
 
+//Proimise and await. who came up with that, its a(time)sync function
+function resolveAfter2Seconds(x) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(x);
+    }, 500);
+    radar.addEventListener('change', style_points, false);
+  });
+};
+async function style_points() {
+  var x = await resolveAfter2Seconds(10);
+  //var uidIndex_ = polarVortex_six30_layer.get("source").uidIndex_;
+  all_ween_array[0].getSource().forEachFeature(function(feature){
+    if ((feature.get('compound') === 0)) {
+      feature.setStyle(white_style)
+    }
+    else if (feature.get('compound') > 0) {
+      feature.setStyle(green_style)
+    }
+    else{
+      feature.setStyle(red_style)
+    }
+  })
+  all_ween_array[1].getSource().forEachFeature(function(feature){
+    if ((feature.get('compound') === 0)) {
+      feature.setStyle(white_style)
+    }
+    else if (feature.get('compound') > 0) {
+      feature.setStyle(green_style)
+    }
+    else{
+      feature.setStyle(red_style)
+    }
+  })
+  all_ween_array[2].getSource().forEachFeature(function(feature){
+    if ((feature.get('compound') === 0)) {
+      feature.setStyle(white_style)
+    }
+    else if (feature.get('compound') > 0) {
+      feature.setStyle(green_style)
+    }
+    else{
+      feature.setStyle(red_style)
+    }
+  })
+  all_ween_array[3].getSource().forEachFeature(function(feature){
+    if ((feature.get('compound') === 0)) {
+      feature.setStyle(white_style)
+    }
+    else if (feature.get('compound') > 0) {
+      feature.setStyle(green_style)
+    }
+    else{
+      feature.setStyle(red_style)
+    }
+  })
+  all_ween_array[4].getSource().forEachFeature(function(feature){
+    if ((feature.get('compound') === 0)) {
+      feature.setStyle(white_style)
+    }
+    else if (feature.get('compound') > 0) {
+      feature.setStyle(green_style)
+    }
+    else{
+      feature.setStyle(red_style)
+    }
+  })
+  all_ween_array[5].getSource().forEachFeature(function(feature){
+    if ((feature.get('compound') === 0)) {
+      feature.setStyle(white_style)
+    }
+    else if (feature.get('compound') > 0) {
+      feature.setStyle(green_style)
+    }
+    else{
+      feature.setStyle(red_style)
+    }
+  })
+  all_ween_array[6].getSource().forEachFeature(function(feature){
+    if ((feature.get('compound') === 0)) {
+      feature.setStyle(white_style)
+    }
+    else if (feature.get('compound') > 0) {
+      feature.setStyle(green_style)
+    }
+    else{
+      feature.setStyle(red_style)
+    }
+  })
+  all_ween_array[7].getSource().forEachFeature(function(feature){
+    if ((feature.get('compound') === 0)) {
+      feature.setStyle(white_style)
+    }
+    else if (feature.get('compound') > 0) {
+      feature.setStyle(green_style)
+    }
+    else{
+      feature.setStyle(red_style)
+    }
+  })
+  all_ween_array[8].getSource().forEachFeature(function(feature){
+    if ((feature.get('compound') === 0)) {
+      feature.setStyle(white_style)
+    }
+    else if (feature.get('compound') > 0) {
+      feature.setStyle(green_style)
+    }
+    else{
+      feature.setStyle(red_style)
+    }
+  })
+  all_ween_array[9].getSource().forEachFeature(function(feature){
+    if ((feature.get('compound') === 0)) {
+      feature.setStyle(white_style)
+    }
+    else if (feature.get('compound') > 0) {
+      feature.setStyle(green_style)
+    }
+    else{
+      feature.setStyle(red_style)
+    }
+  })
+};
+style_points()
+
+//define the slider and do some stuff
 var sliderRange = document.getElementById("myRange");
 sliderRange.max = dates.length-1;
 
@@ -157,76 +391,3 @@ sliderRange.oninput = function() {
   dateValue.innerHTML = dates[this.value];
   radar.getSource().updateParams({'TIME': dates[this.value]});
 }
-
-radar.addEventListener('change', point_changer, false);
-function point_changer(){
-  var el = document.getElementById('date_value').textContent;
-  console.log(el)
-  if (el == "2019-01-29T18:30:00.000Z"){
-  	map.addLayer(polarVortex_six30_layer);
-  	map.removeLayer(polarVortex_six45_layer);
-  	map.removeLayer(polarVortex_seven_layer);
-  	map.removeLayer(polarVortex_seven15_layer);
-  	map.removeLayer(polarVortex_seven30_layer);
-  	map.removeLayer(polarVortex_seven45_layer);
-  	map.removeLayer(polarVortex_eight_layer);
-  }
-  else if (el == "2019-01-29T18:45:00.000Z"){
-  	map.addLayer(polarVortex_six45_layer);
-  	map.removeLayer(polarVortex_six30_layer);
-  	map.removeLayer(polarVortex_seven_layer);
-  	map.removeLayer(polarVortex_seven15_layer);
-  	map.removeLayer(polarVortex_seven30_layer);
-  	map.removeLayer(polarVortex_seven45_layer);
-  	map.removeLayer(polarVortex_eight_layer);
-  }
-  else if (el == "2019-01-29T19:00:00.000Z"){
-  	map.addLayer(polarVortex_seven_layer);
-  	map.removeLayer(polarVortex_six30_layer);
-  	map.removeLayer(polarVortex_six45_layer);
-  	map.removeLayer(polarVortex_seven15_layer);
-  	map.removeLayer(polarVortex_seven30_layer);
-  	map.removeLayer(polarVortex_seven45_layer);
-  	map.removeLayer(polarVortex_eight_layer);
-  }
-  else if (el == "2019-01-29T19:15:00.000Z"){
-  	map.addLayer(polarVortex_seven15_layer);
-  	map.removeLayer(polarVortex_six30_layer);
-  	map.removeLayer(polarVortex_six45_layer);
-  	map.removeLayer(polarVortex_seven_layer);
-  	map.removeLayer(polarVortex_seven30_layer);
-  	map.removeLayer(polarVortex_seven45_layer);
-  	map.removeLayer(polarVortex_eight_layer);
-  }
-  else if (el == "2019-01-29T19:30:00.000Z"){
-  	map.addLayer(polarVortex_seven30_layer);
-  	map.removeLayer(polarVortex_six30_layer);
-  	map.removeLayer(polarVortex_six45_layer);
-  	map.removeLayer(polarVortex_seven_layer);
-  	map.removeLayer(polarVortex_seven15_layer);
-  	map.removeLayer(polarVortex_seven45_layer);
-  	map.removeLayer(polarVortex_eight_layer);
-  }
-  else if (el == "2019-01-29T19:45:00.000Z"){
-  	map.addLayer(polarVortex_seven45_layer);
-  	map.removeLayer(polarVortex_six30_layer);
-  	map.removeLayer(polarVortex_six45_layer);
-  	map.removeLayer(polarVortex_seven_layer);
-  	map.removeLayer(polarVortex_seven15_layer);
-  	map.removeLayer(polarVortex_seven30_layer);
-  	map.removeLayer(polarVortex_eight_layer);
-  }
-  else if (el == "2019-01-29T20:00:00.000Z"){
-  	map.addLayer(polarVortex_eight_layer);
-  	map.removeLayer(polarVortex_six30_layer);
-  	map.removeLayer(polarVortex_six45_layer);
-  	map.removeLayer(polarVortex_seven_layer);
-  	map.removeLayer(polarVortex_seven15_layer);
-  	map.removeLayer(polarVortex_seven30_layer);
-  	map.removeLayer(polarVortex_seven45_layer);
-  }
-
-};
-
-
-
