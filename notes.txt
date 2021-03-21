@@ -118,6 +118,7 @@ sudo npm install forever -g
 sudo npm install http-proxy --save
 sudo npm uninstall http-proxy-rules --save
 sudo npm install node-report
+sudo npm install glob
 
 #report node
 node -r node-report app.js
@@ -202,7 +203,7 @@ chmod u+x pipeline.sh
 
 git init
 git add .
-git commit -m "commit 41"
+git commit -m "commit 42"
 git remote add origin https://github.com/DavidLeifer/polarbearGIS.git
 git push -u origin main
 
