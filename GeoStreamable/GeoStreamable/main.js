@@ -49,7 +49,7 @@ map.addLayer(radar);
 
 //empty array for our dates and all_ween_array
 var dates = [];
-var all_ween_array = []
+var all_ween_array = [];
 //loop over each property of the geojson object and add it to the all_ween_array
 for (const property in geojson) {
     const ween = new VectorSource({
@@ -68,135 +68,23 @@ for (const property in geojson) {
     all_ween_array.push(all_ween)
     //console.log(`${property}: ${geojson[property]}`);
 };
-//console.log(all_ween_array)
-//console.log(dates)
 
+//event listener to change the layers, depends on the key
 radar.addEventListener('change', point_changer, false);
 function point_changer(){
   var el = document.getElementById('date_value').textContent;
   console.log(el)
-  if (el == dates[0]){
-    map.addLayer(all_ween_array[0]);
-    map.removeLayer(all_ween_array[1]);
-    map.removeLayer(all_ween_array[2]);
-    map.removeLayer(all_ween_array[3]);
-    map.removeLayer(all_ween_array[4]);
-    map.removeLayer(all_ween_array[5]);
-    map.removeLayer(all_ween_array[6]);
-    map.removeLayer(all_ween_array[7]);
-    map.removeLayer(all_ween_array[8]);
-    map.removeLayer(all_ween_array[9]);
-  }
-  else if (el == dates[1]){
-    map.removeLayer(all_ween_array[0]);
-    map.addLayer(all_ween_array[1]);
-    map.removeLayer(all_ween_array[2]);
-    map.removeLayer(all_ween_array[3]);
-    map.removeLayer(all_ween_array[4]);
-    map.removeLayer(all_ween_array[5]);
-    map.removeLayer(all_ween_array[6]);
-    map.removeLayer(all_ween_array[7]);
-    map.removeLayer(all_ween_array[8]);
-    map.removeLayer(all_ween_array[9]);
-  }
-  else if (el == dates[2]){
-    map.removeLayer(all_ween_array[0]);
-    map.removeLayer(all_ween_array[1]);
-    map.addLayer(all_ween_array[2]);
-    map.removeLayer(all_ween_array[3]);
-    map.removeLayer(all_ween_array[4]);
-    map.removeLayer(all_ween_array[5]);
-    map.removeLayer(all_ween_array[6]);
-    map.removeLayer(all_ween_array[7]);
-    map.removeLayer(all_ween_array[8]);
-    map.removeLayer(all_ween_array[9]);
-  }
-  else if (el == dates[3]){
-    map.removeLayer(all_ween_array[0]);
-    map.removeLayer(all_ween_array[1]);
-    map.removeLayer(all_ween_array[2]);
-    map.addLayer(all_ween_array[3]);
-    map.removeLayer(all_ween_array[4]);
-    map.removeLayer(all_ween_array[5]);
-    map.removeLayer(all_ween_array[6]);
-    map.removeLayer(all_ween_array[7]);
-    map.removeLayer(all_ween_array[8]);
-    map.removeLayer(all_ween_array[9]);
-  }
-  else if (el == dates[4]){
-    map.removeLayer(all_ween_array[0]);
-    map.removeLayer(all_ween_array[1]);
-    map.removeLayer(all_ween_array[2]);
-    map.removeLayer(all_ween_array[3]);
-    map.addLayer(all_ween_array[4]);
-    map.removeLayer(all_ween_array[5]);
-    map.removeLayer(all_ween_array[6]);
-    map.removeLayer(all_ween_array[7]);
-    map.removeLayer(all_ween_array[8]);
-    map.removeLayer(all_ween_array[9]);
-  }
-  else if (el == dates[5]){
-    map.removeLayer(all_ween_array[0]);
-    map.removeLayer(all_ween_array[1]);
-    map.removeLayer(all_ween_array[2]);
-    map.removeLayer(all_ween_array[3]);
-    map.removeLayer(all_ween_array[4]);
-    map.addLayer(all_ween_array[5]);
-    map.removeLayer(all_ween_array[6]);
-    map.removeLayer(all_ween_array[7]);
-    map.removeLayer(all_ween_array[8]);
-    map.removeLayer(all_ween_array[9]);
-  }
-  else if (el == dates[6]){
-    map.removeLayer(all_ween_array[0]);
-    map.removeLayer(all_ween_array[1]);
-    map.removeLayer(all_ween_array[2]);
-    map.removeLayer(all_ween_array[3]);
-    map.removeLayer(all_ween_array[4]);
-    map.removeLayer(all_ween_array[5]);
-    map.addLayer(all_ween_array[6]);
-    map.removeLayer(all_ween_array[7]);
-    map.removeLayer(all_ween_array[8]);
-    map.removeLayer(all_ween_array[9]);
-  }
-  else if (el == dates[7]){
-    map.removeLayer(all_ween_array[0]);
-    map.removeLayer(all_ween_array[1]);
-    map.removeLayer(all_ween_array[2]);
-    map.removeLayer(all_ween_array[3]);
-    map.removeLayer(all_ween_array[4]);
-    map.removeLayer(all_ween_array[5]);
-    map.removeLayer(all_ween_array[6]);
-    map.addLayer(all_ween_array[7]);
-    map.removeLayer(all_ween_array[8]);
-    map.removeLayer(all_ween_array[9]);
-  }
-  else if (el == dates[8]){
-    map.removeLayer(all_ween_array[0]);
-    map.removeLayer(all_ween_array[1]);
-    map.removeLayer(all_ween_array[2]);
-    map.removeLayer(all_ween_array[3]);
-    map.removeLayer(all_ween_array[4]);
-    map.removeLayer(all_ween_array[5]);
-    map.removeLayer(all_ween_array[6]);
-    map.removeLayer(all_ween_array[7]);
-    map.addLayer(all_ween_array[8]);
-    map.removeLayer(all_ween_array[9]);
-  }
-  else if (el == dates[9]){
-    map.removeLayer(all_ween_array[0]);
-    map.removeLayer(all_ween_array[1]);
-    map.removeLayer(all_ween_array[2]);
-    map.removeLayer(all_ween_array[3]);
-    map.removeLayer(all_ween_array[4]);
-    map.removeLayer(all_ween_array[5]);
-    map.removeLayer(all_ween_array[6]);
-    map.removeLayer(all_ween_array[7]);
-    map.removeLayer(all_ween_array[8]);
-    map.addLayer(all_ween_array[9]);
-  }
+  Object.keys(all_ween_array).forEach(function(key){
+    if (el == dates[key]){
+      map.addLayer(all_ween_array[key]);
+    }
+    else {
+      map.removeLayer(all_ween_array[key]);
+    }
+  });
 };
-// style vars
+
+// fill vars
 var white = new Fill({color: 'white'})
 var green = new Fill({color: 'green'})
 var red = new Fill({color: 'red'});
@@ -242,16 +130,16 @@ var invis_style = new Style({
 });
 
 //make invis
-all_ween_array[0].setStyle(invis_style)
-all_ween_array[1].setStyle(invis_style)
-all_ween_array[2].setStyle(invis_style)
-all_ween_array[3].setStyle(invis_style)
-all_ween_array[4].setStyle(invis_style)
-all_ween_array[5].setStyle(invis_style)
-all_ween_array[6].setStyle(invis_style)
-all_ween_array[7].setStyle(invis_style)
-all_ween_array[8].setStyle(invis_style)
-all_ween_array[9].setStyle(invis_style)
+all_ween_array[0].setStyle(invis_style);
+all_ween_array[1].setStyle(invis_style);
+all_ween_array[2].setStyle(invis_style);
+all_ween_array[3].setStyle(invis_style);
+all_ween_array[4].setStyle(invis_style);
+all_ween_array[5].setStyle(invis_style);
+all_ween_array[6].setStyle(invis_style);
+all_ween_array[7].setStyle(invis_style);
+all_ween_array[8].setStyle(invis_style);
+all_ween_array[9].setStyle(invis_style);
 
 //Proimise and await. who came up with that, its a(time)sync function
 function resolveAfter2Seconds(x) {
@@ -264,119 +152,21 @@ function resolveAfter2Seconds(x) {
 };
 async function style_points() {
   var x = await resolveAfter2Seconds(10);
-  //var uidIndex_ = polarVortex_six30_layer.get("source").uidIndex_;
-  all_ween_array[0].getSource().forEachFeature(function(feature){
-    if ((feature.get('compound') === 0)) {
-      feature.setStyle(white_style)
-    }
-    else if (feature.get('compound') > 0) {
-      feature.setStyle(green_style)
-    }
-    else{
-      feature.setStyle(red_style)
-    }
-  })
-  all_ween_array[1].getSource().forEachFeature(function(feature){
-    if ((feature.get('compound') === 0)) {
-      feature.setStyle(white_style)
-    }
-    else if (feature.get('compound') > 0) {
-      feature.setStyle(green_style)
-    }
-    else{
-      feature.setStyle(red_style)
-    }
-  })
-  all_ween_array[2].getSource().forEachFeature(function(feature){
-    if ((feature.get('compound') === 0)) {
-      feature.setStyle(white_style)
-    }
-    else if (feature.get('compound') > 0) {
-      feature.setStyle(green_style)
-    }
-    else{
-      feature.setStyle(red_style)
-    }
-  })
-  all_ween_array[3].getSource().forEachFeature(function(feature){
-    if ((feature.get('compound') === 0)) {
-      feature.setStyle(white_style)
-    }
-    else if (feature.get('compound') > 0) {
-      feature.setStyle(green_style)
-    }
-    else{
-      feature.setStyle(red_style)
-    }
-  })
-  all_ween_array[4].getSource().forEachFeature(function(feature){
-    if ((feature.get('compound') === 0)) {
-      feature.setStyle(white_style)
-    }
-    else if (feature.get('compound') > 0) {
-      feature.setStyle(green_style)
-    }
-    else{
-      feature.setStyle(red_style)
-    }
-  })
-  all_ween_array[5].getSource().forEachFeature(function(feature){
-    if ((feature.get('compound') === 0)) {
-      feature.setStyle(white_style)
-    }
-    else if (feature.get('compound') > 0) {
-      feature.setStyle(green_style)
-    }
-    else{
-      feature.setStyle(red_style)
-    }
-  })
-  all_ween_array[6].getSource().forEachFeature(function(feature){
-    if ((feature.get('compound') === 0)) {
-      feature.setStyle(white_style)
-    }
-    else if (feature.get('compound') > 0) {
-      feature.setStyle(green_style)
-    }
-    else{
-      feature.setStyle(red_style)
-    }
-  })
-  all_ween_array[7].getSource().forEachFeature(function(feature){
-    if ((feature.get('compound') === 0)) {
-      feature.setStyle(white_style)
-    }
-    else if (feature.get('compound') > 0) {
-      feature.setStyle(green_style)
-    }
-    else{
-      feature.setStyle(red_style)
-    }
-  })
-  all_ween_array[8].getSource().forEachFeature(function(feature){
-    if ((feature.get('compound') === 0)) {
-      feature.setStyle(white_style)
-    }
-    else if (feature.get('compound') > 0) {
-      feature.setStyle(green_style)
-    }
-    else{
-      feature.setStyle(red_style)
-    }
-  })
-  all_ween_array[9].getSource().forEachFeature(function(feature){
-    if ((feature.get('compound') === 0)) {
-      feature.setStyle(white_style)
-    }
-    else if (feature.get('compound') > 0) {
-      feature.setStyle(green_style)
-    }
-    else{
-      feature.setStyle(red_style)
-    }
-  })
+  for (const k in all_ween_array) {
+    all_ween_array[k].getSource().forEachFeature(function(feature){
+      if ((feature.get('compound') === 0)) {
+        feature.setStyle(white_style)
+      }
+      else if (feature.get('compound') > 0) {
+        feature.setStyle(green_style)
+      }
+      else{
+        feature.setStyle(red_style)
+      }
+    })
+  }
 };
-style_points()
+style_points();
 
 //define the slider and do some stuff
 var sliderRange = document.getElementById("myRange");
@@ -390,4 +180,4 @@ radar.getSource().updateParams({'TIME': dates[sliderRange.value]});
 sliderRange.oninput = function() {
   dateValue.innerHTML = dates[this.value];
   radar.getSource().updateParams({'TIME': dates[this.value]});
-}
+};
