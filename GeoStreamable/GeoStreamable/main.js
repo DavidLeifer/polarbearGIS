@@ -84,9 +84,9 @@ function point_changer(){
   });
 };
 
-// fill vars
-var white = new Fill({color: 'white'})
-var green = new Fill({color: 'green'})
+//fill vars
+var white = new Fill({color: 'white'});
+var green = new Fill({color: 'green'});
 var red = new Fill({color: 'red'});
 //rgba opacity
 var invis = new Fill({color: 'rgba(255, 0, 0, 0)'});
@@ -129,17 +129,10 @@ var invis_style = new Style({
       })
 });
 
-//make invis
-all_ween_array[0].setStyle(invis_style);
-all_ween_array[1].setStyle(invis_style);
-all_ween_array[2].setStyle(invis_style);
-all_ween_array[3].setStyle(invis_style);
-all_ween_array[4].setStyle(invis_style);
-all_ween_array[5].setStyle(invis_style);
-all_ween_array[6].setStyle(invis_style);
-all_ween_array[7].setStyle(invis_style);
-all_ween_array[8].setStyle(invis_style);
-all_ween_array[9].setStyle(invis_style);
+//apply invis style so when the layer is loaded async the default style goes away
+for (const l in all_ween_array) {
+  all_ween_array[l].setStyle(invis_style);
+};
 
 //Proimise and await. who came up with that, its a(time)sync function
 function resolveAfter2Seconds(x) {
