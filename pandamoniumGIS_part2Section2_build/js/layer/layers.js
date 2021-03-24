@@ -11,38 +11,38 @@ import XYZ from 'ol/source/XYZ';
 const xyz_tmeanJanELNin = new TileLayer({
     title: 'Mean Jan El Nino Temp',
     source: new XYZ({
-    url: "https://davidjleifer.com/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanELNin/{z}/{x}/{y}.png",
+    url: "https://www.davidjleifer.com/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanELNin/{z}/{x}/{y}.png",
     }),
 });
 const xyz_tmeanJanLANin = new TileLayer({
     title: 'Mean Jan La Nina Temp',
     source: new XYZ({
-    url: "https://davidjleifer.com/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanLANin/{z}/{x}/{y}.png",
+    url: "https://www.davidjleifer.com/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanLANin/{z}/{x}/{y}.png",
     }),
 });
 const xyz_tmeanJanNeutral = new TileLayer({
     title: 'Mean Jan Neutral Temp',
     source: new XYZ({
-    url: "https://davidjleifer.com/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanNeutral/{z}/{x}/{y}.png",
+    url: "https://www.davidjleifer.com/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanNeutral/{z}/{x}/{y}.png",
     }),
 });
 
 const xyz_pptJanELNin = new TileLayer({
     title: 'Mean Jan El Nino ppt',
     source: new XYZ({
-    url: "https://davidjleifer.com/ppt_bil2tif_LaElNeu_analysis_xyz/xyz_pptJanELNin/{z}/{x}/{y}.png",
+    url: "https://www.davidjleifer.com/ppt_bil2tif_LaElNeu_analysis_xyz/xyz_pptJanELNin/{z}/{x}/{y}.png",
     }),
 });
 const xyz_pptJanLANin = new TileLayer({
     title: 'Mean Jan La Nina ppt',
     source: new XYZ({
-    url: "https://davidjleifer.com/ppt_bil2tif_LaElNeu_analysis_xyz/xyz_pptJanLANin/{z}/{x}/{y}.png",
+    url: "https://www.davidjleifer.com/ppt_bil2tif_LaElNeu_analysis_xyz/xyz_pptJanLANin/{z}/{x}/{y}.png",
     }),
 });
 const xyz_pptJanNeutral = new TileLayer({
     title: 'Mean Jan Neutral ppt',
     source: new XYZ({
-    url: "https://davidjleifer.com/ppt_bil2tif_LaElNeu_analysis_xyz/xyz_pptJanNeutral/{z}/{x}/{y}.png",
+    url: "https://www.davidjleifer.com/ppt_bil2tif_LaElNeu_analysis_xyz/xyz_pptJanNeutral/{z}/{x}/{y}.png",
     }),
 });
 

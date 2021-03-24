@@ -11,25 +11,25 @@ import XYZ from 'ol/source/XYZ';
 const year1981 = new TileLayer({
     title: '1981 Jan Correlation',
     source: new XYZ({
-    url: "https://davidjleifer.com/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final_1981/{z}/{x}/{y}.png",
+    url: "https://www.davidjleifer.com/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final_1981/{z}/{x}/{y}.png",
     }),
 });
 const year1991 = new TileLayer({
     title: '1991 Jan Correlation',
     source: new XYZ({
-    url: "https://davidjleifer.com/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final_1991/{z}/{x}/{y}.png",
+    url: "https://www.davidjleifer.com/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final_1991/{z}/{x}/{y}.png",
     }),
 });
 const year2001 = new TileLayer({
     title: '2001 Jan Correlation',
     source: new XYZ({
-    url: "https://davidjleifer.com/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final_2001/{z}/{x}/{y}.png",
+    url: "https://www.davidjleifer.com/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final_2001/{z}/{x}/{y}.png",
     }),
 });
 const year2011 = new TileLayer({
     title: '2011 Jan Correlation',
     source: new XYZ({
-    url: "https://davidjleifer.com/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final_2011/{z}/{x}/{y}.png",
+    url: "https://www.davidjleifer.com/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final_2011/{z}/{x}/{y}.png",
     }),
 });
 
