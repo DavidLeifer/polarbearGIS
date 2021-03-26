@@ -92,6 +92,9 @@
         width:69px; 
         height:100px; 
         }
+      #invisDate{
+          opacity: 0;
+        }
     </style>
   </head>
   <body>
@@ -102,15 +105,19 @@
       </p>
     </div>
     <br>
+    <div id=invisDate>
+      <span id="date_value"></span>
+    </div>
     <div class="slidecontainer">
       <h3>Timeslider</h3>
       <input type="range" min="0" max="2" value="0" class="slider" id="myRange">
-      <p>Date: <span id="date_value"></span></p>
+      <p>Date: <span id="date_sub"></span></p></br>
+      <p>Time: <span id="time_sub"></span></p></br>
     </div>
     </br>
     <div id="map" class="map">
       <div id="button1" class="button1">
-        <button onclick="myFunction()" style="height:42.0px; width:69px">Legend</button>
+        <button onclick="myFunction()" id="button_change" style="height:42.0px; width:69px">Hide Legend</button>
       </div>
       <div id="legend">
         <img src="./polar_radar_legend.png" height="100px" width="69px">
@@ -125,6 +132,12 @@
           x.style.display = "block";
         } else {
           x.style.display = "none";
+        }
+        var text_change = document.getElementById("button_change").textContent;
+        if (text_change === "Hide Legend"){
+          document.getElementById("button_change").textContent = "Show Legend";
+        } else {
+          document.getElementById("button_change").textContent = "Hide Legend";
         }
       }
     </script>

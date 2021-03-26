@@ -14,7 +14,7 @@ import {transform} from 'ol/proj';
 import {Style, Fill, Stroke, Circle} from 'ol/style';
 import 'regenerator-runtime/runtime';
 
-import geojson from '../data/*.geojson'
+import geojson from './data/*.geojson'
 
 //create extent and use it in the VectorLayer called all_ween
 var extent = transformExtent([-89.30, 24.71, -64.70, 48.07], 'EPSG:4326', 'EPSG:3857');
@@ -73,10 +73,11 @@ for (const property in geojson) {
 radar.addEventListener('change', point_changer, false);
 function point_changer(){
   var el = document.getElementById('date_value').textContent;
-  console.log(el)
+  //console.log(el)
   Object.keys(all_ween_array).forEach(function(key){
     if (el == dates[key]){
       map.addLayer(all_ween_array[key]);
+      //console.log(all_ween_array[key])
     }
     else {
       map.removeLayer(all_ween_array[key]);
@@ -169,8 +170,29 @@ var dateValue = document.getElementById("date_value");
 dateValue.innerHTML = dates[sliderRange.value];
 radar.getSource().updateParams({'TIME': dates[sliderRange.value]});
 
+//split dates array object and put into two arrays date_date and time
+var date_date = [];
+var time = [];
+for (var i in dates){
+  var date_part = dates[i].substring(0, dates[i].indexOf("T"));
+  var time_part_0 = dates[i].substring(dates[i].indexOf("T") + 1);
+  var time_part = time_part_0.substring(0, time_part_0.indexOf(":00."));
+  date_date.push(date_part)
+  time.push(time_part)
+}
+
+//put into dateSub id
+var dateSub = document.getElementById("date_sub");
+dateSub.innerHTML = date_date[sliderRange.value];
+
+//put into timeSub id
+var time_sub = document.getElementById("time_sub");
+time_sub.innerHTML = time[sliderRange.value];
+
 // Update the current slider value (each time you drag the slider handle)
 sliderRange.oninput = function() {
   dateValue.innerHTML = dates[this.value];
+  dateSub.innerHTML = date_date[this.value];
+  time_sub.innerHTML = time[this.value];
   radar.getSource().updateParams({'TIME': dates[this.value]});
 };
