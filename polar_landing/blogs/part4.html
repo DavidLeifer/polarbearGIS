@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 7.0.3.1 (MacOSX)"/>
+	<meta name="created" content="2020-12-19T11:18:12.466879855"/>
+	<meta name="changed" content="2021-03-27T23:26:44.228413467"/>
+	<style type="text/css">
+		@page { size: 8.5in 11in; margin: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		pre { font-family: "Liberation Mono", monospace; font-size: 10pt; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Serif", serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Songti SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "Arial Unicode MS"; font-size: 14pt; font-weight: bold }
+		a:link { color: #000080; so-language: zxx; text-decoration: underline }
+		strong { font-weight: bold }
+		a:visited { color: #800000; so-language: zxx; text-decoration: underline }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
+<hr width="731" align="center"/>
+
+<h3 class="western">Part 4: Using QGIS’ Built-In “Generate XYZ
+tiles (Directory)” to Create a Leaflet MapTile&nbsp;File</h3>
+<p><strong>This is the fourth part in a series used to build my
+website:</strong> <a href="https://davidjleifer.com/" target="_blank">https://davidjleifer.com/</a></p>
+<p><strong>Part </strong><strong>1</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part1.html"><strong><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part</span></u></span></font></strong><strong><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">1</span></u></span></font></strong><strong><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">.html</span></u></span></font></strong></a></p>
+<p><strong>Part 2: </strong><strong><a href="https://www.davidjleifer.com/blogs/part2.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part2.html</span></u></span></font></a></strong></p>
+<p><strong>Part 3:</strong>
+<strong><a href="https://www.davidjleifer.com/blogs/part3.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part3.html</span></u></span></font></a></strong></p>
+<p><strong>Part 5: </strong><strong><a href="https://www.davidjleifer.com/blogs/part5.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part5.html</span></u></span></font></a></strong></p>
+<p><strong>Part 6: </strong><a href="https://www.davidjleifer.com/blogs/part6.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part6.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>7</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part7.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part7.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>8</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part8.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part8.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>9</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part9.html</u></span></font></a></p>
+<p><br/>
+<br/>
+
+</p>
+<p>Over the summer, I began playing with Geoserver and the
+possibilities with the tech is quite expansive. Shout out to
+<a href="http://www.nhuthehoang.com/" target="_blank">www.nhuthehoang.com</a>
+for helping me setup the initial server.</p>
+<p>In Part 1, we set up a WMS on Geoserver to host a timeseries of
+GeoTiffs of Oregon Precipitation. An important hiccup emerged when
+using calls to the server to render our timeseries: <strong>it was
+slow</strong>. And not just kind of slow. The type of slow that makes
+people leave your web application. I could list a bunch of statistics
+here about how if your application is slow, people will leave your
+web application, but I will spare you the details.</p>
+<p>Today we will be using “Generate XYZ tiles (Directory)” to
+create a map tile of a single Oregon Precipitation raster GeoTiff.
+The data is saved as PNG and will speed up the web app display. This
+tool also outputs an HTML file containing Leaflet code to display the
+map tile. We will upload this HTML file and the corresponding map
+tile to Geoserver’s WWW folder.</p>
+<hr/>
+
+<p><strong>Step 1: Download the Oregon Precipitation Data, Open in
+QGIS, and Symbolize the Raster</strong></p>
+<p>Download the data for this tutorial through this Google Drive
+link:
+<a href="https://drive.google.com/file/d/1jhjpxTBNRWRh6pBo1yOCaZdBMHBVe8hi/view?usp=sharing" target="_blank">https://drive.google.com/file/d/1jhjpxTBNRWRh6pBo1yOCaZdBMHBVe8hi/view?usp=sharing</a></p>
+<p>Unzip and drag/drop the file into QGIS 3.10 or higher. Should look
+like this:</p>
+<p><img src="part4_html_b8d10669bb2538cf.png" name="Image1" align="bottom" width="716" height="417" border="0"/>
+</p>
+<p>We will then adjust the symbology by double clicking the layer,
+clicking on the Symbology tab, and changing the “Render Type”
+from “Singleband Grey” to “Singleband pseudocolor”. Adjust
+“Label Precision” to “0” and click “Classify”. Change the
+classification to even numbers and press “Ok”. Should look
+something like this (you may have to change the color to this color
+scheme but my QGIS defaults on white to blue):</p>
+<p><img src="part4_html_d809578f2c8a7944.png" name="Image2" align="bottom" width="636" height="370" border="0"/>
+</p>
+<p><strong>Step 2: Use “Generate XYZ tiles (Directory)” to Create
+Map Tiles</strong></p>
+<p>Go to the “Processing Menu” and click “Toolbox”. In the
+“Search” box, type “Generate XYZ tiles (Directory)”. Click
+the button and it will bring up the tool’s dialog box. In “Extent”
+choose the “Use Map Canvas Extent” from the drop down options.
+Change “Minimum Zoom” to 1 and set the “Output directory” and
+“Output html (Leaflet)” to paths that are agreeable and press
+“Run”.</p>
+<p><img src="part4_html_9467738aa5c30f1f.png" name="Image3" align="bottom" width="715" height="416" border="0"/>
+</p>
+<p><strong>Step 3: Get the Data onto Geoserver WWW folder</strong></p>
+<p>From GCP homepage that you setup in Part 1, navigate to your
+server and press the Connect: SSH button. This will bring up your
+Ubuntu server terminal. Navigate to the WWW folder:</p>
+<pre style="margin-bottom: 0.2in">cd /var/lib/tomcat8/webapps/geoserver/data/www</pre><p>
+Make a new folder to house our map tile data:</p>
+<pre style="margin-bottom: 0.2in">sudo mkdir localdata</pre><p>
+Now you can compress and upload your map tile data to Google drive,
+make the file have a shareable link, and download it to the server by
+modifying the command below. A preferable method would be to SSH from
+the Google Cloud Platform Ubuntu server to your local drive and
+upload the data that way. Or you could just use the following command
+to download the data that I have prepared:</p>
+<pre style="margin-bottom: 0.2in">sudo wget --load-cookies /tmp/cookies.txt &quot;<a href="https://docs.google.com/uc?export=download&amp;confirm=$%28wget" target="_blank">https://docs.google.com/uc?export=download&amp;confirm=$(wget</a> --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate '<a href="https://docs.google.com/uc?export=download&amp;id=1Vfv17IrcMsxoxQy4rNVs7rVw_RDBtj4x%27" target="_blank">https://docs.google.com/uc?export=download&amp;id=1Vfv17IrcMsxoxQy4rNVs7rVw_RDBtj4x'</a> -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&amp;id=1Vfv17IrcMsxoxQy4rNVs7rVw_RDBtj4x&quot; -O OregonMapTile &amp;&amp; rm -rf /tmp/cookies.txt</pre><p>
+Unzip the file and navigate back to the parent WWW directory.</p>
+<pre>sudo unzip OregonMapTile
+cd ..</pre><p>
+Now we will create an HTML file.</p>
+<pre>sudo touch oregeonMapTiled3.html
+sudo nano oregeonMapTiled3.html</pre><p>
+This will open the HTML file in nano. Copy over a modified version of
+the output HTML generated in QGIS (Step 2). Here is the full code:</p>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Leaflet Preview&lt;/title&gt;
+  &lt;meta charset=&quot;utf-8&quot; /&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;<a href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" target="_blank">https://unpkg.com/leaflet@1.5.1/dist/leaflet.css</a>&quot;
+   integrity=&quot;sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==&quot;
+   crossorigin=&quot;&quot;/&gt;
+  &lt;script src=&quot;<a href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" target="_blank">https://unpkg.com/leaflet@1.5.1/dist/leaflet.js</a>&quot;
+   integrity=&quot;sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==&quot;
+   crossorigin=&quot;&quot;&gt;&lt;/script&gt;
+  &lt;style type=&quot;text/css&quot;&gt;
+    body {
+       margin: 0;
+       padding: 0;
+    }
+    html, body, #map{
+       width: 100%;
+       height: 100%;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id=&quot;map&quot;&gt;&lt;/div&gt;
+  &lt;script&gt;
+      var map = L.map('map').setView([44.11035109149999, -120.49999999999997], 6.5);
+      L.tileLayer('/geoserver/www/localdata/{z}/{x}/{y}.png', {
+        minZoom: 1,
+        maxZoom: 12,
+        tms: false,
+        attribution: 'Generated by TilesXYZ'
+      }).addTo(map);
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><p>
+<strong>Step 4: View the Goods</strong></p>
+<p>Point your browser to:</p>
+<pre style="margin-bottom: 0.2in"><a href="http://35.239.133.210:8080/geoserver/www/oregeonMapTiled3.html" target="_blank">http://XX.XXX.XXX.XXX:8080/geoserver/www/oregeonMapTiled3.html</a></pre><p>
+There are probably other ways to do this, and I intend to discover
+them. Perhaps using the MBTiles extension?
+<a href="https://docs.geoserver.org/stable/en/user/community/mbtiles/installing.html" target="_blank">https://docs.geoserver.org/stable/en/user/community/mbtiles/installing.html</a></p>
+<p>#RasterNotMonster</p>
+<p><strong>Part </strong><strong>1</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part1.html"><strong><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part</span></u></span></font></strong><strong><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">1</span></u></span></font></strong><strong><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">.html</span></u></span></font></strong></a></p>
+<p><strong>Part 2: </strong><strong><a href="https://www.davidjleifer.com/blogs/part2.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part2.html</span></u></span></font></a></strong></p>
+<p><strong>Part 3:</strong>
+<strong><a href="https://www.davidjleifer.com/blogs/part3.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part3.html</span></u></span></font></a></strong></p>
+<p><strong>Part 5: </strong><strong><a href="https://www.davidjleifer.com/blogs/part5.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part5.html</span></u></span></font></a></strong></p>
+<p><strong>Part 6: </strong><a href="https://www.davidjleifer.com/blogs/part6.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part6.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>7</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part7.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part7.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>8</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part8.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part8.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>9</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part9.html</u></span></font></a></p>
+<p><br/>
+<br/>
+
+</p>
+</body>
+</html>

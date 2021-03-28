@@ -1,0 +1,362 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 7.0.3.1 (MacOSX)"/>
+	<meta name="created" content="2020-12-19T11:11:53.578506403"/>
+	<meta name="changed" content="2021-03-27T23:22:12.355830454"/>
+	<style type="text/css">
+		@page { size: 8.5in 11in; margin: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		pre { font-family: "Liberation Mono", monospace; font-size: 10pt; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Serif", serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Songti SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "Arial Unicode MS"; font-size: 14pt; font-weight: bold }
+		h4 { margin-top: 0.08in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h4.western { font-family: "Liberation Serif", serif; font-size: 12pt; font-weight: bold }
+		h4.cjk { font-family: "Songti SC"; font-size: 12pt; font-weight: bold }
+		h4.ctl { font-family: "Arial Unicode MS"; font-size: 12pt; font-weight: bold }
+		strong { font-weight: bold }
+		a:link { color: #000080; so-language: zxx; text-decoration: underline }
+		code { font-family: "Liberation Mono", monospace }
+		a:visited { color: #800000; so-language: zxx; text-decoration: underline }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
+<hr width="731" align="center"/>
+
+<h3 class="western">Setting up Geoserver on Google Cloud Platform for
+Timeseries Raster Display: Part&nbsp;1</h3>
+<hr/>
+
+<p><strong>The code used in this tutorial is borrowed from:</strong>
+<a href="https://www.earder.com/tutorials/timeseries-with-geoserver-and-openlayers/" target="_blank">https://www.earder.com/tutorials/timeseries-with-geoserver-and-openlayers/</a></p>
+<p><strong>Plug</strong> to <a href="http://nhuthehoang.com/" target="_blank">http://nhuthehoang.com/</a>
+for telling me about GCP and Geoserver.</p>
+<p><strong>Part 2: </strong><strong><a href="https://www.davidjleifer.com/blogs/part2.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part2.html</span></u></span></font></a></strong></p>
+<p><strong>Part 3:</strong>
+<strong><a href="https://www.davidjleifer.com/blogs/part3.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part3.html</span></u></span></font></a></strong></p>
+<p><strong>Part 4: </strong><strong><a href="https://www.davidjleifer.com/blogs/part4.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part4.html</span></u></span></font></a></strong></p>
+<p><strong>Part 5: </strong><strong><a href="https://www.davidjleifer.com/blogs/part5.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part5.html</span></u></span></font></a></strong></p>
+<p><strong>Part 6: </strong><a href="https://www.davidjleifer.com/blogs/part6.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part6.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>7</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part7.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part7.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>8</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part8.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part8.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>9</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part9.html</u></span></font></a></p>
+<p><br/>
+<br/>
+
+</p>
+<p>Today we will walk through the steps necessary to set up our own
+Linux Ubuntu server on Google Cloud Platform (GCP). After that we
+will install Java (OpenJDK version 1.8.0_252). Then Tomcat8 for our
+servlet container. Within Tomcat8 we will install our Geoserver.war
+file. We will configure our Geoserver installation to allow the
+upload of a timeseries of precipitation for the state of Oregon using
+the Image Mosaic plugin. Finally, this WMS will be added to an
+HTML/CSS/JS file and hosted in Geoserver’s www folder.</p>
+<h4 class="western">Step 1: Sign up for 300 Credits with&nbsp;GCP</h4>
+<p>Go to this link: <a href="https://cloud.google.com/" target="_blank">https://cloud.google.com/</a></p>
+<p>Press the “Get started for free” button. Agree to the terms of
+service and hit the “Continue” button. On the next page, set the
+“Account Type” to “Individual” and fill out the “Name and
+address” section. Below that, set “Payment method” to an active
+credit or debit card and hit the button called “START MY FREE
+TRIAL”. This will start charging our account after 300 credits over
+a year, what we are doing will take about 10–15 credits.</p>
+<p><img src="part1_html_3c1da22e8cdd9a1a.png" name="Image1" align="bottom" width="760" height="564" border="0"/>
+</p>
+<p>Select the “Skip” button and on the next page click “GO TO
+COMPUTE ENGINE”. Wait for compute engine to setup. On “VM
+Instances” click “Create”. This will bring us to the following
+page, where you will click “Change” under “Boot disc”.</p>
+<p><img src="part1_html_8e36fd2a0021cc91.png" name="Image2" align="bottom" width="796" height="597" border="0"/>
+</p>
+<p>On the next page, click the“Operating system” button and
+choose “Ubuntu”. Hit the “Select” button. In the “Firewall”
+section, select “Allow HTTP traffic”. Then click “Create” on
+the bottom of the next page.</p>
+<p>Next, go to Firewall rules by hitting the menu in the top left
+hand portion of the screen:</p>
+<p><img src="part1_html_53f900a080dea2c.png" name="Image3" align="bottom" width="753" height="588" border="0"/>
+</p>
+<p>Click “CREATE FIREWALL RULE” then fill out the Name section
+with “default-allow-http-v2”. For “Targets”, select “All
+instances in the network”. Under “Source IP ranges”, enter
+<code>0.0.0.0/0</code> to allow traffic from all sources. From
+“Protocols and ports” enter <code>tcp:8080</code>. Under
+“Protocols and ports” select “Allow all”. Hit “Create” to
+enable firewall rule.</p>
+<p>Now we have a Ubuntu instance! Click the SSH button on the right
+side of the page to bring up the Ubuntu terminal:</p>
+<p><img src="part1_html_dd3f5173e93babf1.png" name="Image4" align="bottom" width="710" height="514" border="0"/>
+</p>
+<h4 class="western">Step 2: Installing OpenJDK version 1.8.0_252</h4>
+<p>Run the following command and type yes to install Java:</p>
+<pre><code>sudo apt update</code>
+<code>sudo apt install openjdk-8-jdk</code></pre><p>
+Now check to see if it was installed with this command:</p>
+<pre style="margin-bottom: 0.2in"><code>java -version</code></pre><p>
+We should see this:</p>
+<p><img src="part1_html_a446c4ee1cbcb52c.png" name="Image5" align="bottom" width="817" height="121" border="0"/>
+</p>
+<h4 class="western">Step 3: Tomcat8 Installation</h4>
+<p>Almost forgot, at the GCP console click the “ACTIVATE” button
+and “Upgrade” to get full access to the site. You will have to
+reload the page and reconnect via SSH:</p>
+<p><img src="part1_html_a421255b76e17efc.png" name="Image6" align="bottom" width="678" height="202" border="0"/>
+</p>
+<p>To install “tomcat8”, hit ’em with that:</p>
+<pre><code>sudo apt-get install tomcat8</code>
+<code>sudo apt-get install tomcat8-docs tomcat8-examples tomcat8-admin</code></pre><p>
+If you want to start, stop, or restart the servlet container, use:</p>
+<pre><code>sudo systemctl start tomcat8</code>
+<code>sudo systemctl stop tomcat8</code>
+<code>sudo systemctl restart tomcat8</code></pre><p>
+To use the GUI, open up “tomcat-users.xml” with this command:</p>
+<pre style="margin-bottom: 0.2in">sudo nano /var/lib/tomcat8/conf/tomcat-users.xml</pre><p>
+Add the following lines replacing “password” with your password
+and “username” with your username:</p>
+<pre><strong>&lt;role</strong> rolename=&quot;manager-gui&quot;<strong>/&gt;</strong> 
+<strong>&lt;role</strong> rolename=&quot;admin-gui&quot;<strong>/&gt;</strong> 
+<strong>&lt;user</strong> username=&quot;username&quot; password=&quot;password&quot; roles=&quot;manager-gui,admin-gui&quot;<strong>/&gt;</strong></pre><p>
+Save the file and restart tomcat8:</p>
+<pre style="margin-bottom: 0.2in">sudo <code>systemctl restart tomcat8</code></pre><p>
+Now we can point our browser to the external ip (yours will be
+different) of our GCP Linux VM at port 8080:</p>
+<pre style="margin-bottom: 0.2in"><a href="http://34.69.200.202:8080/" target="_blank">http://XX.xxx.XXX.XXX:8080/</a></pre><p>
+You should see a page in your browser like this:</p>
+<p><img src="part1_html_be6d3ec01be380ff.png" name="Image7" align="bottom" width="702" height="420" border="0"/>
+</p>
+<h4 class="western">Part 4: Installing Geoserver</h4>
+<p>To install the Geoserver.war package, navigate to the “webapps”
+folder within your “tomcat8” installation with this command:</p>
+<pre style="margin-bottom: 0.2in">cd /var/lib/tomcat8/webapps</pre><p>
+Next, download the latest Geoserver.war, which is a zipped file:</p>
+<pre style="margin-bottom: 0.2in">sudo wget <a href="https://sourceforge.net/projects/geoserver/files/GeoServer/2.17.1/geoserver-2.17.1-war.zip/download" target="_blank">https://sourceforge.net/projects/geoserver/files/GeoServer/2.17.1/geoserver-2.17.1-war.zip/download</a></pre><p>
+Now we need to install the “unzip” utility:</p>
+<pre style="margin-bottom: 0.2in">sudo apt-get install unzip</pre><p>
+Then to unzip the package:</p>
+<pre style="margin-bottom: 0.2in">sudo unzip download</pre><p>
+Then make the&nbsp;.war executable by entering:</p>
+<pre style="margin-bottom: 0.2in">sudo chmod +x /var/lib/tomcat8/webapps/geoserver.war</pre><p>
+Finally, restart “tomcat8”:</p>
+<pre style="margin-bottom: 0.2in">sudo service tomcat8 restart</pre><p>
+Point your browser at the following address:</p>
+<pre style="margin-bottom: 0.2in"><a href="http://35.232.214.104:8080/geoserver/web/" target="_blank">http://XX.xxx.XXX.XXX:8080/geoserver/web/</a></pre><p>
+<img src="part1_html_1722aef6f50467ce.png" name="Image8" align="bottom" width="683" height="427" border="0"/>
+</p>
+<p>The default behavior of Geoserver is to set user to “admin”
+and password to “geoserver” but you can change it by following
+these instructions:
+<a href="https://docs.boundlessgeo.com/bse/latest/sysadmin/security/adminpwd.html#:~:text=Boundless%20Server%20Enterprise.-,Changing%20the%20admin%20password,Click%20Change%20it." target="_blank">https://docs.boundlessgeo.com/bse/latest/sysadmin/security/adminpwd.html#:~:text=Boundless%20Server%20Enterprise.-,Changing%20the%20admin%20password,Click%20Change%20it.</a></p>
+<h4 class="western">Step 5: Configuring tomcat8 for the ImageMosaic
+Plugin</h4>
+<p>Now we need to configure the servlet container (tomcat8) to allow
+timeseries data to be uploaded onto Geoserver. To do this, navigate
+to the following directory:</p>
+<pre style="margin-bottom: 0.2in">cd /usr/share/tomcat8/bin/</pre><p>
+We need to make a script file:</p>
+<pre style="margin-bottom: 0.2in">sudo touch setenv.sh</pre><p>
+Open the file with the following:</p>
+<pre style="margin-bottom: 0.2in">sudo nano setenv.sh</pre><p>
+Add the following Java methods to this file:</p>
+<pre>export JAVA_OPTS=&quot;$JAVA_OPTS -Duser.timezone=GMT&quot;
+export JAVA_OPTS=&quot;$JAVA_OPTS -Dorg.geotools.shapefile.datetime=true&quot;</pre><p>
+Exit the file and make the script executable, then run the script:</p>
+<pre>sudo chmod +x setenv.sh
+./setenv.sh</pre><p>
+Now restart tomcat8:</p>
+<pre style="margin-bottom: 0.2in">sudo service tomcat8 restart</pre><p>
+Check to see if the changes took place by entering the following:</p>
+<pre style="margin-bottom: 0.2in">ps aux | grep java</pre><p>
+The output should look something like this:</p>
+<p><img src="part1_html_19922e02a150b68a.png" name="Image9" align="bottom" width="753" height="195" border="0"/>
+</p>
+<h4 class="western">Step 6: Configuring Geoserver for Timeseries</h4>
+<p>Now we need to get data onto the server and change permissions on
+that folder to upload onto Geoserver. Navigate to the “data”
+folder and make a directory to host our files:</p>
+<pre>cd /var/lib/tomcat8/webapps/geoserver/data/data
+sudo mkdir timeseries
+cd timeseries</pre><p>
+Now we will download 6 files into the data folder with wget. There
+are two&nbsp;.properties files and four geotiffs. The two&nbsp;.properties
+files look like this:</p>
+<p>timeregex.properties</p>
+<pre style="margin-bottom: 0.2in">regex=[0-9]{8}</pre><p>
+indexer.properties</p>
+<pre>TimeAttribute=ingestion
+ElevationAttribute=elevation
+Schema=*the_geom:Polygon,location:String,ingestion:java.util.Date,elevation:Integer
+PropertyCollectors=TimestampFileNameExtractorSPI[timeregex](ingestion)</pre><p>
+Use wget to download the files. You can upload your own files to
+Google Drive and download them by making the link setting “Anyone
+with the link” under “Get shareable link”. This is only one way
+to get data onto a server and honestly exposes the data to anyone
+with the link, the recommended way is to SSH from the computer with
+the files onto the Linux terminal. This is complicated, involves
+keys, and is generally a huge pain the ass. Replace the two “id”
+sections in the following command with the “id” that can be found
+in your Google Drive’s shareable link:</p>
+<pre style="margin-bottom: 0.2in">wget --load-cookies /tmp/cookies.txt &quot;<a href="https://docs.google.com/uc?export=download&amp;confirm=$%28wget" target="_blank">https://docs.google.com/uc?export=download&amp;confirm=$(wget</a> --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate '<a href="https://docs.google.com/uc?export=download&amp;id=1xJ0za-_6tLYCoR_OR6nEz6eMIAvKpURD%27" target="_blank">https://docs.google.com/uc?export=download&amp;id=1xJ0za-_6tLYCoR_OR6nEz6eMIAvKpURD'</a> -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&amp;id=1xJ0za-_6tLYCoR_OR6nEz6eMIAvKpURD&quot; -O timeseries_oregon_html &amp;&amp; rm -rf /tmp/cookies.txt</pre><p>
+Unzip the file with unzip:</p>
+<pre style="margin-bottom: 0.2in">sudo unzip timeseries_oregon_html</pre><p>
+Change permissions on the data folder:</p>
+<pre style="margin-bottom: 0.2in">sudo chmod -R ugo+rw /var/lib/tomcat8/webapps/geoserver/data/data/timeseries</pre><p>
+Clean up some files:</p>
+<pre>rm -R __MACOSX
+rm timeseries_oregon_html
+ls</pre><p>
+Directory should look like this:</p>
+<p><img src="part1_html_35a0d29a378f6ec7.png" name="Image10" align="bottom" width="642" height="58" border="0"/>
+</p>
+<h4 class="western">Step 7: Upload Timeseries Package to Geoserver</h4>
+<p>Under “Data” on the left hand side of the screen go to
+“Stores”. Click “Add new stores”. This will bring you to this
+screen:</p>
+<p><img src="part1_html_604020b85899e799.png" name="Image11" align="bottom" width="632" height="396" border="0"/>
+</p>
+<p>Hit “ImageMosaic”. Click “Browse”. Navigate to the folder
+you put the data in (data/timeseries) and click “OK”:</p>
+<p><img src="part1_html_d1c3da3214f2b415.png" name="Image12" align="bottom" width="654" height="478" border="0"/>
+</p>
+<p>Fill out “Data Source Name” and “Description” then click
+save:</p>
+<p><img src="part1_html_531b6f69339b9150.png" name="Image13" align="bottom" width="696" height="416" border="0"/>
+</p>
+<p>Click “Publish” on the next screen. Click “Dimensions” and
+enable “Time”. “Presentation” should be set to “List”.
+Then click “Save”. If it worked, you can go to “Layer Preview”
+and click “timeseries”. Should look like this:</p>
+<p><img src="part1_html_821d15e7e2abda1b.png" name="Image14" align="bottom" width="596" height="331" border="0"/>
+</p>
+<h4 class="western">Step 8: Modifying HTML/CSS/JS to make a
+Time&nbsp;Slider</h4>
+<p>Final step (for now). Navigate to the www folder with this
+command:</p>
+<pre style="margin-bottom: 0.2in">cd /var/lib/tomcat8/webapps/geoserver/data/www</pre><p>
+Create a file name oregon.html</p>
+<pre style="margin-bottom: 0.2in">sudo touch oregon.html</pre><p>
+Open it:</p>
+<pre style="margin-bottom: 0.2in">sudo nano oregon.html</pre><p>
+Copy this code in there! You need to modify the ip address with your
+external ip address. Again, this can be found on the VM page of your
+Compute Engine on GCP.</p>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;WMS Time&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;<a href="https://openlayers.org/en/v4.6.5/css/ol.css" target="_blank">https://openlayers.org/en/v4.6.5/css/ol.css</a>&quot; type=&quot;text/css&quot;&gt;
+    &lt;script src=&quot;<a href="https://openlayers.org/en/v4.6.5/build/ol.js" target="_blank">https://openlayers.org/en/v4.6.5/build/ol.js</a>&quot;&gt;&lt;/script&gt;
+&lt;style&gt;
+/* Setting up the slider styling */
+    .slidecontainer {
+        width: 120px;
+        margin-top: -30px;
+        margin-left: 10px;
+        z-index: 100px;
+    }
+.slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 15px;
+        border-radius: 5px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+    }
+.slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background:   #00008B;
+        cursor: pointer;
+    }
+.slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: #4CAF50;
+        cursor: pointer;
+      }
+    &lt;/style&gt;
+  &lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Create map container --&gt;
+    &lt;div id=&quot;map&quot; class=&quot;map&quot;&gt;&lt;/div&gt;
+    &lt;div role=&quot;group&quot; aria-label=&quot;Animation controls&quot;&gt;
+&lt;!-- Create slider container --&gt;
+    &lt;div class=&quot;slidecontainer&quot;&gt;
+      &lt;input type=&quot;range&quot; min=&quot;0&quot; max=&quot;2&quot; value=&quot;0&quot; class=&quot;slider&quot; id=&quot;myRange&quot;&gt;
+      &lt;p&gt;Date: &lt;span id=&quot;date_value&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+    &lt;/div&gt;
+&lt;script&gt;
+// Set up the layers
+      var layers = [
+        new ol.layer.Tile({
+            source: new ol.source.OSM()
+          }),
+        new ol.layer.Tile({
+          source: new ol.source.TileWMS({
+            url: '<a href="http://35.232.214.104:8080/geoserver/cite/wms%27" target="_blank">http://xx.XXX.XXX.XXX:8080/geoserver/cite/wms'</a>,
+            params: {'LAYERS': 'cite:timeseries'}
+          })
+        })
+      ];
+var map = new ol.Map({
+        layers: layers,
+        target: 'map',
+        view: new ol.View({
+          // Defining the location in Lat Lon. In this case our image is from Brazil
+          center:  ol.proj.transform([-120.5542,43.8041], 'EPSG:4326', 'EPSG:3857'),
+          zoom: 5
+        })
+      });
+// Define the available dates
+      var dates = ['1981-01-01T00:00:00.000Z', '1991-01-01T00:00:00.000Z', '2001-01-01T00:00:00.000Z', '2011-01-01T00:00:00.000Z']
+var sliderRange = document.getElementById(&quot;myRange&quot;);
+      sliderRange.max = dates.length-1;
+var dateValue = document.getElementById(&quot;date_value&quot;);
+      dateValue.innerHTML = dates[sliderRange.value].slice(0,10);
+      layers[1].getSource().updateParams({'TIME': dates[sliderRange.value]});
+// Update the current slider value (each time you drag the slider handle)
+      sliderRange.oninput = function() {
+      dateValue.innerHTML = dates[this.value].slice(0,10);
+      layers[1].getSource().updateParams({'TIME': dates[this.value]});
+      }
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre><p>
+Save the file and point your browser to:</p>
+<p><a href="http://35.232.214.104:8080/geoserver/www/oregon.html" target="_blank">http://xx.XXX.XXX.XXX:8080/geoserver/www/oregon.html</a></p>
+<p>You can add some color to it as well but that will be in another
+medium article. #rasternotmonster</p>
+<p><strong>The code used in this tutorial is borrowed from:</strong>
+<a href="https://www.earder.com/tutorials/timeseries-with-geoserver-and-openlayers/" target="_blank">https://www.earder.com/tutorials/timeseries-with-geoserver-and-openlayers/</a></p>
+<p><strong>Part 2: </strong><strong><a href="https://www.davidjleifer.com/blogs/part2.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part2.html</span></u></span></font></a></strong></p>
+<p><strong>Part 3:</strong>
+<strong><a href="https://www.davidjleifer.com/blogs/part3.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part3.html</span></u></span></font></a></strong></p>
+<p><strong>Part 4: </strong><strong><a href="https://www.davidjleifer.com/blogs/part4.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part4.html</span></u></span></font></a></strong></p>
+<p><strong>Part 5: </strong><strong><a href="https://www.davidjleifer.com/blogs/part5.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part5.html</span></u></span></font></a></strong></p>
+<p><strong>Part 6: </strong><a href="https://www.davidjleifer.com/blogs/part6.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part6.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>7</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part7.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part7.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>8</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part8.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part8.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>9</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part9.html</u></span></font></a></p>
+<p><br/>
+<br/>
+
+</p>
+</body>
+</html>

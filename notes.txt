@@ -96,12 +96,16 @@ sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=dow
 sudo unzip xyz-timeseries-data
 sudo rm xyz-timeseries-data
 
-
 sudo mv /var/www/html/dist /var/www/html/polarbearGIS
 sudo mv /var/www/html/pandamoniumGIS20210110_tmeanbuild-dist /var/www/html/pandamoniumGIS20210110_tmeanbuild
 
+#blogs
+#https://drive.google.com/file/d/1XpOCrcraIMo8cz8O04chw31Al3_9qHSi/view?usp=sharing
 
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1XpOCrcraIMo8cz8O04chw31Al3_9qHSi' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1XpOCrcraIMo8cz8O04chw31Al3_9qHSi" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
 
+sudo unzip xyz-timeseries-data
+sudo rm xyz-timeseries-data
 
 
 

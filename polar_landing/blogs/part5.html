@@ -1,0 +1,456 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 7.0.3.1 (MacOSX)"/>
+	<meta name="created" content="2020-12-19T18:03:41.133468023"/>
+	<meta name="changed" content="2021-03-27T23:28:22.959215504"/>
+	<style type="text/css">
+		@page { size: 8.5in 11in; margin: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Serif", serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Songti SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "Arial Unicode MS"; font-size: 14pt; font-weight: bold }
+		pre { font-family: "Liberation Mono", monospace; font-size: 10pt; background: transparent }
+		strong { font-weight: bold }
+		a:link { color: #000080; so-language: zxx; text-decoration: underline }
+		code { font-family: "Liberation Mono", monospace }
+		a:visited { color: #800000; so-language: zxx; text-decoration: underline }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr"><h3 class="western">
+Part 5: How to use Python for QGIS3 GDAL to a turn a directory of
+tifs into XYZ&nbsp;Tiles</h3>
+<p><br/>
+<br/>
+
+</p>
+<p><strong>Part </strong><strong>1</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part1.html"><strong><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part</span></u></span></font></strong><strong><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">1</span></u></span></font></strong><strong><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">.html</span></u></span></font></strong></a></p>
+<p><strong>Part 2: </strong><strong><a href="https://www.davidjleifer.com/blogs/part2.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part2.html</span></u></span></font></a></strong></p>
+<p><strong>Part 3:</strong>
+<strong><a href="https://www.davidjleifer.com/blogs/part3.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part3.html</span></u></span></font></a></strong></p>
+<p><strong>Part 4: </strong><strong><a href="https://www.davidjleifer.com/blogs/part4.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part4.html</span></u></span></font></a></strong></p>
+<p><strong>Part 6: </strong><a href="https://www.davidjleifer.com/blogs/part6.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part6.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>7</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part7.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part7.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>8</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part8.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part8.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>9</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part9.html</u></span></font></a></p>
+<p><br/>
+<br/>
+
+</p>
+<p>What we originally set out to find in Part 4 was whether a map
+tile would be faster than a WMS hosted on Geoserver. And we made a
+bold claim in Part 4, without any backing data. We said that our map
+tiled Leaflet map app ran faster than the GeoServer hosted WMS
+OpenLayers map app. Is this true?</p>
+<p>Before we can get into any of that, we should really rewrite our
+Leaflet map from Part 4 with OpenLayers and include some sort of
+timeseries slider, similar to what is going on in the GeoServer
+hosted WMS. This method requires NPM (a JavaScript Package Manager)
+and Node.JS. As long as we are standardizing things, we might as well
+modify the original timeseries app from Part 1, Part 2, and Part 3 to
+use NPM. That way it can be more map tile file vs GeoServer WMS and
+not if Leaflet or OpenLayers is quicker.</p>
+<p><strong>How to Execute Scripts for Python QGIS 3</strong></p>
+<p>Before we get to the fun web development part, we need to process
+the data. Someone on reddit commented on Part 4 asking how they would
+convert a directory of 1600 tif files into XYZ tile Directories.
+Luckily there is PyQGIS for QGIS 3. We will be executing scripts from
+the Python console in QGIS 3 (you need QGIS 3 installed to
+participate).</p>
+<p>Open QGIS3 and create a new project. Click on the Python console
+button, as shown below in the red box:</p>
+<p><img src="part5_html_8747f386dd2c54d3.png" name="Image1" align="bottom" width="617" height="361" border="0"/>
+</p>
+<p>Then we need to click the “Show Editor” button shown in red
+circle.</p>
+<p><img src="part5_html_d233df70ec053403.png" name="Image2" align="bottom" width="677" height="398" border="0"/>
+</p>
+<p>Ignore the dark theme change! The screen will then look like this,
+we will be pasting the script into the editor and clicking “run”
+to execute the python code.</p>
+<p><img src="part5_html_8d2263509a0dc8dc.png" name="Image3" align="bottom" width="658" height="387" border="0"/>
+</p>
+<p><strong>Installing a Memory Profiler</strong></p>
+<p>Now we will use this GIS Stack Exchange to discover your QGIS
+version’s Python Path and install a package “guppy3&quot; for
+QGIS Python:
+<a href="https://gis.stackexchange.com/questions/351280/installing-python-modules-for-qgis-3-on-mac" target="_blank">https://gis.stackexchange.com/questions/351280/installing-python-modules-for-qgis-3-on-mac</a></p>
+<p><strong>Installing on Windows</strong></p>
+<p>If you’re on Windows, install using OSGeo4W plugin:
+<a href="https://landscapearchaeology.org/2018/installing-python-packages-in-qgis-3-for-windows/" target="_blank">https://landscapearchaeology.org/2018/installing-python-packages-in-qgis-3-for-windows/</a></p>
+<p><strong>Installing on Mac</strong></p>
+<p>If on mac, enter this command in the QGIS Python Shell:</p>
+<pre><code>import sys</code>
+<code>print(sys.executable)</code></pre><p>
+If this outputs the following path (QGIS versions before 3.10 I
+think), you should be able to install directly there:&nbsp;</p>
+<pre style="margin-bottom: 0.2in"><code>/usr/local/bin/python3.6</code></pre><p>
+After QGIS 3.10 I think it will output something like this:&nbsp;</p>
+<pre style="margin-bottom: 0.2in">/Applications/QGIS.app/Contents/MacOS/QGIS</pre><p>
+So go to that “MacOS” location in your folder GUI (or in
+Terminal). Go into the “bin” folder and you should see a
+“python3.X” (mine is “python3.7”). Copy that path and paste
+it into this command in your terminal:</p>
+<pre style="margin-bottom: 0.2in">/Applications/QGIS.app/Contents/MacOS/bin/python3.7 -m pip install guppy3</pre><p>
+Restart QGIS and it should have installed the guppy3 package. To be
+for true, enter the library into the Python console:</p>
+<pre style="margin-bottom: 0.2in">from guppy import hpy</pre><p>
+<strong>Downloading the Data</strong></p>
+<p>Download this&nbsp;.zip file of the folder directory:
+<a href="https://drive.google.com/file/d/1Ft2YuB6bzmb9rgcBXFjC_g5RPqHqkMRY/view?usp=sharing" target="_blank">https://drive.google.com/file/d/1Ft2YuB6bzmb9rgcBXFjC_g5RPqHqkMRY/view?usp=sharing</a></p>
+<p>It is a directory of 39 tif files of US gridded precipitation data
+split into 4 directories and some other folders for our inputs and
+outputs. Unzip in a folder of your choice, we will need the path of
+this directory to modify the inputs and outputs in the python script.
+The entire script will be posted for easier copy/pasting at the end
+of this youtube tutorial.</p>
+<p><strong>Building the Python Script</strong></p>
+<p>First we need to import libraries and set up a timer to see how
+long our script takes:</p>
+<pre>import processing
+import os
+from qgis.core import (
+    QgsVectorLayer,
+    QgsProject,
+    QgsColorRampShader
+)
+from PyQt5 import QtGui
+from glob import glob
+from guppy import hpy
+#time the script
+from datetime import datetime
+startTime = datetime.now()</pre><p>
+Next we need to set our directory and directory list to loop over.
+The tif files are included in the&nbsp;.zip file that I had you
+download, so you will need to update the paths to your paths (it is
+different on windows computer and macintosh computer- this path
+structure is for mac).</p>
+<pre>dirs = &quot;/dir/&quot; #replace this with your path
+list_of_dirs = glob(dirs + &quot;*/&quot;)</pre><p>
+We will then set up the first loop of our nested “for” loop. We
+also make a list of the first directory of tifs to loop over.</p>
+<pre style="margin-bottom: 0.2in">for j in list_of_dirs:
+   dir_of_tiffs = j
+   all_files = glob(os.path.join(dir_of_tiffs, &quot;*.tif&quot;))</pre><p>
+The actual nested “for” loop part is then created to loop over
+the list of tifs we set as a variable named “all_files” in the
+previous code block. We use the “os” lib to get the file name and
+“[:-4]” to strip off the “.tif” part of the string.</p>
+<pre>#notice the nest
+    for i in all_files:
+       #get basename of each tif
+       tiff_basename = os.path.basename(i)
+       #strip .tif off the i variable
+       i = tiff_basename[:-4]</pre><p>
+We then set up some variables to use in the
+“gdal:cliprasterbymasklayer” processing tool. The string variable
+“tif” is set to “.tif”. The “path_to_tif” variable is set
+to a string concatenation of the dir_of_tiffs variable (which is the
+path to the data in dir1, dir2, dir3, dir4), and the variable “i”
+(created as a tif file name without the path or&nbsp;.tif extension).
+The variable “OR_shp” is set to the shapefile of Oregon. This
+will be used to clip the list of US raster tifs in the dir1, dir2,
+dir3, dir 4 folder. The variable “clipped_OR_tifs” is the output
+destination of the raster clip tool and is a string concatenation of
+the folders path, the variable “i”, and the&nbsp;.tif extension
+string we set as “.tif”.</p>
+<pre>#still nested
+       #path to raster for each i
+       tif = &quot;.tif&quot;
+       path_to_tif = dir_of_tiffs + i + tif
+       #path to OR shp
+       OR_shp = &quot;/cb_2018_us_state_20m/oregon.shp&quot;
+       #path to output dir of clipped OR tiffs
+       clipped_OR_tifs = &quot;/clipped_OR_tifs/&quot; + i + tif</pre><p>
+Then we run the processing algorithm “gdal:cliprasterbymasklayer”.
+You can look more for an explanation in the docs:
+<a href="https://docs.qgis.org/3.16/en/docs/user_manual/processing_algs/gdal/rasterextraction.html" target="_blank">https://docs.qgis.org/3.16/en/docs/user_manual/processing_algs/gdal/rasterextraction.html</a>.</p>
+<pre>#nested       
+       processing.run('gdal:cliprasterbymasklayer',{
+       'INPUT': path_to_tif,
+       'MASK': OR_shp,
+       'NODATA': -1,
+       'ALPHA_BAND': False,
+       'CROP_TO_CUTLINE': True,
+       'KEEP_RESOLUTION': True,
+       'OPTIONS': &quot;&quot;,
+       'DATA_TYPE': 0,
+       'OUTPUT': clipped_OR_tifs
+       })
+       print(&quot;clipped raster &quot; + i)</pre><p>
+Now we need to create the layer so we can add some style to our
+tiffs. This is accomplished by using the “QgsRasterLayer” tool on
+the OUTPUT variable “clipped_OR_tiles” from the clipping in the
+last code block. We also name the layer with the variable “i”,
+which is our tif base name (eg: “timeseries_19840101”). We also
+test it with an “if/else” to see if the file loaded correctly.</p>
+<pre>#create layer (still nested)
+       rlayer = QgsRasterLayer(clipped_OR_tifs, i)
+       if rlayer.isValid():
+           print(&quot;loaded&quot;)
+       else:
+          print(&quot;failed to load&quot;)</pre><p>
+We need to use some more assistance from libraries. Create a raster
+shader and ramp shader to define a color ramp.</p>
+<pre>#raster shader and ramp shader objects
+       s = QgsRasterShader()
+       c = QgsColorRampShader()
+       c.setColorRampType(QgsColorRampShader.Interpolated)</pre><p>
+Then we make a list to hold the color ramp definition and append the
+“QgsColorRampShader.ColorRampItem” to the list.</p>
+<pre>      #list to hold color ramp definition and append values
+       j = []
+       j.append(QgsColorRampShader.ColorRampItem(0, QtGui.QColor(&quot;#f7fbff&quot;), &quot;0&quot;))
+       j.append(QgsColorRampShader.ColorRampItem(105, QtGui.QColor(&quot;#deebf7&quot;), &quot;105&quot;))
+       j.append(QgsColorRampShader.ColorRampItem(210, QtGui.QColor(&quot;#c6dbef&quot;), &quot;210&quot;))
+       j.append(QgsColorRampShader.ColorRampItem(315, QtGui.QColor(&quot;#9ecae1&quot;), &quot;315&quot;))
+       j.append(QgsColorRampShader.ColorRampItem(420, QtGui.QColor(&quot;#6baed6&quot;), &quot;420&quot;))
+       j.append(QgsColorRampShader.ColorRampItem(525, QtGui.QColor(&quot;#4292c6&quot;), &quot;525&quot;))
+       j.append(QgsColorRampShader.ColorRampItem(630, QtGui.QColor(&quot;#2171b5&quot;), &quot;630&quot;))
+       j.append(QgsColorRampShader.ColorRampItem(735, QtGui.QColor(&quot;#08519c&quot;), &quot;735&quot;))
+       j.append(QgsColorRampShader.ColorRampItem(840, QtGui.QColor(&quot;#08306b&quot;), &quot;840&quot;))</pre><p>
+Next we do a whole bunch of nerd stuff with color shading and
+actually add the layer to QGIS3. I know what you’re saying. “Won’t
+that slow this whole thing down?” You are correct. But the
+“qgis:tilesxyzdirectory” algorithm we are about to run requires
+the input to be the extent of a map in QGIS3, not an actual input
+file. So we have to add the clipped tif to the map. Not to worry! We
+clear the all map layers after every tif at the end of nested “for”
+loop, so it can run on my beat up mbp.</p>
+<pre>       #assign color ramp and use raster shaders color ramp
+       c.setColorRampItemList(j)
+       s.setRasterShaderFunction(c)
+       #raster renter object, asign renderer to layer, add to map
+       ps = QgsSingleBandPseudoColorRenderer(rlayer.dataProvider(), 1, s)
+       rlayer.setRenderer(ps)
+       QgsProject.instance().addMapLayer(rlayer)</pre><p>
+We then set up the input and output directory locations. Yours will
+look different, but I have them set to output in “/data2/”. We
+also make a new directory to hold each tile file: “output_dir”.</p>
+<pre>       #setup html file output
+       output_dir = &quot;/data2/&quot; + i
+       html = &quot;.html&quot;
+       output_html = &quot;/data2/&quot; + i + html
+       #make dir to hold each tile file
+       os.mkdir(output_dir)
+       print(&quot;created dir &quot; + i)</pre><p>
+We then run the “qgis:tilesxyzdirectory” algorithm to convert our
+data into map tiles.</p>
+<pre>#run qgis:tilesxyzdirectory processing algorithm
+       processing.run(&quot;qgis:tilesxyzdirectory&quot;, {'EXTENT': '-124.520833333,-116.479166666,42.020833333,46.229166667 [EPSG:4269]',
+       'ZOOM_MIN': 1,
+       'ZOOM_MAX': 12,
+       'DPI': 96,
+       'TILE_FORMAT': 0,
+       'TILE_WIDTH': 256,
+       'TILE_HEIGHT': 256,
+       'OUTPUT_DIRECTORY': output_dir,
+       'OUTPUT_HTML': output_html
+       })
+       print(i + &quot; has been xyzed&quot;)</pre><p>
+Next we will remove the layer and go back to the start of the loop
+until there are no more files to loop over and no more directories to
+loop over.</p>
+<pre>#remove layers and start over
+       QgsProject.instance().removeAllMapLayers()</pre><p>
+After each directory finishes, we will write a log file containing
+memory usage information.</p>
+<pre>#memory profiler
+   #memory profiler
+   h = hpy()
+   heap_output = str(h.heap())
+   txt = &quot;.txt&quot;
+   today = datetime.now().strftime(&quot;%Y%m%d%H%M%S&quot;)
+   dirTime = str(today)
+   log_file = dirs + dirTime + txt
+   with open(log_file, &quot;w&quot;) as text_file:
+    text_file.write(heap_output)</pre><p>
+Final step is to print our script completion time and add a final log
+file, as a sort of sanity check.</p>
+<pre>#I Know the end
+endTime = datetime.now()
+finalTime = endTime - startTime
+finalTimeStr = &quot;Took this long to run: &quot; + str(finalTime)
+print(finalTimeStr)
+h = hpy()
+heap_output = str(h.heap())
+log_file = &quot;/dir/final_log.txt&quot;
+with open(log_file, &quot;w&quot;) as text_file:
+  text_file.write(heap_output)
+  text_file.write('\n' + finalTimeStr)</pre><p>
+Modify the paths, then copy/paste the whole thing into QGIS Python
+Editor and click the “run” button.</p>
+<p><strong>Final Python Script</strong></p>
+<pre>import processing
+import os
+from qgis.core import (
+    QgsVectorLayer,
+    QgsProject,
+    QgsColorRampShader
+)
+from PyQt5 import QtGui
+from glob import glob
+from guppy import hpy
+#time the script
+from datetime import datetime
+startTime = datetime.now()
+#coloring from: 
+#<a href="https://www.gislounge.com/symbolizing-vector-and-raster-layers-qgis-python-programming-cookbook/" target="_blank">https://www.gislounge.com/symbolizing-vector-and-raster-layers-qgis-python-programming-cookbook/</a>
+dirs = &quot;/dir/&quot;
+list_of_dirs = glob(dirs + &quot;*/&quot;)
+for j in list_of_dirs:
+dir_of_tiffs = j
+   all_files = glob(os.path.join(dir_of_tiffs, &quot;*.tif&quot;))
+for i in all_files:
+       #get basename of each tif
+       tiff_basename = os.path.basename(i)
+       #strip .tif off the i variable
+       i = tiff_basename[:-4]
+       #path to raster for each i
+       tif = &quot;.tif&quot;
+       path_to_tif = dir_of_tiffs + i + tif
+       #path to OR shp
+       OR_shp = &quot;/cb_2018_us_state_20m/oregon.shp&quot;
+       #path to output dir of clipped OR tiffs
+       clipped_OR_tifs = &quot;/clipped_OR_tifs/&quot; + i + tif
+       #clip the raster with OR shapefile
+       processing.run('gdal:cliprasterbymasklayer',{'INPUT': path_to_tif,
+       'MASK': OR_shp,
+       'NODATA': -1,
+       'ALPHA_BAND': False,
+       'CROP_TO_CUTLINE': True,
+       'KEEP_RESOLUTION': True,
+       'OPTIONS': &quot;&quot;,
+       'DATA_TYPE': 0,
+       'OUTPUT': clipped_OR_tifs
+       })
+       print(&quot;clipped raster &quot; + i)
+#create layer
+       rlayer = QgsRasterLayer(clipped_OR_tifs, i)
+       if rlayer.isValid():
+           print(&quot;loaded&quot;)
+       else:
+          print(&quot;failed to load&quot;)
+       #raster shader and ramp shader objects
+       s = QgsRasterShader()
+       c = QgsColorRampShader()
+       c.setColorRampType(QgsColorRampShader.Interpolated)
+       #list to hold color ramp definition and append color ramp values
+       j = []
+       j.append(QgsColorRampShader.ColorRampItem(0, QtGui.QColor(&quot;#f7fbff&quot;), &quot;0&quot;))
+       j.append(QgsColorRampShader.ColorRampItem(105, QtGui.QColor(&quot;#deebf7&quot;), &quot;105&quot;))
+       j.append(QgsColorRampShader.ColorRampItem(210, QtGui.QColor(&quot;#c6dbef&quot;), &quot;210&quot;))
+       j.append(QgsColorRampShader.ColorRampItem(315, QtGui.QColor(&quot;#9ecae1&quot;), &quot;315&quot;))
+       j.append(QgsColorRampShader.ColorRampItem(420, QtGui.QColor(&quot;#6baed6&quot;), &quot;420&quot;))
+       j.append(QgsColorRampShader.ColorRampItem(525, QtGui.QColor(&quot;#4292c6&quot;), &quot;525&quot;))
+       j.append(QgsColorRampShader.ColorRampItem(630, QtGui.QColor(&quot;#2171b5&quot;), &quot;630&quot;))
+       j.append(QgsColorRampShader.ColorRampItem(735, QtGui.QColor(&quot;#08519c&quot;), &quot;735&quot;))
+       j.append(QgsColorRampShader.ColorRampItem(840, QtGui.QColor(&quot;#08306b&quot;), &quot;840&quot;))
+       #assign color ramp and use raster shaders color ramp
+       c.setColorRampItemList(j)
+       s.setRasterShaderFunction(c)
+       #raster renter object, asign renderer to layer, add to map
+       ps = QgsSingleBandPseudoColorRenderer(rlayer.dataProvider(), 1, s)
+       rlayer.setRenderer(ps)
+       QgsProject.instance().addMapLayer(rlayer)
+       #setup html file output
+       output_dir = &quot;/data2/&quot; + i
+       html = &quot;.html&quot;
+       output_html = &quot;/Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/data/oregon/mapTiled/npm-maptile/data2/&quot; + i + html
+       #make dir to hold each tile file
+       os.mkdir(output_dir)
+       print(&quot;created dir &quot; + i)
+       #run qgis:tilesxyzdirectory processing algorithm
+       processing.run(&quot;qgis:tilesxyzdirectory&quot;, {'EXTENT': '-124.520833333,-116.479166666,42.020833333,46.229166667 [EPSG:4269]',
+       'ZOOM_MIN': 1,
+       'ZOOM_MAX': 12,
+       'DPI': 96,
+       'TILE_FORMAT': 0,
+       'TILE_WIDTH': 256,
+       'TILE_HEIGHT': 256,
+       'OUTPUT_DIRECTORY': output_dir,
+       'OUTPUT_HTML': output_html
+       })
+       print(i + &quot; has been xyzed&quot;)
+       #remove layers and start over
+       QgsProject.instance().removeAllMapLayers()
+#memory profiler
+   #memory profiler
+   h = hpy()
+   heap_output = str(h.heap())
+   txt = &quot;.txt&quot;
+   today = datetime.now().strftime(&quot;%Y%m%d%H%M%S&quot;)
+   dirTime = str(today)
+   log_file = dirs + dirTime + txt
+   with open(log_file, &quot;w&quot;) as text_file:
+    text_file.write(heap_output)
+#I Know the End
+endTime = datetime.now()
+finalTime = endTime - startTime
+finalTimeStr = &quot;Took this long to run: &quot; + str(finalTime)
+print(finalTimeStr)
+h = hpy()
+heap_output = str(h.heap())
+log_file = &quot;/dir/final_log.txt&quot;
+with open(log_file, &quot;w&quot;) as text_file:
+  text_file.write(heap_output)
+  text_file.write('\n' + finalTimeStr)</pre><p>
+<img src="part5_html_5589b4fc53d4a27e.png" name="Image4" align="bottom" width="759" height="445" border="0"/>
+</p>
+<p>It took almost 26 minutes to do 38 tif files.&nbsp;</p>
+<p>For 1600 files:</p>
+<p>1600/38 = 42.1052631579</p>
+<p>42.1052631579 X 26 = 1094.73684211</p>
+<p>1094.73684211 / 60 = 18.2456140351</p>
+<p>About 18.25 hours. Yikes. Maybe you’d have to do it in batches
+so as not to overwhelm the computer’s memory too. QGIS apparently
+is limited to 4GB of RAM? Is this true? I could only find an 8 month
+old GIS StackExchange on the subject.</p>
+<p>The directory size of the 38 XYZ tiles is also 1.34 GB on disk,
+which explains why it took so long. Just copying the folders took my
+mbp 25–30 minutes. For comparison, one tif file is 78 KB and a map
+tile directory is 35 MB.</p>
+<p>Heres the final memory log:</p>
+<pre>Partition of a set of 465299 objects. Total size = 60628997 bytes.
+ Index  Count   %     Size   % Cumulative  % Kind (class / dict of class)
+     0 120197  26 13754841  23  13754841  23 unicode
+     1  82295  18  7471424  12  21226265  35 tuple
+     2   2880   1  3600424   6  24826689  41 dict of sip.wrappertype
+     3  54421  12  3482944   6  28309633  47 sip.methoddescriptor
+     4   2880   1  3070808   5  31380441  52 sip.wrappertype
+     5  20313   4  2925072   5  34305513  57 function
+     6  35751   8  2830132   5  37135645  61 bytes
+     7  18140   4  2618672   4  39754317  66 types.CodeType
+     8   2672   1  2558136   4  42312453  70 type
+     9   3909   1  2051464   3  44363917  73 dict (no owner)
+&lt;2250 more rows. Type e.g. '_.more' to view.&gt;
+Took this long to run: 0:08:45.331280</pre><p>
+<a href="https://cloud.google.com/nodejs/docs/setup" target="_blank">https://cloud.google.com/nodejs/docs/setup</a></p>
+<p><a href="https://github.com/nvm-sh/nvm#installation" target="_blank">https://github.com/nvm-sh/nvm#installation</a></p>
+<p>Crack open a COCI COLI and check out the rest of this series:</p>
+<p><strong>Part </strong><strong>1</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part1.html"><strong><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part</span></u></span></font></strong><strong><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">1</span></u></span></font></strong><strong><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">.html</span></u></span></font></strong></a></p>
+<p><strong>Part 2: </strong><strong><a href="https://www.davidjleifer.com/blogs/part2.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part2.html</span></u></span></font></a></strong></p>
+<p><strong>Part 3:</strong>
+<strong><a href="https://www.davidjleifer.com/blogs/part3.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part3.html</span></u></span></font></a></strong></p>
+<p><strong>Part 4: </strong><strong><a href="https://www.davidjleifer.com/blogs/part4.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part4.html</span></u></span></font></a></strong></p>
+<p><strong>Part 6: </strong><a href="https://www.davidjleifer.com/blogs/part6.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part6.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>7</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part7.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part7.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>8</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part8.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part8.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>9</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part9.html</u></span></font></a></p>
+<p><br/>
+<br/>
+
+</p>
+</body>
+</html>
