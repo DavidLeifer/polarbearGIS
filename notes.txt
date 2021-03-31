@@ -73,25 +73,25 @@ sudo unzip xyz-timeseries-data
 sudo rm xyz-timeseries-data
 
 #pandamoniumGIS_part2Section2-dist
-https://drive.google.com/file/d/1jAXkqqCsqFsf6lqeYHpRg8SFCPgYikte/view?usp=sharing
+https://drive.google.com/file/d/1J_-rP0xNeRxEdCFxCTyEYNLdoKT7UzUV/view?usp=sharing
 
-sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1jAXkqqCsqFsf6lqeYHpRg8SFCPgYikte' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1jAXkqqCsqFsf6lqeYHpRg8SFCPgYikte" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1J_-rP0xNeRxEdCFxCTyEYNLdoKT7UzUV' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1J_-rP0xNeRxEdCFxCTyEYNLdoKT7UzUV" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
 
 sudo unzip xyz-timeseries-data
 sudo rm xyz-timeseries-data
 
 #pandamoniumGIS20210110_tmeanbuild-dist
-https://drive.google.com/file/d/1gdv_qDwgYJuCQ30ElpbM45fZkvDEZbNX/view?usp=sharing
+https://drive.google.com/file/d/1wFbGzUJxpcVoqAvCf6h-_dVFd950c8se/view?usp=sharing
 
-sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1gdv_qDwgYJuCQ30ElpbM45fZkvDEZbNX' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1gdv_qDwgYJuCQ30ElpbM45fZkvDEZbNX" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1wFbGzUJxpcVoqAvCf6h-_dVFd950c8se' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1wFbGzUJxpcVoqAvCf6h-_dVFd950c8se" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
 
 sudo unzip xyz-timeseries-data
 sudo rm xyz-timeseries-data
 
-#polarbearGIS-dist
-https://drive.google.com/file/d/12lBkkzfT2sAG3BSMcftTql2LOJtmat0i/view?usp=sharing
+#polarbear-dist
+https://drive.google.com/file/d/1Ej9z0w9i4kVj3CRmzAFxwHMwtQPZne2v/view?usp=sharing
 
-sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=12lBkkzfT2sAG3BSMcftTql2LOJtmat0i' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=12lBkkzfT2sAG3BSMcftTql2LOJtmat0i" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1Ej9z0w9i4kVj3CRmzAFxwHMwtQPZne2v' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1Ej9z0w9i4kVj3CRmzAFxwHMwtQPZne2v" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
 
 sudo unzip xyz-timeseries-data
 sudo rm xyz-timeseries-data
@@ -207,7 +207,7 @@ chmod u+x pipeline.sh
 
 git init
 git add .
-git commit -m "commit 52"
+git commit -m "commit 56"
 git remote add origin https://github.com/DavidLeifer/polarbearGIS.git
 git push -u origin main
 

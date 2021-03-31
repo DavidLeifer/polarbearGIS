@@ -1,4 +1,6 @@
 #! /bin/bash
+#https://medium.com/@shivamgrg38/setting-up-http-to-https-and-non-www-to-www-redirects-for-external-http-s-load-balancers-on-b73be558eab5
+#https://stackoverflow.com/questions/35311697/google-cloud-http-load-balancer-cant-connect-to-my-instance
 apt-get update
 apt-get install apache2 -y
 a2ensite default-ssl
@@ -9,14 +11,18 @@ echo "Page served from: $vm_hostname" | \
 tee /var/www/html/index.html
 
 sudo apt-get install unzip
-sudo apt-get install wget
-y
---sk
+sudo apt-get install wget -y
+
+cd /var/www/html/
+sudo rm index.html
 
 #polar_landing
 #https://drive.google.com/file/d/1BmEveFAfZtponioIzz37gPWyckJk-uFy/view?usp=sharing
 
 sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1BmEveFAfZtponioIzz37gPWyckJk-uFy' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1BmEveFAfZtponioIzz37gPWyckJk-uFy" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+
+sudo unzip xyz-timeseries-data
+sudo rm xyz-timeseries-data
 
 cd polar_landing
 sudo mv index.html /var/www/html
@@ -30,6 +36,7 @@ sudo mv fart.png /var/www/html/images
 sudo mv Part2Section2.png /var/www/html/images
 sudo mv ppt_cor.png /var/www/html/images
 sudo mv temp_cor.png /var/www/html/images
+sudo mv polar_radar.png /var/www/html/images
 cd ..
 cd ..
 sudo rm -R polar_landing
@@ -66,31 +73,42 @@ sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=dow
 sudo unzip xyz-timeseries-data
 sudo rm xyz-timeseries-data
 
-#pandamoniumGIS_part2Section2
+#pandamoniumGIS_part2Section2-dist
 #https://drive.google.com/file/d/1xhjlLrUmNjDqGqZQuKIbqytHcB2usbEW/view?usp=sharing
-sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1xhjlLrUmNjDqGqZQuKIbqytHcB2usbEW' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1xhjlLrUmNjDqGqZQuKIbqytHcB2usbEW" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1J_-rP0xNeRxEdCFxCTyEYNLdoKT7UzUV' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1J_-rP0xNeRxEdCFxCTyEYNLdoKT7UzUV" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
 
 sudo unzip xyz-timeseries-data
 sudo rm xyz-timeseries-data
-
 
 #pandamoniumGIS20210110_tmeanbuild-dist
-https://drive.google.com/file/d/1k1WrXHWL2Z5ZBKmUqZg3zuaVOAI_qS7w/view?usp=sharing
+#https://drive.google.com/file/d/1k1WrXHWL2Z5ZBKmUqZg3zuaVOAI_qS7w/view?usp=sharing
 
-sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1k1WrXHWL2Z5ZBKmUqZg3zuaVOAI_qS7w' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1k1WrXHWL2Z5ZBKmUqZg3zuaVOAI_qS7w" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
-
-sudo unzip xyz-timeseries-data
-sudo rm xyz-timeseries-data
-
-#polarbearGIS-dist
-https://drive.google.com/file/d/1x2Ab2y4a15MeVmluK6LVzIqhC1AbkL2W/view?usp=sharing
-
-sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1x2Ab2y4a15MeVmluK6LVzIqhC1AbkL2W' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1x2Ab2y4a15MeVmluK6LVzIqhC1AbkL2W" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1wFbGzUJxpcVoqAvCf6h-_dVFd950c8se' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1wFbGzUJxpcVoqAvCf6h-_dVFd950c8se" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
 
 sudo unzip xyz-timeseries-data
 sudo rm xyz-timeseries-data
 
+#polarbear-dist
+#https://drive.google.com/file/d/1Ej9z0w9i4kVj3CRmzAFxwHMwtQPZne2v/view?usp=sharing
 
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1Ej9z0w9i4kVj3CRmzAFxwHMwtQPZne2v' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1Ej9z0w9i4kVj3CRmzAFxwHMwtQPZne2v" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
 
+sudo unzip xyz-timeseries-data
+sudo rm xyz-timeseries-data
+sudo mv /var/www/html/polarbear-dist /var/www/html/polarbearGIS
 
+#polar_radar
+#https://drive.google.com/file/d/1wCTA1W04c9Wq3mF7oo4cCXG7rVdfqe1F/view?usp=sharing
 
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1wCTA1W04c9Wq3mF7oo4cCXG7rVdfqe1F' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1wCTA1W04c9Wq3mF7oo4cCXG7rVdfqe1F" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+
+sudo unzip xyz-timeseries-data
+sudo rm xyz-timeseries-data
+
+#blogs
+#https://drive.google.com/file/d/1XpOCrcraIMo8cz8O04chw31Al3_9qHSi/view?usp=sharing
+
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1XpOCrcraIMo8cz8O04chw31Al3_9qHSi' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1XpOCrcraIMo8cz8O04chw31Al3_9qHSi" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+
+sudo unzip xyz-timeseries-data
+sudo rm xyz-timeseries-data
