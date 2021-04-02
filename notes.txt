@@ -29,6 +29,17 @@ cd ..
 sudo rm -R polar_landing
 sudo rm xyz-timeseries-data
 
+#more detailed test
+#https://drive.google.com/file/d/1LrXLx22bypakYRAArlmXI7VPjrjM4Ok2/view?usp=sharing
+
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1LrXLx22bypakYRAArlmXI7VPjrjM4Ok2' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1LrXLx22bypakYRAArlmXI7VPjrjM4Ok2" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+
+
+#test wrong proj/
+#https://drive.google.com/file/d/1CCaUrsX2nAmzTVam2ujswFcAKr2-O93R/view?usp=sharing
+
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1CCaUrsX2nAmzTVam2ujswFcAKr2-O93R' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1CCaUrsX2nAmzTVam2ujswFcAKr2-O93R" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+
 #ppt_cor_xyz.zip
 #https://drive.google.com/file/d/1gk20RXafRluaVIZ473SgLp0N-YfFjAKn/view?usp=sharing
 
@@ -174,9 +185,17 @@ sudo rm -r npm-maptile-v2
 #didnt work version of python
 /Applications/QGIS3.10.app/Contents/Frameworks/Python.framework/Versions/3.7/bin/python3.7
 
-/Applications/QGIS.app/Contents/MacOS/bin/python3.7 -m pip install --upgrade pandas
+/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.8 /Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/panda_testing/pandamoniumGIS/scripts/python/ppt_cor.py
+
+
 /Applications/QGIS.app/Contents/MacOS/bin/python3.7 -m pip install descartes
 /Applications/QGIS.app/Contents/MacOS/bin/python3.7 -m pip install brewer2mpl
+
+/Applications/QGIS.app/Contents/MacOS/bin/python3.7 -m pip install -U pip
+
+/Applications/QGIS.app/Contents/MacOS/bin/python3.7 -m pip install --upgrade rasterio
+
+print(gdal.__version__)
 
 export QT_QPA_PLATFORM_PLUGIN_PATH=/Applications/QGIS.app/Contents/PlugIns
 

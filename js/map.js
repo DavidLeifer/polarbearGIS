@@ -3,7 +3,6 @@
 
 import Map from 'ol/Map.js';
 import View from 'ol/View.js';
-import {fromLonLat} from 'ol/proj.js';
 import popup from './overlay/popup';
 import {transform} from 'ol/proj';
 
