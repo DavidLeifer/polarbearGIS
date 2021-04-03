@@ -187,7 +187,6 @@ sudo rm -r npm-maptile-v2
 
 /Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.8 /Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/panda_testing/pandamoniumGIS/scripts/python/ppt_cor.py
 
-
 /Applications/QGIS.app/Contents/MacOS/bin/python3.7 -m pip install descartes
 /Applications/QGIS.app/Contents/MacOS/bin/python3.7 -m pip install brewer2mpl
 
@@ -198,19 +197,6 @@ sudo rm -r npm-maptile-v2
 print(gdal.__version__)
 
 export QT_QPA_PLATFORM_PLUGIN_PATH=/Applications/QGIS.app/Contents/PlugIns
-
-/Applications/QGIS.app/Contents/MacOS/bin/python3.7 /Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/panda_testing/pandamoniumGIS/scripts/python/ppt_cor.py
-
-COMPILE QGIS FROM DAVE FORKED SOURCE
-https://github.com/qgis/QGIS/blob/master/INSTALL.md#1-introduction
-https://github.com/qgis/QGIS/blob/f32725658f205af4ac9718d3a3b74f13eaa98d3e/python/plugins/processing/algs/qgis/TilesXYZ.py
-PYTHON HTML FILE OUTPUT TO CHANGE
-https://github.com/DavidLeifer/QGIS/blob/master/python/plugins/processing/algs/qgis/TilesXYZ.py
-MBTILES WITH DOCKER CONTAINERS
-https://cloud.google.com/compute/docs/containers
-https://github.com/consbio/mbtileserver
-CRON JOB
-https://phoenixnap.com/kb/set-up-cron-job-linux
 
 USAGE
 #clone directory structure from git
@@ -226,7 +212,7 @@ chmod u+x pipeline.sh
 
 git init
 git add .
-git commit -m "commit 56"
+git commit -m "commit 58"
 git remote add origin https://github.com/DavidLeifer/polarbearGIS.git
 git push -u origin main
 
@@ -269,7 +255,11 @@ gcloud beta compute ssl-certificates describe www-ssl-cert \
     --global \
     --format="get(managed.domainStatus)"
 
+How to get a polygon from a raster:
 
+1) QGIS contour polygon- 1982.bil
+2) dissolve
+3) horray!
 
 
 
