@@ -1,8 +1,10 @@
 import rasterio
 from rasterio.mask import mask
+from rasterio import Affine
 import rasterio.features
 from rasterio.transform import from_origin
 from rasterio.warp import calculate_default_transform, reproject, Resampling
+from rasterio.plot import show
 import fiona
 from shapely.geometry import shape
 import geopandas as gp
@@ -29,10 +31,23 @@ ppt_data_dir = cwd + '/data/ppt/'
 ppt_file_list = glob(os.path.join(ppt_data_dir, '*.bil'))
 
 #transform is used 2 times
-transform = from_origin(-125.020833333, 49.937500000, 0.0416666666666,0.0416666666666)
+#transform = from_origin(-125.020833333, 49.937500000, 0.0416666666666,0.0416666666666)
 
 #shapefile is geographic
 vectorize_output = cwd + "/data/timeseries_contour_dissolve.shp"
+
+#make the dir to hold the bil data
+output_bil_dir = cwd + '/data/ppt_bil2tif_resize/'
+os.mkdir(output_bil_dir)
+#make the dir to hold the index square data
+output_msk_dir = cwd + '/data/ppt_cor_mask/'
+os.mkdir(output_msk_dir)
+#make the dir to hold the clipped index data
+output_clipped_index_dir = cwd + '/data/ppt_pearson_output/'
+os.mkdir(output_clipped_index_dir)
+#make the dir to hold the reprojected clipped index data
+#output_reproj_clipped_index_dir = cwd + '/data/reproj_pearson_output/'
+#os.mkdir(output_reproj_clipped_index_dir)
 
 #https://geohackweek.github.io/raster/04-workingwithrasters/
 for file in ppt_file_list:
@@ -45,26 +60,28 @@ for file in ppt_file_list:
     tif = ".tif"
     rsz_bil = cwd + '/data/ppt_bil2tif_resize/ppt_bil2tif_resize_'
     output_bil_path2tif = rsz_bil + year + tif
+
     with rasterio.open(file) as src:
-        kwargs = src.meta.copy()
-        kwargs.update({
-            #+no_defs +towgs84=0,0,0
-            'crs': '+init=epsg:4269 +proj=longlat +ellps=GRS80 +datum=NAD83 ',
-            'transform': transform,
-            'width': width,
-            'height': height
-        })
-        with rasterio.open(output_bil_path2tif, 'w', **kwargs) as dst:
-            for i in range(1, src.count + 1):
-                reproject(
-                    source = rasterio.band(src, i),
-                    destination = rasterio.band(dst, i),
-                    src_transform = src.transform,
-                    src_crs = src.crs,
-                    dst_transform = transform,
-                    dst_crs = '+init=epsg:4269 +proj=longlat +ellps=GRS80 +datum=NAD83',
-                    resampling = Resampling.nearest)
-        print(dst.crs)
+        thumbnail = src.read(1, 
+            out_shape=(1, int(height), int(width)))
+        print("OG bil = ")
+        print(src.crs.wkt)
+
+        with rasterio.Env():
+            profile = src.profile
+            profile.update(
+                dtype=rasterio.int32,
+                count=1,
+                compress='lzw',
+                height=height,
+                width=width,
+                crs=src.crs,
+                transform=src.transform,)
+            with rasterio.open(output_bil_path2tif, 'w', **profile,) as dst:
+                dst.write(thumbnail.astype(rasterio.int32), 1)
+                print("resized tif = ")
+                print(dst.crs.wkt)
+                dst.close()
 
     with rasterio.Env():
         #create a np mask of the year's nino34.xlsx index and save as tif file
@@ -83,10 +100,13 @@ for file in ppt_file_list:
                             width = width,
                             count=1,
                             dtype=str(yi_array.dtype),
-                            crs='+init=epsg:4269 +proj=longlat +ellps=GRS80 +datum=NAD83',
-                            transform=transform)
+                            crs=src.crs,
+                            transform=src.transform)
 
         new_dataset.write(yi_array, 1)
+        #print(new_dataset.crs)
+        print("square mask = ")
+        print(new_dataset.crs.wkt)
         new_dataset.close()
 
     #read in raster mask shapefile, for clipping the year's nino34.xlsx index array
@@ -94,24 +114,24 @@ for file in ppt_file_list:
         vectorize_output_shp = [feature["geometry"] for feature in shapefile]
     #read in dst_filename AKA a raster mask from index and clip it with the vectorize_output_shp from qgis
 
-    with rasterio.open(dst_filename) as src:
-        out_image, out_transform = mask(src, vectorize_output_shp, crop=True)
-        out_meta = src.meta
-        print(transform)
-        print(out_transform)
+    with rasterio.open(dst_filename) as foo_fighter:
+        out_image, out_transform = mask(foo_fighter, vectorize_output_shp, crop=True)
+        out_meta = foo_fighter.meta
     out_meta.update({"driver": "GTiff",
-                         "height": 621,
-                         "width": 1405,
-                         "transform": out_transform,
-                         "crs": "+init=epsg:4269 +proj=longlat +ellps=GRS80 +datum=NAD83"})
+                         "height": height,
+                         "width": width,
+                         "transform": src.transform,
+                         "crs": src.crs})
     #save and clip raster index mask as file
     pearson_staging = cwd + "/data/ppt_pearson_output/ppt_pearson_output_"
     pearson_output_path = pearson_staging + year + tif
-    with rasterio.open(pearson_output_path, "w", **out_meta) as dest:
-        dest.write(out_image)
-        #print(dest.shape)
-        print(dest.crs)
+    with rasterio.open(pearson_output_path, "w", **out_meta) as foo_fighter_dest:
+        foo_fighter_dest.write(out_image)
+        print("clipped index = ")
+        print(foo_fighter_dest.crs.wkt)
+        src.close()
+        foo_fighter_dest.close()
+
 print("ppt_cor.py is complete")
 
-#RESIZE == OGC:CRS84 - WGS 84 (CRS84) - Geographic
-#OUTPUT == EPSG:4326 - WGS 84 - Geographic
+

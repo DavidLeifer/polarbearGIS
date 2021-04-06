@@ -182,9 +182,6 @@ sudo chmod -R ugo+rw /var/lib/tomcat8/webapps/geoserver/data/www/localdata
 sudo rm -r dirname
 sudo rm -r npm-maptile-v2
 
-#didnt work version of python
-/Applications/QGIS3.10.app/Contents/Frameworks/Python.framework/Versions/3.7/bin/python3.7
-
 /Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.8 /Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/panda_testing/pandamoniumGIS/scripts/python/ppt_cor.py
 
 /Applications/QGIS.app/Contents/MacOS/bin/python3.7 -m pip install descartes
