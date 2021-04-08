@@ -33,9 +33,6 @@ ppt_file_list = glob(os.path.join(ppt_data_dir, '*.bil'))
 #transform is used 2 times
 #transform = from_origin(-125.020833333, 49.937500000, 0.0416666666666,0.0416666666666)
 
-#shapefile is geographic
-vectorize_output = cwd + "/data/timeseries_contour_dissolve.shp"
-
 #make the dir to hold the bil data
 output_bil_dir = cwd + '/data/ppt_bil2tif_resize/'
 os.mkdir(output_bil_dir)
@@ -110,12 +107,23 @@ for file in ppt_file_list:
         new_dataset.close()
 
     #read in raster mask shapefile, for clipping the year's nino34.xlsx index array
+    #shapefile is geographic
+    vectorize_output = cwd + "/data/timeseries_contour_dissolve.shp"
     with fiona.open(vectorize_output, "r") as shapefile:
         vectorize_output_shp = [feature["geometry"] for feature in shapefile]
-    #read in dst_filename AKA a raster mask from index and clip it with the vectorize_output_shp from qgis
+        print(vectorize_output_shp)
 
+    vectorize_output_reproj = cwd + "/data/timeseries_contour_dissolve_reproj.shp"
+    with fiona.open(vectorize_output_reproj, "r") as shapefile_reproj:
+        vectorize_output_shp_reproj = [feature["geometry"] for feature in shapefile_reproj]
+        print(vectorize_output_shp_reproj)
+
+    if vectorize_output_shp == vectorize_output_shp_reproj:
+        print("True")
+
+    #read in dst_filename AKA a raster mask from index and clip it with the vectorize_output_shp from qgis
     with rasterio.open(dst_filename) as foo_fighter:
-        out_image, out_transform = mask(foo_fighter, vectorize_output_shp, crop=True)
+        out_image, out_transform = mask(foo_fighter, vectorize_output_shp_reproj, crop=False)
         out_meta = foo_fighter.meta
     out_meta.update({"driver": "GTiff",
                          "height": height,

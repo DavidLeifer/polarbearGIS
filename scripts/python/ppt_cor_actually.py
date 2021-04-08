@@ -11,7 +11,7 @@ import os
 from glob import glob
 
 #avoid annoying PROJ_LIB error
-os.environ["PROJ_LIB"]="/Applications/QGIS.app/Contents/Resources/proj"
+#os.environ["PROJ_LIB"]="/Applications/QGIS.app/Contents/Resources/proj"
 
 #get current working dir
 cwd = os.getcwd()
@@ -36,11 +36,15 @@ for example_tif, index_tif in zip(ppt_bil2tif_resize_list,ppt_pearson_output_lis
     height = 621
     with rasterio.open(example_tif, mode="r+") as src:
         ppt_raster = src.read(1, out_shape=(1, int(height), int(width)))
+        #ppt_raster[ppt_raster == -9999] = 0
+        print(ppt_raster)
     #load in 1981 index mask raster tif, output from ppt_cor.py located in /data/ppt_pearson_output/
     width = 1405
     height = 621
     with rasterio.open(index_tif) as src:
         index_raster = src.read(1, out_shape=(1, int(height), int(width)))
+        #index_raster[index_raster == 0] = -9999
+        print(index_raster)
     print(index_raster.shape)
     print(index_raster.dtype)
     #set some pandas display options
@@ -56,6 +60,7 @@ for example_tif, index_tif in zip(ppt_bil2tif_resize_list,ppt_pearson_output_lis
         for xx, ii in zip(x, i):
             corr1.append(xx)
             corr2.append(ii)
+        
         #list to panda dataframe
         df1 = pd.DataFrame(corr1)
         df2 = pd.DataFrame(corr2)
@@ -70,19 +75,24 @@ for example_tif, index_tif in zip(ppt_bil2tif_resize_list,ppt_pearson_output_lis
         for idx,ii in enumerate(i):
             unraveling.append(ii)
             #print(idx)
-            #print(ii)
+            print(ii)
 
     npa = np.asarray(unraveling, dtype=np.float32)
-    #array scaled by 100,000,000,000
-    scaled_array = np.multiply(npa, 10000000000)
+    #array scaled by 100,000
+    scaled_array = np.multiply(npa, 100000)
     arr = scaled_array.astype('float32') 
     #reshape
     newarr = arr.reshape(621, 1405)
     
     #set nan
     newarr[newarr == 0] = 'nan'
-    newarr2 = np.nan_to_num(x=newarr,nan=-9999,posinf=.00001,neginf=-.00001)
-    #print(newarr2)
+    newarr2 = np.nan_to_num(x=newarr,nan=-9999,
+        posinf=.00001,neginf=-.00001
+        )
+    newarr2[newarr2 == -.00001] = 'nan'
+    newarr2[newarr2 == .00001] = 'nan'
+
+
 
     #reshaped_flat_list_nan2num = np.nan_to_num(reshaped_flat_list)
     with rasterio.open(example_tif) as src:
