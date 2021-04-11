@@ -107,29 +107,20 @@ for file in ppt_file_list:
         new_dataset.close()
 
     #read in raster mask shapefile, for clipping the year's nino34.xlsx index array
-    #shapefile is geographic
-    vectorize_output = cwd + "/data/timeseries_contour_dissolve.shp"
-    with fiona.open(vectorize_output, "r") as shapefile:
-        vectorize_output_shp = [feature["geometry"] for feature in shapefile]
-        print(vectorize_output_shp)
-
     vectorize_output_reproj = cwd + "/data/timeseries_contour_dissolve_reproj.shp"
     with fiona.open(vectorize_output_reproj, "r") as shapefile_reproj:
         vectorize_output_shp_reproj = [feature["geometry"] for feature in shapefile_reproj]
-        print(vectorize_output_shp_reproj)
-
-    if vectorize_output_shp == vectorize_output_shp_reproj:
-        print("True")
 
     #read in dst_filename AKA a raster mask from index and clip it with the vectorize_output_shp from qgis
     with rasterio.open(dst_filename) as foo_fighter:
-        out_image, out_transform = mask(foo_fighter, vectorize_output_shp_reproj, crop=False)
+        out_image, out_transform = mask(foo_fighter, vectorize_output_shp_reproj, crop=False, nodata=-9999)
         out_meta = foo_fighter.meta
     out_meta.update({"driver": "GTiff",
                          "height": height,
                          "width": width,
                          "transform": src.transform,
-                         "crs": src.crs})
+                         "crs": src.crs,
+                         "nodata": -9999})
     #save and clip raster index mask as file
     pearson_staging = cwd + "/data/ppt_pearson_output/ppt_pearson_output_"
     pearson_output_path = pearson_staging + year + tif

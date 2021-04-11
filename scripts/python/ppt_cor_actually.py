@@ -9,6 +9,7 @@ from osgeo.gdalnumeric import *
 from osgeo.gdalconst import *
 import os
 from glob import glob
+from sklearn.preprocessing import normalize
 
 #avoid annoying PROJ_LIB error
 #os.environ["PROJ_LIB"]="/Applications/QGIS.app/Contents/Resources/proj"
@@ -36,63 +37,29 @@ for example_tif, index_tif in zip(ppt_bil2tif_resize_list,ppt_pearson_output_lis
     height = 621
     with rasterio.open(example_tif, mode="r+") as src:
         ppt_raster = src.read(1, out_shape=(1, int(height), int(width)))
-        #ppt_raster[ppt_raster == -9999] = 0
-        print(ppt_raster)
     #load in 1981 index mask raster tif, output from ppt_cor.py located in /data/ppt_pearson_output/
     width = 1405
     height = 621
     with rasterio.open(index_tif) as src:
         index_raster = src.read(1, out_shape=(1, int(height), int(width)))
-        #index_raster[index_raster == 0] = -9999
-        print(index_raster)
     print(index_raster.shape)
     print(index_raster.dtype)
-    #set some pandas display options
-    #pd.set_option('display.max_rows', 1500)
-    #pd.set_option('display.max_columns', 1500)
-    #pd.set_option('display.width', 1500)
-    #loop over both rasterios and conduct corr on moving 3x2 window each cell, append to list to make list of lists
-    rolling_corr1_lst_stkd = []
-    for x, i in zip(ppt_raster, index_raster): 
-        #create lists to hold precipitation raster values
-        corr1 = []
-        corr2 = []
-        for xx, ii in zip(x, i):
-            corr1.append(xx)
-            corr2.append(ii)
-        
-        #list to panda dataframe
-        df1 = pd.DataFrame(corr1)
-        df2 = pd.DataFrame(corr2)
-        #rolling correlation pandas (3Row by 2 Columns)
-        rolling_corr1 = df1.rolling(3).corr(df2)
-        #create list from pandas dataframe from rolling correlation output
-        rolling_corr1_lst = rolling_corr1.values.tolist()
-        rolling_corr1_lst_stkd.append(rolling_corr1_lst)
-    #unravel list of lists: rolling_corr1_lst_stkd
-    unraveling = []
-    for i in rolling_corr1_lst_stkd:
-        for idx,ii in enumerate(i):
-            unraveling.append(ii)
-            #print(idx)
-            print(ii)
-
-    npa = np.asarray(unraveling, dtype=np.float32)
-    #array scaled by 100,000
-    scaled_array = np.multiply(npa, 100000)
-    arr = scaled_array.astype('float32') 
+    #create one big ol list of the two numppy arrays
+    ppt_raster_list = np.concatenate(ppt_raster).ravel().tolist()
+    index_raster_list = np.concatenate(index_raster).ravel().tolist()
+    df1 = pd.DataFrame(ppt_raster_list)
+    df2 = pd.DataFrame(index_raster_list)
+    #rolling correlation pandas (4Row by 2 Columns)
+    rolling_corr1 = df1.rolling(4).corr(df2)
+    rolling_corr1_lst = rolling_corr1.values.tolist()
+    npa = np.asarray(rolling_corr1_lst, dtype=np.float32)
     #reshape
-    newarr = arr.reshape(621, 1405)
-    
-    #set nan
-    newarr[newarr == 0] = 'nan'
-    newarr2 = np.nan_to_num(x=newarr,nan=-9999,
-        posinf=.00001,neginf=-.00001
-        )
-    newarr2[newarr2 == -.00001] = 'nan'
-    newarr2[newarr2 == .00001] = 'nan'
-
-
+    newarr = npa.reshape(621, 1405)
+    newarr2 = np.nan_to_num(x=newarr,nan=-9999,posinf=.00001,neginf=-.00001)
+    newarr2[newarr2 == .00001] = -9999
+    newarr2[newarr2 == -.00001] = -9999
+    newarr2[newarr2 == 1] = -9999
+    newarr2[newarr2 == -1] = -9999
 
     #reshaped_flat_list_nan2num = np.nan_to_num(reshaped_flat_list)
     with rasterio.open(example_tif) as src:
