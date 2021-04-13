@@ -8,7 +8,6 @@ import dialog from '../dialog'
 const bar = new Bar();
 map.addControl(bar);
 
-console.log(bar)
 const editbar = new Bar({
   toggleOne: true
 });

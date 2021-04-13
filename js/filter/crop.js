@@ -8,4 +8,4 @@ import Crop from 'ol-ext/filter/Crop'
 
 const f = new Feature(new Polygon(dep.geometry.coordinates));
 const crop = new Crop({ feature: f, inner:true });
-osm.addFilter(crop);
+//osm.addFilter(crop);

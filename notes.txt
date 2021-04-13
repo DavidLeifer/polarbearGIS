@@ -207,9 +207,12 @@ chmod u+x pipeline.sh
 /Applications/QGIS.app/Contents/MacOS/bin/python3.7 
 /Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/panda_testing/pandamoniumGIS/scripts/python/ppt_cor.py
 
+#0.0004
+
+
 git init
 git add .
-git commit -m "commit 62"
+git commit -m "commit 63"
 git remote add origin https://github.com/DavidLeifer/polarbearGIS.git
 git push -u origin main
 
