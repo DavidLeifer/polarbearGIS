@@ -42,9 +42,6 @@ os.mkdir(output_msk_dir)
 #make the dir to hold the clipped index data
 output_clipped_index_dir = cwd + '/data/ppt_pearson_output/'
 os.mkdir(output_clipped_index_dir)
-#make the dir to hold the reprojected clipped index data
-#output_reproj_clipped_index_dir = cwd + '/data/reproj_pearson_output/'
-#os.mkdir(output_reproj_clipped_index_dir)
 
 #https://geohackweek.github.io/raster/04-workingwithrasters/
 for file in ppt_file_list:
