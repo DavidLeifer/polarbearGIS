@@ -209,7 +209,7 @@ chmod u+x pipeline.sh
 
 git init
 git add .
-git commit -m "commit 64"
+git commit -m "order 66 lol"
 git remote add origin https://github.com/DavidLeifer/polarbearGIS.git
 git push -u origin main
 

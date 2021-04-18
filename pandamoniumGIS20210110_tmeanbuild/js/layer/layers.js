@@ -8,29 +8,34 @@ import LayerGroup from 'ol/layer/Group'
 import View from 'ol/View';
 import XYZ from 'ol/source/XYZ';
 
-const year1981 = new TileLayer({
-    title: '1981 Jan Correlation',
+//set up the url
+const xyz_url = "https://www.davidjleifer.com/tmean_cor_xyz/tmean_cor_xyz_tmean_pearson_final_"
+const xyz_ending = "/{z}/{x}/{y}.png"
+//create year array to hold years between 1981 and 2014
+const year = [];
+for (var i = 1981; i <= 2014; i++) {
+    year.push(i);
+}
+
+//create xyz_year to hold array of url strings
+const xyz_year = [];
+for (var ii in year){
+  var staged = xyz_url + year[ii] + xyz_ending;
+  xyz_year.push(staged);
+};
+
+//create array all_tile_layers to hold all the tile layers
+//loop over xyz_year and year arrays
+const all_tile_layers = []
+xyz_year.forEach((iii, index) => {
+  const num2 = year[index];
+  const staged_tile_layer = new TileLayer({
+    title: num2 + ' Jan Correlation',
     source: new XYZ({
-    url: "https://www.davidjleifer.com/tmean_cor_xyz/tmean_cor_xyz_tmean_pearson_final_1981/{z}/{x}/{y}.png",
+    url: iii,
     }),
-});
-const year1991 = new TileLayer({
-    title: '1991 Jan Correlation',
-    source: new XYZ({
-    url: "https://www.davidjleifer.com/tmean_cor_xyz/tmean_cor_xyz_tmean_pearson_final_1991/{z}/{x}/{y}.png",
-    }),
-});
-const year2001 = new TileLayer({
-    title: '2001 Jan Correlation',
-    source: new XYZ({
-    url: "https://www.davidjleifer.com/tmean_cor_xyz/tmean_cor_xyz_tmean_pearson_final_2001/{z}/{x}/{y}.png",
-    }),
-});
-const year2011 = new TileLayer({
-    title: '2011 Jan Correlation',
-    source: new XYZ({
-    url: "https://www.davidjleifer.com/tmean_cor_xyz/tmean_cor_xyz_tmean_pearson_final_2011/{z}/{x}/{y}.png",
-    }),
+  });
+  all_tile_layers.push(staged_tile_layer);
 });
 
 /* OSM layer */
@@ -41,17 +46,13 @@ const osm = new TileLayer({
 
 /* Add to map */
 map.addLayer(osm);
-map.addLayer(year1981);
-//map.addLayer(year1991);
-//map.addLayer(year2001);
-//map.addLayer(year2011);
-
+map.addLayer(all_tile_layers[0]);
 $(function() {
     $( "#slider" ).slider({
         value:3,
-        step: 10,
+        step: 1,
         min: 1981,
-        max: 2011,
+        max: 2014,
        slide: function( event, ui ) {
           $( "#minbeds" ).val( ui.value );
        }    
@@ -61,44 +62,17 @@ $(function() {
 
 
 $(document).ready(function(){
- $("#slider").on("slide", function(event, ui){
-   var v = ui.value;
-   console.log(ui.value);
-   if(v == "1981"){
-      console.log("1981");
-      map.removeLayer(year1991);
-      map.removeLayer(year2001);
-      map.removeLayer(year2011);
-      map.addLayer(year1981);
-   }
-   else if (v == "1991"){
-      map.removeLayer(year1981);
-      map.removeLayer(year1991);
-      map.removeLayer(year2001);
-      map.removeLayer(year2011);
-      map.addLayer(year1991);
-      console.log("1991");
+  $("#slider").on("slide", function(event, ui){
+    var v = ui.value;
+    Object.keys(all_tile_layers).forEach(function(key){
+      if (v == year[key]){
+        map.addLayer(all_tile_layers[key]);
       }
-    else if (v == "2001"){
-      map.removeLayer(year1981);
-      map.removeLayer(year1991);
-      map.removeLayer(year2001);
-      map.removeLayer(year2011);
-      map.addLayer(year2001);
-      console.log("2001");
+      else {
+        map.removeLayer(all_tile_layers[key]);
       }
-    else if (v == "2011"){
-      map.removeLayer(year1981);
-      map.removeLayer(year1991);
-      map.removeLayer(year2001);
-      map.removeLayer(year2011);
-      map.addLayer(year2011);
-      console.log("2011");
-      }
-    else{
-      console.log("Fuckified");
-   } 
+    });
  });
 });
 
-export {year1981, year1991, year2001, year2011, osm}
+export {all_tile_layers, osm}

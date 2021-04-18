@@ -25,16 +25,18 @@ for (var ii in year){
 };
 
 //create array all_tile_layers to hold all the tile layers
+//loop over xyz_year and year arrays
 const all_tile_layers = []
-for (var iii in xyz_year){
+xyz_year.forEach((iii, index) => {
+  const num2 = year[index];
   const staged_tile_layer = new TileLayer({
-    title: '1981 Jan Correlation',
+    title: num2 + ' Jan Correlation',
     source: new XYZ({
-    url: xyz_year[iii],
+    url: iii,
     }),
   });
   all_tile_layers.push(staged_tile_layer);
-};
+});
 
 /* OSM layer */
 const osm = new TileLayer({
@@ -45,9 +47,6 @@ const osm = new TileLayer({
 /* Add to map */
 map.addLayer(osm);
 map.addLayer(all_tile_layers[0]);
-//map.addLayer(year1991);
-//map.addLayer(year2001);
-//map.addLayer(year2011);
 $(function() {
     $( "#slider" ).slider({
         value:3,
