@@ -91,7 +91,7 @@ sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=dow
 sudo unzip xyz-timeseries-data
 sudo rm xyz-timeseries-data
 
-#pandamoniumGIS20210110_tmeanbuild-dist
+#pandamoniumGIS20210110_tmeanbuild
 https://drive.google.com/file/d/1wFbGzUJxpcVoqAvCf6h-_dVFd950c8se/view?usp=sharing
 
 sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1wFbGzUJxpcVoqAvCf6h-_dVFd950c8se' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1wFbGzUJxpcVoqAvCf6h-_dVFd950c8se" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
@@ -204,7 +204,7 @@ chmod u+x pipeline.sh
 
 #raterio docs https://readthedocs.org/projects/rasterio/downloads/pdf/latest/
 /Library/Frameworks/Python.framework/Versions/3.6/Resources/Python.app/Contents/MacOS/Python
-/Applications/QGIS.app/Contents/MacOS/bin/python3.7 
+/Applications/QGIS.app/Contents/MacOS/bin/python3.7
 /Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/panda_testing/pandamoniumGIS/scripts/python/ppt_cor.py
 
 git init
