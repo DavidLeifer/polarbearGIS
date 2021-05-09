@@ -36,34 +36,37 @@ sudo tar -xf R-4.0.4.tar.gz
 cd R-4.0.4
 sudo ./configure --with-readline=no --with-x=no --with-pcre1
 sudo make
+#let them eat cake
+cd doc
+sudo sudo touch NEWS.2.rds NEWS.3.rds
+cd ..
 sudo make install
 R
 install.packages("rgeos")
 yes
 yes
-71
+75
 install.packages("spatialEco", INSTALL_opts = '--no-lock')
 install.packages("RCurl")
 quit()
 n
-cd ..
 
 #make some folders to store the data
 sudo mkdir data
 cd data
 sudo mkdir ppt
-cd ..
 sudo mkdir tmean
 cd ..
-DATA_PATH="~/polarbearGIS/scripts/rscripts_tmean"
+#set up the paths
+DATA_PATH=$(pwd)
 export VARIABLENAME=$DATA_PATH
 
 #set up R script paths
-SCRIPT_PATH_PLUS_PPT="$VARIABLENAME/download_prism_data.R"
-SCRIPT_PATH_PLUS1_PPT="$VARIABLENAME/download_prism_data1.R"
-SCRIPT_PATH_PLUS2_PPT="$VARIABLENAME/download_prism_data2.R"
-SCRIPT_PATH_PLUS3_PPT="$VARIABLENAME/download_prism_data3.R"
-SCRIPT_PATH_PLUS4__PPT="$VARIABLENAME/download_prism_data4.R"
+SCRIPT_PATH_PLUS_PPT="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data.R"
+SCRIPT_PATH_PLUS1_PPT="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data1.R"
+SCRIPT_PATH_PLUS2_PPT="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data2.R"
+SCRIPT_PATH_PLUS3_PPT="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data3.R"
+SCRIPT_PATH_PLUS4__PPT="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data4.R"
 
 #run the download scripts
 Rscript $SCRIPT_PATH_PLUS_PPT

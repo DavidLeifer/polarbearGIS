@@ -15,7 +15,7 @@ dates <- c('1981/1/1', '1982/1/1', '1983/1/1', '1984/1/1',
            '1989/1/1')           
            #dates 81-89
 PATH <- Sys.getenv("VARIABLENAME")
-PATH_WALKER <- paste(PATH, '/data/tmean/')
+PATH_WALKER <- paste(PATH, '/data/tmean/',sep="")
 print(PATH_WALKER)
 for(i in dates){
   print(i)
