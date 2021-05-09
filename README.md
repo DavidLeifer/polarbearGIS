@@ -4,9 +4,11 @@ pipeline for GIS climate raster data </br>
 ### TLDR
 Overall goal is to have it down to a single bash script that </br> automatically installs the R, python, and npm li/braries, downloads </br> the data from Prism, does analysis with python, creates four npm web </br> applications that display climate and weather data. </br>
 
-(Eventual) USAGE</br>
+(Eventual) USAGE ON DEBIAN</br>
 clone directory structure from git</br>
-git clone https://github.com/DavidLeifer/polarbearGIS.git</br>
+sudo apt update</br>
+sudo apt install git</br>
+sudo git clone https://github.com/DavidLeifer/polarbearGIS.git</br>
 cd polarbearGIS</br>
 chmod u+x pipeline.sh</br>
 ./pipeline.sh</br>

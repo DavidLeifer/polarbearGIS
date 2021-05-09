@@ -1,34 +1,72 @@
 #!/bin/bash
-#!/usr/bin/env Rscript
-
-#clone directory structure from git
-#git clone https://github.com/DavidLeifer/pandamoniumGIS.git
-#cd pandamoniumGIS
 
 echo begin
 
-#download R packages for linux DONT TEST UNTIL ON LINUX
-#sudo apt update
-#sudo apt install r-base
-#sudo apt build-dep r-base
+#install the correct libraries
+sudo apt update
+sudo apt-get install wget
+sudo apt install build-essential
+sudo apt install gfortran
+sudo apt install zlib1g zlib1g-dev
+sudo apt-get install liblzma-dev
+sudo apt install pcre2-utils
+sudo apt-get install libpcre++-dev
+sudo apt-get install libcurl4-openssl-dev
+sudo apt-get install default-jdk
+sudo apt-get install texlive-full
+#remove unneeded stuff from texlive
+sudo rm -R /usr/share/texlive/texmf-dist/fonts
+sudo rm -R /usr/share/texlive/texmf-dist/doc
+#back to downloading libs
+sudo apt-get clean; sudo apt-get autoclean
+sudo apt-get install dpkg
+sudo dpkg --configure -a
+#sudo apt --fix-broken install
+sudo apt-get clean; sudo apt-get autoclean
+sudo apt install libgeos-dev
+sudo apt install libudunits2-dev
+sudo apt install libgdal-dev
+sudo apt-get install libbz2-dev
 
-#set Bash variable for use within R script
+cd ..
+
+#install R on Debian compile from source and install some libs
+sudo wget https://cran.rstudio.com/src/base/R-4/R-4.0.4.tar.gz
+sudo tar -xf R-4.0.4.tar.gz
+cd R-4.0.4
+sudo ./configure --with-readline=no --with-x=no --with-pcre1
+sudo make
+sudo make install
+R
+install.packages("rgeos")
+yes
+yes
+71
+install.packages("spatialEco", INSTALL_opts = '--no-lock')
+install.packages("RCurl")
+quit()
+n
+cd ..
+
+#make some folders to store the data
+sudo mkdir data
 cd data
-cd ppt
-DATA_PATH=$(pwd)
+sudo mkdir ppt
+cd ..
+sudo mkdir tmean
+cd ..
+DATA_PATH="~/polarbearGIS/scripts/rscripts_tmean"
 export VARIABLENAME=$DATA_PATH
-#return to pandamoniumGIS parent dir
-cd ..
-cd ..
+
 #set up R script paths
-SCRIPT_PATH=$(pwd)
-SCRIPT_PATH_PLUS_PPT="$SCRIPT_PATH/scripts/rscripts_ppt/download_prism_data.R"
-SCRIPT_PATH_PLUS1_PPT="$SCRIPT_PATH/scripts/rscripts_ppt/download_prism_data1.R"
-SCRIPT_PATH_PLUS2_PPT="$SCRIPT_PATH/scripts/rscripts_ppt/download_prism_data2.R"
-SCRIPT_PATH_PLUS3_PPT="$SCRIPT_PATH/scripts/rscripts_ppt/download_prism_data3.R"
-SCRIPT_PATH_PLUS4__PPT="$SCRIPT_PATH/scripts/rscripts_ppt/download_prism_data4.R"
+SCRIPT_PATH_PLUS_PPT="$VARIABLENAME/download_prism_data.R"
+SCRIPT_PATH_PLUS1_PPT="$VARIABLENAME/download_prism_data1.R"
+SCRIPT_PATH_PLUS2_PPT="$VARIABLENAME/download_prism_data2.R"
+SCRIPT_PATH_PLUS3_PPT="$VARIABLENAME/download_prism_data3.R"
+SCRIPT_PATH_PLUS4__PPT="$VARIABLENAME/download_prism_data4.R"
+
 #run the download scripts
-/usr/local/bin/Rscript $SCRIPT_PATH_PLUS_PPT
+Rscript $SCRIPT_PATH_PLUS_PPT
 /usr/local/bin/Rscript $SCRIPT_PATH_PLUS1_PPT
 /usr/local/bin/Rscript $SCRIPT_PATH_PLUS2_PPT
 /usr/local/bin/Rscript $SCRIPT_PATH_PLUS3_PPT
