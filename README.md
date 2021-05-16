@@ -13,14 +13,11 @@ cd polarbearGIS</br>
 chmod u+x pipeline.sh</br>
 ./pipeline.sh</br>
 
-# Progress as of 03/12/2021:
+# Progress as of 05/17/2021:
 
 ## Step 1: Download Data With R: Complete
-Runs 10 R scripts to download data from Oregon St Prism to tmean and ppt folders in the data directory. </br>
+Runs 2 R scripts to download data from Oregon St Prism to tmean and ppt folders in the data directory. </br>
 This is 33 years of ppt and tmean across the US, 1981-2014. </br>
-Why 10 scripts? We're using the unofficial Prism download API, official one </br>
-didn't exist in early 2019 when I wrote it.</br>
-First bash script runs up to here.</br>
 
 ## Step 2: Run Analysis with Python
 ### Section 1: Complete
@@ -44,12 +41,11 @@ Run ppt_bil2tif_LaElNeu_analysis.py to output average ppt and tmean for all the 
 /data/tmeanJanNeutral/tmeanJanNeutral.tif </br>
 These are converted to XYZ tiles and displayed in Section 2 of the web application (with explanation). </br>
 
-
 ### Section 3: Complete
 Run both ppt_ANOVA_analysis.py and tmean_ANOVA_analysis.py to output ANOVA values in /data/ppt_ANOVA_output.txt and /data/tmean_ANOVA_output.txt. </br>
 TODO: Not sure where to display these tbh</br>
 
-### Section 4: Completed
+### Section 4: Complete
 Create npm OL radar data web application set between Jan 28th and Feb 7th 2019 (maybe play with the speed setting) Status: Complete </br>
 Collect twitter data on the Polar Vortex in Jan 2019. Status: Complete </br>
 2 year old thesis script Part 1: pull profile location data for all the tweets using tweepy (old script used a hack) Status: Complete </br>
@@ -60,14 +56,14 @@ Group points into increments of 15 minutes (created_at field), select a splice o
 Make a time-aware OL layer in JS and link it with the radar imagery. Status: Complete </br>
 
 
-## Step 3: Web Appliction
+## Step 3: Web Appliction: Complete
 ### Landing Page: Basic html resizeable columns with pics as links to the three pages as described below.
-Basically this: https://css-tricks.com/creating-a-modal-image-gallery-with-bootstrap-components/ </br>
+</br>
 ### Page 1: Moving Pearson Correlation Tmean
 </br>Use Step 2 Section 1 XYZ tiles and use as input to OpenLayers/npm/node/bundler web app that allows you to click through the years.
 ### Page 2: Moving Pearson Correlation PPT
 </br>Use Step 2 Section 1 XYZ tiles and use as input to OpenLayers/npm/node/bundler web app that allows you to click through the years. </br>
-### Page 3: ppt and tmean 33 year mean XYZ tiles for el nino, la nina, neutral winters (from part 2, section 2) results in six xyz tiles
+### Page 3: ppt and tmean 33 year mean XYZ tiles for el nino, la nina, neutral winters (from part 2, section 2)
 ### Page 4: Sentiment Analysis of people's opinion during a storm along side the path of the storm
 
 

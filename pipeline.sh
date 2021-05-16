@@ -5,56 +5,20 @@ echo begin
 #install the correct libraries
 sudo apt update
 sudo apt-get install wget
+
+sudo apt install dirmngr apt-transport-https ca-certificates software-properties-common gnupg2
+sudo apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF'
+sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/debian buster-cran35/'
+sudo apt install r-base
 sudo apt install build-essential
-sudo apt install gfortran
-sudo apt install zlib1g zlib1g-dev
-sudo apt-get install liblzma-dev
-sudo apt install pcre2-utils
-sudo apt-get install libpcre++-dev
-sudo apt-get install libcurl4-openssl-dev
-sudo apt-get install default-jdk
-sudo apt-get install texlive-full
-#remove unneeded stuff from texlive
-sudo rm -R /usr/share/texlive/texmf-dist/fonts
-sudo rm -R /usr/share/texlive/texmf-dist/doc
-#back to downloading libs
-sudo apt-get clean; sudo apt-get autoclean
-sudo apt-get install dpkg
-sudo dpkg --configure -a
-#sudo apt --fix-broken install
-sudo apt-get clean; sudo apt-get autoclean
-sudo apt install libgeos-dev
-sudo apt install libudunits2-dev
-sudo apt install libgdal-dev
-sudo apt-get install libbz2-dev
+sudo apt-get install libcurl4-openssl-dev libssl-dev
 
-cd ..
 
-#install R on Debian compile from source and install some libs
-sudo wget https://cran.rstudio.com/src/base/R-4/R-4.0.4.tar.gz
-sudo tar -xf R-4.0.4.tar.gz
-cd R-4.0.4
-sudo ./configure --with-readline=no --with-x=no --with-pcre1
-sudo make
-#let them eat cake
-cd doc
-sudo sudo touch NEWS.2.rds NEWS.3.rds
-cd ..
-sudo make install
 #run R and install the packages, might as well makes this its own R script
-sudo R
-install.packages("rgeos")
-yes
-yes
-75
-install.packages("spatialEco", INSTALL_opts = '--no-lock')
-install.packages("RCurl")
+R
 install.packages("prism")
 quit()
-n
-#return to polarbearGIS dir
-cd ..
-cd polarbearGIS
+
 #make some folders to store the data
 sudo mkdir data
 cd data
