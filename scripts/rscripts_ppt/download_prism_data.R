@@ -1,5 +1,3 @@
-install.packages("prism")
-
 library(prism)
 
 cwd <- getwd()

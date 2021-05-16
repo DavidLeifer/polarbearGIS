@@ -96,9 +96,6 @@ export LD_LIBRARY_PATH=/usr/local/lib
 ## Check if it works
 gdalinfo --version
 
-
-/home/davleifer/polarbearGIS/
-
 #make path variables to python scripts
 PATH_PLUS_PPT_LaElNeu="$VARIABLENAME/scripts/python/ppt_bil2tif_LaElNeu_analysis.py"
 PATH_PLUS_TMEAN_LaElNeu="$VARIABLENAME/scripts/python/tmean_bil2tif_LaElNeu_analysis.py"
