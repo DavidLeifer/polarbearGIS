@@ -13,7 +13,7 @@ from osgeo import osr
 
 cwd = os.getcwd()
 #nino index
-df = pd.read_excel(cwd + '/data/nino34.xlsx', sheet_name='Sheet1')
+df = pd.read_csv(cwd + '/data/nino34.csv')
 #el nino
 elnino = df[df['Index'] > .5]
 #la nina
@@ -24,9 +24,17 @@ great = df['Index'] > -0.5
 neither = df[less & great]
 
 #create list of el nino files based on year from elnino varible
-data_dir = cwd + '/data/tmean/'
-file_list = glob(os.path.join(data_dir, '*.bil'))
-df2 = pd.DataFrame(file_list)
+data_dir = cwd + '/data/tmean/*'
+data_dir_list = glob(data_dir)
+
+#create a list of bil paths from each sub folder
+folder_bil_list = []
+for i in data_dir_list:
+    folder_bil = glob(os.path.join(i, '*.bil'))
+    folder_bil_list.append(folder_bil)
+
+#see if year is in folder_bil_list
+df2 = pd.DataFrame(folder_bil_list)
 elnino_list = elnino['Year'].tolist()
 df4 = []
 for nin in elnino_list:
@@ -45,7 +53,7 @@ array_list = [read_file(x) for x in elninolist2]
 array_out = np.mean(array_list, axis=0)
 #create gdal variable example map to get transformation and projection from
 
-example_tif = cwd + "/data/timeseries_19910101.tif"
+example_tif = cwd + "/data/tmean/PRISM_tmean_stable_4kmM3_201001_bil/PRISM_tmean_stable_4kmM3_201001_bil.bil"
 data0 = gdal.Open(example_tif)
 #https://gis.stackexchange.com/questions/37238/writing-numpy-array-to-raster-file
 #write array with gdal
@@ -67,9 +75,7 @@ band=None
 dataset=None
 
 #create list of la nina files based on year from lanina varible
-data_dir = cwd + '/data/tmean/'
-file_list = glob(os.path.join(data_dir, '*.bil'))
-df2 = pd.DataFrame(file_list)
+df2 = pd.DataFrame(folder_bil_list)
 lanina_list = lanina['Year'].tolist()
 df4 = []
 for lan in lanina_list:
@@ -82,9 +88,6 @@ lanina_list2 = df5[0].tolist()
 array_list = [read_file(x) for x in lanina_list2]
 # Perform averaging
 array_out = np.mean(array_list, axis=0)
-#set example tif
-example_tif = cwd + "/data/timeseries_19910101.tif"
-data0 = gdal.Open(example_tif)
 #https://gis.stackexchange.com/questions/37238/writing-numpy-array-to-raster-file
 #write array with gdal
 dst_filename = cwd + '/data/tmeanJanLANin/tmeanJanLANin.tif'
@@ -105,9 +108,7 @@ band=None
 dataset=None
 
 #create list of neither files based on year from neither varible
-data_dir = cwd + '/data/tmean/'
-file_list = glob(os.path.join(data_dir, '*.bil'))
-df2 = pd.DataFrame(file_list)
+df2 = pd.DataFrame(folder_bil_list)
 neither_list = neither['Year'].tolist()
 df4 = []
 for nei in neither_list:
@@ -120,9 +121,6 @@ neither_list2 = df5[0].tolist()
 array_list = [read_file(x) for x in neither_list2]
 # Perform averaging
 array_out = np.mean(array_list, axis=0)
-#set example tif
-example_tif = cwd + "/data/timeseries_19910101.tif"
-data0 = gdal.Open(example_tif)
 #https://gis.stackexchange.com/questions/37238/writing-numpy-array-to-raster-file
 #write array with gdal
 dst_filename = cwd + '/data/tmeanJanNeutral/tmeanJanNeutral.tif'

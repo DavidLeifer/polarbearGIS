@@ -34,9 +34,9 @@ sudo mkdir tmean
 sudo mkdir pptJanELNin
 sudo mkdir pptJanLANin
 sudo mkdir pptJanNeutral
-
-cd tmean
-cd ..
+sudo mkdir tmeanJanELNin
+sudo mkdir tmeanJanLANin
+sudo mkdir tmeanJanNeutral
 cd ..
 
 #set up the paths
@@ -81,6 +81,7 @@ PATH_PLUS_PPT_LaElNeu="$VARIABLENAME/scripts/python/ppt_bil2tif_LaElNeu_analysis
 PATH_PLUS_TMEAN_LaElNeu="$VARIABLENAME/scripts/python/tmean_bil2tif_LaElNeu_analysis.py"
 PATH_PLUS_PPT_ANOVA="$VARIABLENAME/scripts/python/ppt_ANOVA_analysis.py"
 PATH_PLUS_TMEAN_ANOVA="$VARIABLENAME/scripts/python/tmean_ANOVA_analysis.py"
+
 TIF2XYZ="$VARIABLENAME/scripts/python/tif2XYZ.py"
 PPT_COR="$VARIABLENAME/scripts/python/ppt_cor.py"
 TMEAN_COR="$VARIABLENAME/scripts/python/tmean_cor.py"

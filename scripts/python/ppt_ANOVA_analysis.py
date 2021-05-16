@@ -16,7 +16,7 @@ def read_file(file):
 
 cwd = os.getcwd()
 #nino index
-df = pd.read_excel(cwd + '/data/nino34.xlsx', sheet_name='Sheet1')
+df = pd.read_csv(cwd + '/data/nino34.csv')
 #el nino
 elnino = df[df['Index'] > .5]
 #la nina
@@ -27,9 +27,15 @@ great = df['Index'] > -0.5
 neither = df[less & great]
 
 #create list of el nino files based on year from elnino varible
-data_dir = cwd + '/data/ppt'
-file_list = glob(os.path.join(data_dir, '*.bil'))
-df2 = pd.DataFrame(file_list)
+data_dir = cwd + '/data/ppt/*'
+data_dir_list = glob(data_dir)
+#create a list of bil paths from each sub folder
+folder_bil_list = []
+for i in data_dir_list:
+    folder_bil = glob(os.path.join(i, '*.bil'))
+    folder_bil_list.append(folder_bil)
+#create list of el nino files based on year from elnino varible
+df2 = pd.DataFrame(folder_bil_list)
 elnino_list = elnino['Year'].tolist()
 df4 = []
 for nin in elnino_list:
@@ -39,7 +45,7 @@ df5 = pd.concat(df4)
 elninolist2 = df5[0].tolist()
 
 #create list of la nina files based on year from lanina varible
-df2 = pd.DataFrame(file_list)
+df2 = pd.DataFrame(folder_bil_list)
 lanina_list = lanina['Year'].tolist()
 df4 = []
 for lan in lanina_list:
@@ -49,7 +55,7 @@ df5 = pd.concat(df4)
 lanina_list2 = df5[0].tolist()
 
 #create list of neither files based on year from neither varible
-df2 = pd.DataFrame(file_list)
+df2 = pd.DataFrame(folder_bil_list)
 neither_list = neither['Year'].tolist()
 df4 = []
 for nei in neither_list:
