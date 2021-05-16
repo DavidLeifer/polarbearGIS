@@ -41,6 +41,7 @@ cd doc
 sudo sudo touch NEWS.2.rds NEWS.3.rds
 cd ..
 sudo make install
+#run R and install the packages, might as well makes this its own R script
 R
 install.packages("rgeos")
 yes
@@ -50,55 +51,48 @@ install.packages("spatialEco", INSTALL_opts = '--no-lock')
 install.packages("RCurl")
 quit()
 n
-
+#return to polarbearGIS dir
+cd ..
+cd polarbearGIS
 #make some folders to store the data
 sudo mkdir data
 cd data
 sudo mkdir ppt
 sudo mkdir tmean
+cd tmean
 cd ..
+cd ..
+
 #set up the paths
 DATA_PATH=$(pwd)
 export VARIABLENAME=$DATA_PATH
 
-#set up R script paths
-SCRIPT_PATH_PLUS_PPT="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data.R"
-SCRIPT_PATH_PLUS1_PPT="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data1.R"
-SCRIPT_PATH_PLUS2_PPT="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data2.R"
-SCRIPT_PATH_PLUS3_PPT="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data3.R"
-SCRIPT_PATH_PLUS4__PPT="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data4.R"
+#set up tmean R script paths
+SCRIPT_PATH_PLUS1_TMEAN="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data.R"
+SCRIPT_PATH_PLUS1_TMEAN="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data1.R"
+SCRIPT_PATH_PLUS2_TMEAN="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data2.R"
+SCRIPT_PATH_PLUS3_TMEAN="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data3.R"
+SCRIPT_PATH_PLUS4__TMEAN="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data4.R"
+#set up ppt R script paths
+SCRIPT_PATH_PLUS_PPT="$VARIABLENAME/scripts/rscripts_ppt/download_prism_data.R"
+SCRIPT_PATH_PLUS1_PPT="$VARIABLENAME/scripts/rscripts_ppt/download_prism_data1.R"
+SCRIPT_PATH_PLUS2_PPT="$VARIABLENAME/scripts/rscripts_ppt/download_prism_data2.R"
+SCRIPT_PATH_PLUS3_PPT="$VARIABLENAME/scripts/rscripts_ppt/download_prism_data3.R"
+SCRIPT_PATH_PLUS4__PPT="$VARIABLENAME/scripts/rscripts_ppt/download_prism_data4.R"
 
 #run the download scripts
-Rscript $SCRIPT_PATH_PLUS_PPT
+/usr/local/bin/Rscript $SCRIPT_PATH_PLUS_PPT
+/usr/local/bin/Rscript $SCRIPT_PATH_PLUS1_TMEAN
+/usr/local/bin/Rscript $SCRIPT_PATH_PLUS2_TMEAN
+/usr/local/bin/Rscript $SCRIPT_PATH_PLUS3_TMEAN
+/usr/local/bin/Rscript $SCRIPT_PATH_PLUS4__TMEAN
+echo downloaded tmean data
 /usr/local/bin/Rscript $SCRIPT_PATH_PLUS1_PPT
 /usr/local/bin/Rscript $SCRIPT_PATH_PLUS2_PPT
 /usr/local/bin/Rscript $SCRIPT_PATH_PLUS3_PPT
 /usr/local/bin/Rscript $SCRIPT_PATH_PLUS4__PPT
 echo downloaded ppt data
 
-#set Bash variable for use within R script
-cd data
-cd tmean
-DATA_PATH2=$(pwd)
-export VARIABLENAME2=$DATA_PATH2
-#return to pandamoniumGIS parent dir
-cd ..
-cd ..
-#set up R script paths
-SCRIPT_PATH=$(pwd)
-SCRIPT_PATH_PLUS_TMEAN="$SCRIPT_PATH/scripts/rscripts_tmean/download_prism_data.R"
-SCRIPT_PATH_PLUS1_TMEAN="$SCRIPT_PATH/scripts/rscripts_tmean/download_prism_data1.R"
-SCRIPT_PATH_PLUS2_TMEAN="$SCRIPT_PATH/scripts/rscripts_tmean/download_prism_data2.R"
-SCRIPT_PATH_PLUS3_TMEAN="$SCRIPT_PATH/scripts/rscripts_tmean/download_prism_data3.R"
-SCRIPT_PATH_PLUS4_TMEAN="$SCRIPT_PATH/scripts/rscripts_tmean/download_prism_data4.R"
-#run the download scripts 
-#which Rscript
-/usr/local/bin/Rscript $SCRIPT_PATH_PLUS_TMEAN
-/usr/local/bin/Rscript $SCRIPT_PATH_PLUS1_TMEAN
-/usr/local/bin/Rscript $SCRIPT_PATH_PLUS2_TMEAN
-/usr/local/bin/Rscript $SCRIPT_PATH_PLUS3_TMEAN
-/usr/local/bin/Rscript $SCRIPT_PATH_PLUS4_TMEAN
-echo downloaded tmean data
 
 #TODO Compile QGIS from Dave Source with edited HTML output from
 #

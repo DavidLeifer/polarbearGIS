@@ -12,12 +12,12 @@ library(RCurl)
 dates3 <- c('2006/1/1', '2007/1/1', '2008/1/1',
            '2009/1/1', '2010/1/1', '2011/1/1', '2012/1/1')
 
-#bash variable
 PATH <- Sys.getenv("VARIABLENAME")
-#dates3 06-12
-for(i in dates3){
+PATH_WALKER <- paste(PATH, '/data/ppt/',sep="")
+print(PATH_WALKER)
+for(i in dates){
   print(i)
-  download.prism('ppt', date.range=(replicate(2, i)), time.step='monthly',
-                 download.folder = PATH,
+  download.prism('tmean', date.range=(replicate(2, i)), time.step='monthly',
+                 download.folder = PATH_WALKER,
                  by.year=FALSE)
 }
