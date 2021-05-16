@@ -42,13 +42,14 @@ sudo sudo touch NEWS.2.rds NEWS.3.rds
 cd ..
 sudo make install
 #run R and install the packages, might as well makes this its own R script
-R
+sudo R
 install.packages("rgeos")
 yes
 yes
 75
 install.packages("spatialEco", INSTALL_opts = '--no-lock')
 install.packages("RCurl")
+install.packages("prism")
 quit()
 n
 #return to polarbearGIS dir
@@ -69,28 +70,13 @@ export VARIABLENAME=$DATA_PATH
 
 #set up tmean R script paths
 SCRIPT_PATH_PLUS1_TMEAN="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data.R"
-SCRIPT_PATH_PLUS1_TMEAN="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data1.R"
-SCRIPT_PATH_PLUS2_TMEAN="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data2.R"
-SCRIPT_PATH_PLUS3_TMEAN="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data3.R"
-SCRIPT_PATH_PLUS4__TMEAN="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data4.R"
 #set up ppt R script paths
 SCRIPT_PATH_PLUS_PPT="$VARIABLENAME/scripts/rscripts_ppt/download_prism_data.R"
-SCRIPT_PATH_PLUS1_PPT="$VARIABLENAME/scripts/rscripts_ppt/download_prism_data1.R"
-SCRIPT_PATH_PLUS2_PPT="$VARIABLENAME/scripts/rscripts_ppt/download_prism_data2.R"
-SCRIPT_PATH_PLUS3_PPT="$VARIABLENAME/scripts/rscripts_ppt/download_prism_data3.R"
-SCRIPT_PATH_PLUS4__PPT="$VARIABLENAME/scripts/rscripts_ppt/download_prism_data4.R"
 
 #run the download scripts
-/usr/local/bin/Rscript $SCRIPT_PATH_PLUS_PPT
-/usr/local/bin/Rscript $SCRIPT_PATH_PLUS1_TMEAN
-/usr/local/bin/Rscript $SCRIPT_PATH_PLUS2_TMEAN
-/usr/local/bin/Rscript $SCRIPT_PATH_PLUS3_TMEAN
-/usr/local/bin/Rscript $SCRIPT_PATH_PLUS4__TMEAN
+sudo /usr/local/bin/Rscript $SCRIPT_PATH_PLUS_PPT
 echo downloaded tmean data
-/usr/local/bin/Rscript $SCRIPT_PATH_PLUS1_PPT
-/usr/local/bin/Rscript $SCRIPT_PATH_PLUS2_PPT
-/usr/local/bin/Rscript $SCRIPT_PATH_PLUS3_PPT
-/usr/local/bin/Rscript $SCRIPT_PATH_PLUS4__PPT
+sudo /usr/local/bin/Rscript $SCRIPT_PATH_PLUS1_PPT
 echo downloaded ppt data
 
 
