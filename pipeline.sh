@@ -75,6 +75,7 @@ sudo pip3 install guppy3
 sudo pip3 install --upgrade pip
 sudo pip3 install pyproj
 sudo pip3 install --global-option=build_ext --global-option="-I/usr/include/gdal" GDAL==`gdal-config --version`
+sudo pip3 install fiona
 
 #make path variables to python scripts
 PATH_PLUS_PPT_LaElNeu="$VARIABLENAME/scripts/python/ppt_bil2tif_LaElNeu_analysis.py"
@@ -82,9 +83,11 @@ PATH_PLUS_TMEAN_LaElNeu="$VARIABLENAME/scripts/python/tmean_bil2tif_LaElNeu_anal
 PATH_PLUS_PPT_ANOVA="$VARIABLENAME/scripts/python/ppt_ANOVA_analysis.py"
 PATH_PLUS_TMEAN_ANOVA="$VARIABLENAME/scripts/python/tmean_ANOVA_analysis.py"
 
-TIF2XYZ="$VARIABLENAME/scripts/python/tif2XYZ.py"
 PPT_COR="$VARIABLENAME/scripts/python/ppt_cor.py"
 TMEAN_COR="$VARIABLENAME/scripts/python/tmean_cor.py"
+
+TIF2XYZ="$VARIABLENAME/scripts/python/tif2XYZ.py"
+
 
 #Run the python scripts
 $QGIS_PYTHON_PATH $PATH_PLUS_PPT_LaElNeu

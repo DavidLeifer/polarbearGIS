@@ -6,8 +6,6 @@ from rasterio.transform import from_origin
 from rasterio.warp import calculate_default_transform, reproject, Resampling
 from rasterio.plot import show
 import fiona
-from shapely.geometry import shape
-import geopandas as gp
 import numpy as np
 import pandas as pd
 import pyproj
@@ -26,9 +24,16 @@ import sys
 #get current working dir
 cwd = os.getcwd()
 #read in index
-df = pd.read_excel(cwd + '/data/nino34.xlsx', sheet_name='Sheet1')
-ppt_data_dir = cwd + '/data/ppt/'
-ppt_file_list = glob(os.path.join(ppt_data_dir, '*.bil'))
+df = pd.read_csv(cwd + '/data/nino34.csv')
+#create list of folders
+data_dir = cwd + '/data/ppt/*'
+data_dir_list = glob(data_dir)
+#create a list of bil paths from each sub folder
+folder_bil_list = []
+for i in data_dir_list:
+    folder_bil = glob(os.path.join(i, '*.bil'))
+    str1 = ''.join(folder_bil)
+    folder_bil_list.append(str1)
 
 #transform is used 2 times
 #transform = from_origin(-125.020833333, 49.937500000, 0.0416666666666,0.0416666666666)
@@ -44,9 +49,10 @@ output_clipped_index_dir = cwd + '/data/ppt_pearson_output/'
 os.mkdir(output_clipped_index_dir)
 
 #https://geohackweek.github.io/raster/04-workingwithrasters/
-for file in ppt_file_list:
+for file in folder_bil_list:
     base = os.path.basename(file)
     year = base[23:27]
+    print(year)
 
     #save resized bil to tif
     width = 1405
