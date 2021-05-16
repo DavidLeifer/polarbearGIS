@@ -5,7 +5,7 @@ echo begin
 #install the correct libraries
 sudo apt update
 sudo apt-get install wget
-
+sudo apt install git
 sudo apt install dirmngr apt-transport-https ca-certificates software-properties-common gnupg2
 sudo apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF'
 sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/debian buster-cran35/'
@@ -38,9 +38,9 @@ SCRIPT_PATH_PLUS1_TMEAN="$VARIABLENAME/scripts/rscripts_tmean/download_prism_dat
 SCRIPT_PATH_PLUS_PPT="$VARIABLENAME/scripts/rscripts_ppt/download_prism_data.R"
 
 #run the download scripts
-sudo /usr/local/bin/Rscript $SCRIPT_PATH_PLUS_PPT
+Rscript $SCRIPT_PATH_PLUS_PPT
 echo downloaded tmean data
-sudo /usr/local/bin/Rscript $SCRIPT_PATH_PLUS1_PPT
+Rscript $SCRIPT_PATH_PLUS1_PPT
 echo downloaded ppt data
 
 
