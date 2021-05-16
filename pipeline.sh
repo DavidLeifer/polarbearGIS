@@ -12,10 +12,18 @@ sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/debian buster
 sudo apt install r-base
 sudo apt install build-essential
 sudo apt-get install libcurl4-openssl-dev libssl-dev
+sudo apt install python3-pip
+sudo add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
+
+
+#gdal install stuff
+sudo apt-get install libgdal-dev
+export CPLUS_INCLUDE_PATH=/usr/include/gdal
+export C_INCLUDE_PATH=/usr/include/gdal
 
 
 #run R and install the packages, might as well makes this its own R script
-R
+sudo R
 install.packages("prism")
 quit()
 
@@ -33,47 +41,47 @@ DATA_PATH=$(pwd)
 export VARIABLENAME=$DATA_PATH
 
 #set up tmean R script paths
-SCRIPT_PATH_PLUS1_TMEAN="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data.R"
+SCRIPT_PATH_PLUS_TMEAN="$VARIABLENAME/scripts/rscripts_tmean/download_prism_data.R"
 #set up ppt R script paths
 SCRIPT_PATH_PLUS_PPT="$VARIABLENAME/scripts/rscripts_ppt/download_prism_data.R"
 
 #run the download scripts
-Rscript $SCRIPT_PATH_PLUS_PPT
+sudo Rscript $SCRIPT_PATH_PLUS_TMEAN
 echo downloaded tmean data
-Rscript $SCRIPT_PATH_PLUS1_PPT
+sudo Rscript $SCRIPT_PATH_PLUS1_PPT
 echo downloaded ppt data
 
 
-#TODO Compile QGIS from Dave Source with edited HTML output from
-#
-#
-#
+#Compile QGIS from Source
+sudo apt install gnupg software-properties-common
+wget -qO - https://qgis.org/downloads/qgis-2020.gpg.key | sudo gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/qgis-archive.gpg --import
+sudo chmod a+r /etc/apt/trusted.gpg.d/qgis-archive.gpg
+sudo add-apt-repository "deb https://qgis.org/ubuntu $(lsb_release -c -s) main"
+sudo apt install qgis qgis-plugin-grass
 
 #reveals path for QGIS python
 #import sys
 #print(sys.executable)
 
 #install the python libraries to QGIS
-QGIS_PYTHON_PATH="/Applications/QGIS3.10.app/Contents/MacOS/bin/python3"
-$QGIS_PYTHON_PATH -m pip install rasterio
-$QGIS_PYTHON_PATH -m pip install numpy
-$QGIS_PYTHON_PATH -m pip install pandas
-$QGIS_PYTHON_PATH -m pip install pyproj
-$QGIS_PYTHON_PATH -m pip install seaborn
-$QGIS_PYTHON_PATH -m pip install scipy
-$QGIS_PYTHON_PATH -m pip install guppy3
+#QGIS_PYTHON_PATH="/usr/bin/python3"
+pip3 install rasterio
+pip3 install pandas
+pip3 install seaborn
+pip3 install guppy3
+pip3 install --upgrade pip
+pip3 install pyproj
+pip3 install --global-option=build_ext --global-option="-I/usr/include/gdal" GDAL==`gdal-config --version`
 
-#QT PATH
-export QT_QPA_PLATFORM_PLUGIN_PATH=/Applications/QGIS3.10.app/Contents/PlugIns
 
 #make path variables to python scripts
-PATH_PLUS_PPT_LaElNeu="$SCRIPT_PATH/scripts/python/ppt_bil2tif_LaElNeu_analysis.py"
-PATH_PLUS_TMEAN_LaElNeu="$SCRIPT_PATH/scripts/python/tmean_bil2tif_LaElNeu_analysis.py"
-PATH_PLUS_PPT_ANOVA="$SCRIPT_PATH/scripts/python/ppt_ANOVA_analysis.py"
-PATH_PLUS_TMEAN_ANOVA="$SCRIPT_PATH/scripts/python/tmean_ANOVA_analysis.py"
-TIF2XYZ="$SCRIPT_PATH/scripts/python/tif2XYZ.py"
-PPT_COR="$SCRIPT_PATH/scripts/python/ppt_cor.py"
-TMEAN_COR="$SCRIPT_PATH/scripts/python/tmean_cor.py"
+PATH_PLUS_PPT_LaElNeu="$VARIABLENAME/scripts/python/ppt_bil2tif_LaElNeu_analysis.py"
+PATH_PLUS_TMEAN_LaElNeu="$VARIABLENAME/scripts/python/tmean_bil2tif_LaElNeu_analysis.py"
+PATH_PLUS_PPT_ANOVA="$VARIABLENAME/scripts/python/ppt_ANOVA_analysis.py"
+PATH_PLUS_TMEAN_ANOVA="$VARIABLENAME/scripts/python/tmean_ANOVA_analysis.py"
+TIF2XYZ="$VARIABLENAME/scripts/python/tif2XYZ.py"
+PPT_COR="$VARIABLENAME/scripts/python/ppt_cor.py"
+TMEAN_COR="$VARIABLENAME/scripts/python/tmean_cor.py"
 
 #Run the python scripts
 $QGIS_PYTHON_PATH $PATH_PLUS_PPT_LaElNeu
