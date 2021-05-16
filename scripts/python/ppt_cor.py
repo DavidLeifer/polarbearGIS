@@ -110,7 +110,7 @@ for file in folder_bil_list:
         new_dataset.close()
 
     #read in raster mask shapefile, for clipping the year's nino34.xlsx index array
-    vectorize_output_reproj = cwd + "/data/timeseries_contour_dissolve_reproj.shp"
+    vectorize_output_reproj = cwd + "/data/timeseries_contour_dissolve.shp"
     with fiona.open(vectorize_output_reproj, "r") as shapefile_reproj:
         vectorize_output_shp_reproj = [feature["geometry"] for feature in shapefile_reproj]
 

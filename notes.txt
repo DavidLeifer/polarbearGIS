@@ -122,6 +122,10 @@ sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=dow
 sudo unzip xyz-timeseries-data
 sudo rm xyz-timeseries-data
 
+# clipping shape
+https://drive.google.com/file/d/15qxxvGH4oHoer1YY5pwofSdW_Y10xyRs/view?usp=sharing
+
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=15qxxvGH4oHoer1YY5pwofSdW_Y10xyRs' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=15qxxvGH4oHoer1YY5pwofSdW_Y10xyRs" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
 
 
 sudo curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -

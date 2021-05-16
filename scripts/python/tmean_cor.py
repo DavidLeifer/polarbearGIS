@@ -6,8 +6,6 @@ from rasterio.transform import from_origin
 from rasterio.warp import calculate_default_transform, reproject, Resampling
 from rasterio.plot import show
 import fiona
-from shapely.geometry import shape
-import geopandas as gp
 import numpy as np
 import pandas as pd
 import pyproj
@@ -26,9 +24,16 @@ import sys
 #get current working dir
 cwd = os.getcwd()
 #read in index
-df = pd.read_excel(cwd + '/data/nino34.xlsx', sheet_name='Sheet1')
-tmean_data_dir = cwd + '/data/tmean/'
-tmean_file_list = glob(os.path.join(tmean_data_dir, '*.bil'))
+df = pd.read_csv(cwd + '/data/nino34.csv')
+#create list of folders
+data_dir = cwd + '/data/tmean/*'
+data_dir_list = glob(data_dir)
+#create a list of bil paths from each sub folder
+folder_bil_list = []
+for i in data_dir_list:
+    folder_bil = glob(os.path.join(i, '*.bil'))
+    str1 = ''.join(folder_bil)
+    folder_bil_list.append(str1)
 
 #transform is used 2 times
 #transform = from_origin(-125.020833333, 49.937500000, 0.0416666666666,0.0416666666666)
@@ -44,11 +49,11 @@ output_clipped_index_dir = cwd + '/data/tmean_pearson_output/'
 os.mkdir(output_clipped_index_dir)
 
 #https://geohackweek.github.io/raster/04-workingwithrasters/
-for file in tmean_file_list:
+for file in folder_bil_list:
     base = os.path.basename(file)
     year = base[25:29]
     print(year)
- 
+
     #save resized bil to tif
     width = 1405
     height = 621
@@ -105,7 +110,7 @@ for file in tmean_file_list:
         new_dataset.close()
 
     #read in raster mask shapefile, for clipping the year's nino34.xlsx index array
-    vectorize_output_reproj = cwd + "/data/timeseries_contour_dissolve_reproj.shp"
+    vectorize_output_reproj = cwd + "/data/timeseries_contour_dissolve.shp"
     with fiona.open(vectorize_output_reproj, "r") as shapefile_reproj:
         vectorize_output_shp_reproj = [feature["geometry"] for feature in shapefile_reproj]
 

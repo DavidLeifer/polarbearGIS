@@ -82,20 +82,26 @@ PATH_PLUS_PPT_LaElNeu="$VARIABLENAME/scripts/python/ppt_bil2tif_LaElNeu_analysis
 PATH_PLUS_TMEAN_LaElNeu="$VARIABLENAME/scripts/python/tmean_bil2tif_LaElNeu_analysis.py"
 PATH_PLUS_PPT_ANOVA="$VARIABLENAME/scripts/python/ppt_ANOVA_analysis.py"
 PATH_PLUS_TMEAN_ANOVA="$VARIABLENAME/scripts/python/tmean_ANOVA_analysis.py"
-
 PPT_COR="$VARIABLENAME/scripts/python/ppt_cor.py"
 TMEAN_COR="$VARIABLENAME/scripts/python/tmean_cor.py"
+
+PPT_COR_ACTUALLY="$VARIABLENAME/scripts/python/ppt_cor_actually.py"
+TMEAN_COR_ACTUALLY="$VARIABLENAME/scripts/python/tmean_cor_actually.py"
 
 TIF2XYZ="$VARIABLENAME/scripts/python/tif2XYZ.py"
 
 
 #Run the python scripts
-$QGIS_PYTHON_PATH $PATH_PLUS_PPT_LaElNeu
-$QGIS_PYTHON_PATH $PATH_PLUS_TMEAN_LaElNeu
-$QGIS_PYTHON_PATH $PATH_PLUS_PPT_ANOVA
-$QGIS_PYTHON_PATH $PATH_PLUS_TMEAN_ANOVA
-$QGIS_PYTHON_PATH $PPT_COR
-$QGIS_PYTHON_PATH $TMEAN_COR
+sudo python3 $PATH_PLUS_PPT_LaElNeu
+sudo python3 $PATH_PLUS_TMEAN_LaElNeu
+sudo python3 $PATH_PLUS_PPT_ANOVA
+sudo python3 $PATH_PLUS_TMEAN_ANOVA
+sudo python3 $PPT_COR
+sudo python3 $TMEAN_COR
+
+
+
+
 $QGIS_PYTHON_PATH $TIF2XYZ
 
 
