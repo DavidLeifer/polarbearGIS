@@ -31,6 +31,10 @@ quit()
 cd data
 sudo mkdir ppt
 sudo mkdir tmean
+sudo mkdir pptJanELNin
+sudo mkdir pptJanLANin
+sudo mkdir pptJanNeutral
+
 cd tmean
 cd ..
 cd ..
@@ -64,15 +68,13 @@ sudo apt install qgis qgis-plugin-grass
 
 #install the python libraries to QGIS
 #QGIS_PYTHON_PATH="/usr/bin/python3"
-pip3 install rasterio
-pip3 install pandas
-pip3 install seaborn
-pip3 install guppy3
-pip3 install --upgrade pip
-pip3 install pyproj
-pip3 install --global-option=build_ext --global-option="-I/usr/include/gdal" GDAL==`gdal-config --version`
-pip3 install openpyxl
-
+sudo pip3 install rasterio
+sudo pip3 install pandas
+sudo pip3 install seaborn
+sudo pip3 install guppy3
+sudo pip3 install --upgrade pip
+sudo pip3 install pyproj
+sudo pip3 install --global-option=build_ext --global-option="-I/usr/include/gdal" GDAL==`gdal-config --version`
 
 #make path variables to python scripts
 PATH_PLUS_PPT_LaElNeu="$VARIABLENAME/scripts/python/ppt_bil2tif_LaElNeu_analysis.py"
