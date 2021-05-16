@@ -13,7 +13,7 @@ from osgeo import osr
 
 cwd = os.getcwd()
 #nino index
-df = pd.read_excel(cwd + '/data/nino34.xlsx', sheet_name='Sheet1')
+df = pd.read_excel(cwd + '/data/nino34.xlsx', sheet_name='Sheet1', engine='openpyxl')
 #el nino
 elnino = df[df['Index'] > .5]
 #la nina

@@ -28,7 +28,6 @@ install.packages("prism")
 quit()
 
 #make some folders to store the data
-sudo mkdir data
 cd data
 sudo mkdir ppt
 sudo mkdir tmean
@@ -72,6 +71,7 @@ pip3 install guppy3
 pip3 install --upgrade pip
 pip3 install pyproj
 pip3 install --global-option=build_ext --global-option="-I/usr/include/gdal" GDAL==`gdal-config --version`
+pip3 install openpyxl
 
 
 #make path variables to python scripts
