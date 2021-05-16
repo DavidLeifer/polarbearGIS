@@ -14,18 +14,12 @@ sudo apt install build-essential
 sudo apt-get install libcurl4-openssl-dev libssl-dev
 sudo apt install python3-pip
 sudo add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
-
+sudo apt install sqlite3
 
 #gdal install stuff
 sudo apt-get install libgdal-dev
 export CPLUS_INCLUDE_PATH=/usr/include/gdal
 export C_INCLUDE_PATH=/usr/include/gdal
-
-
-#run R and install the packages, might as well makes this its own R script
-sudo R
-install.packages("prism")
-quit()
 
 #make some folders to store the data
 cd data
@@ -37,6 +31,8 @@ sudo mkdir pptJanNeutral
 sudo mkdir tmeanJanELNin
 sudo mkdir tmeanJanLANin
 sudo mkdir tmeanJanNeutral
+sudo mkdir tmean_pearson_final
+sudo mkdir ppt_pearson_final
 cd ..
 
 #set up the paths
@@ -74,8 +70,34 @@ sudo pip3 install seaborn
 sudo pip3 install guppy3
 sudo pip3 install --upgrade pip
 sudo pip3 install pyproj
-sudo pip3 install --global-option=build_ext --global-option="-I/usr/include/gdal" GDAL==`gdal-config --version`
 sudo pip3 install fiona
+
+#sudo pip3 install --global-option=build_ext --global-option="-I/usr/include/gdal" GDAL==`gdal-config --version`
+
+# install proj-7
+cd ..
+wget https://download.osgeo.org/proj/proj-7.2.0.tar.gz
+tar xvzf proj-7.2.0.tar.gz
+cd proj-7.2.0
+sudo ./configure --without-curl
+sudo make && sudo make install
+PROJ_PATH=$(pwd)
+# Download GDAL v3.3.0
+cd ..
+sudo wget download.osgeo.org/gdal/3.3.0/gdal330.zip
+sudo unzip gdal330.zip
+cd gdal-3.3.0
+sudo ./configure --with-proj=/usr/local
+sudo make clean && sudo make && sudo make install
+
+# Set LD_LIBRARY_PATH so that recompiled GDAL is used
+export LD_LIBRARY_PATH=/usr/local/lib
+
+## Check if it works
+gdalinfo --version
+
+
+/home/davleifer/polarbearGIS/
 
 #make path variables to python scripts
 PATH_PLUS_PPT_LaElNeu="$VARIABLENAME/scripts/python/ppt_bil2tif_LaElNeu_analysis.py"
@@ -84,12 +106,8 @@ PATH_PLUS_PPT_ANOVA="$VARIABLENAME/scripts/python/ppt_ANOVA_analysis.py"
 PATH_PLUS_TMEAN_ANOVA="$VARIABLENAME/scripts/python/tmean_ANOVA_analysis.py"
 PPT_COR="$VARIABLENAME/scripts/python/ppt_cor.py"
 TMEAN_COR="$VARIABLENAME/scripts/python/tmean_cor.py"
-
 PPT_COR_ACTUALLY="$VARIABLENAME/scripts/python/ppt_cor_actually.py"
 TMEAN_COR_ACTUALLY="$VARIABLENAME/scripts/python/tmean_cor_actually.py"
-
-TIF2XYZ="$VARIABLENAME/scripts/python/tif2XYZ.py"
-
 
 #Run the python scripts
 sudo python3 $PATH_PLUS_PPT_LaElNeu
@@ -99,12 +117,20 @@ sudo python3 $PATH_PLUS_TMEAN_ANOVA
 sudo python3 $PPT_COR
 sudo python3 $TMEAN_COR
 
+#open the gates!
+sudo apt-get install apache2 -y
+sudo a2ensite default-ssl
+sudo a2enmod ssl
+sudo vm_hostname="$(curl -H "Metadata-Flavor:Google" \
+http://169.254.169.254/computeMetadata/v1/instance/name)"
+sudo echo "Page served from: $vm_hostname" | \
+tee /var/www/html/index.html
 
+#generate TMS tiles
+sudo mkdir /var/www/html/tmeanJanELNin
+sudo gdal2tiles.py --zoom=2-8 /home/davleifer/polarbearGIS/data/tmeanJanELNin/tmeanJanELNin.tif /var/www/html/tmeanJanELNin
 
-
-$QGIS_PYTHON_PATH $TIF2XYZ
-
-
+http://35.222.214.226:8080
 
 
 

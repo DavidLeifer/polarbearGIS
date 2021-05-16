@@ -9,7 +9,6 @@ from osgeo.gdalnumeric import *
 from osgeo.gdalconst import *
 import os
 from glob import glob
-from sklearn.preprocessing import normalize
 
 #avoid annoying PROJ_LIB error
 #os.environ["PROJ_LIB"]="/Applications/QGIS.app/Contents/Resources/proj"
