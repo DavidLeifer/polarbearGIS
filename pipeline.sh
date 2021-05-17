@@ -47,16 +47,16 @@ SCRIPT_PATH_PLUS_PPT="$VARIABLENAME/scripts/rscripts_ppt/download_prism_data.R"
 #run the download scripts
 sudo Rscript $SCRIPT_PATH_PLUS_TMEAN
 echo downloaded tmean data
-sudo Rscript $SCRIPT_PATH_PLUS1_PPT
+sudo Rscript $SCRIPT_PATH_PLUS_PPT
 echo downloaded ppt data
 
 
 #Compile QGIS from Source
-sudo apt install gnupg software-properties-common
-wget -qO - https://qgis.org/downloads/qgis-2020.gpg.key | sudo gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/qgis-archive.gpg --import
-sudo chmod a+r /etc/apt/trusted.gpg.d/qgis-archive.gpg
-sudo add-apt-repository "deb https://qgis.org/ubuntu $(lsb_release -c -s) main"
-sudo apt install qgis qgis-plugin-grass
+#sudo apt install gnupg software-properties-common
+#wget -qO - https://qgis.org/downloads/qgis-2020.gpg.key | sudo gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/qgis-archive.gpg --import
+#sudo chmod a+r /etc/apt/trusted.gpg.d/qgis-archive.gpg
+#sudo add-apt-repository "deb https://qgis.org/ubuntu $(lsb_release -c -s) main"
+#sudo apt install qgis qgis-plugin-grass
 
 #reveals path for QGIS python
 #import sys
@@ -74,15 +74,14 @@ sudo pip3 install fiona
 
 #sudo pip3 install --global-option=build_ext --global-option="-I/usr/include/gdal" GDAL==`gdal-config --version`
 
-# install proj-7
+#install proj-7
 cd ..
 wget https://download.osgeo.org/proj/proj-7.2.0.tar.gz
 tar xvzf proj-7.2.0.tar.gz
 cd proj-7.2.0
 sudo ./configure --without-curl
 sudo make && sudo make install
-PROJ_PATH=$(pwd)
-# Download GDAL v3.3.0
+#Download GDAL v3.3.0
 cd ..
 sudo wget download.osgeo.org/gdal/3.3.0/gdal330.zip
 sudo unzip gdal330.zip
@@ -95,6 +94,8 @@ export LD_LIBRARY_PATH=/usr/local/lib
 
 ## Check if it works
 gdalinfo --version
+
+# https://blog.mastermaps.com/2012/06/creating-color-relief-and-slope-shading.html
 
 #make path variables to python scripts
 PATH_PLUS_PPT_LaElNeu="$VARIABLENAME/scripts/python/ppt_bil2tif_LaElNeu_analysis.py"

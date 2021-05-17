@@ -58,7 +58,6 @@ Make a time-aware OL layer in JS and link it with the radar imagery. Status: Com
 
 ## Step 3: Web Appliction: Complete
 ### Landing Page: Basic html resizeable columns with pics as links to the three pages as described below.
-</br>
 ### Page 1: Moving Pearson Correlation Tmean
 </br>Use Step 2 Section 1 XYZ tiles and use as input to OpenLayers/npm/node/bundler web app that allows you to click through the years.
 ### Page 2: Moving Pearson Correlation PPT
