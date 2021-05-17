@@ -95,9 +95,24 @@ export LD_LIBRARY_PATH=/usr/local/lib
 ## Check if it works
 gdalinfo --version
 
+#install python bindings
+cd swig
+cd python
+sudo python3 setup.py build
+sudo python3 setup.py install
+
+/usr/local/lib/python3.7/dist-packages/GDAL-3.3.0-py3.7-linux-x86_64.egg
+
+# NOTES
 # https://blog.mastermaps.com/2012/06/creating-color-relief-and-slope-shading.html
+# https://gdal.org/programs/gdal2tiles.html
 
 #make path variables to python scripts
+cd ..
+cd ..
+cd ..
+cd polarbearGIS
+
 PATH_PLUS_PPT_LaElNeu="$VARIABLENAME/scripts/python/ppt_bil2tif_LaElNeu_analysis.py"
 PATH_PLUS_TMEAN_LaElNeu="$VARIABLENAME/scripts/python/tmean_bil2tif_LaElNeu_analysis.py"
 PATH_PLUS_PPT_ANOVA="$VARIABLENAME/scripts/python/ppt_ANOVA_analysis.py"
@@ -128,7 +143,7 @@ tee /var/www/html/index.html
 sudo mkdir /var/www/html/tmeanJanELNin
 sudo gdal2tiles.py --zoom=2-8 /home/davleifer/polarbearGIS/data/tmeanJanELNin/tmeanJanELNin.tif /var/www/html/tmeanJanELNin
 
-http://35.222.214.226:8080
+http://35.222.214.226/tmeanJanELNin/index.html
 
 
 
