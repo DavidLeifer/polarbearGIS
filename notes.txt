@@ -251,7 +251,6 @@ https://www.ncdc.noaa.gov/data-access/radar-data/noaa-big-data-project
 https://en.wikipedia.org/wiki/January%E2%80%93February_2019_North_American_cold_wave
 https://openlayers.org/en/latest/examples/wms-time.html
 
-
 gcloud beta compute ssl-certificates describe www-ssl-cert \
     --global \
     --format="get(name,managed.status)"
@@ -266,8 +265,5 @@ How to get a polygon from a raster:
 1) QGIS contour polygon- 1982.bil
 2) dissolve
 3) horray!
-
-
-
 
 

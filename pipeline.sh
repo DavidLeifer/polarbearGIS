@@ -1,5 +1,4 @@
 #!/bin/bash
-
 echo begin
 
 #install the correct libraries
@@ -16,7 +15,7 @@ sudo apt install python3-pip
 sudo add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
 sudo apt install sqlite3
 
-#gdal install stuff
+#gdal python install stuff
 sudo apt-get install libgdal-dev
 export CPLUS_INCLUDE_PATH=/usr/include/gdal
 export C_INCLUDE_PATH=/usr/include/gdal
@@ -71,6 +70,8 @@ sudo pip3 install guppy3
 sudo pip3 install --upgrade pip
 sudo pip3 install pyproj
 sudo pip3 install fiona
+sudo pip3 install GDAL
+
 
 #sudo pip3 install --global-option=build_ext --global-option="-I/usr/include/gdal" GDAL==`gdal-config --version`
 
