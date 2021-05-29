@@ -5,20 +5,23 @@ echo begin
 sudo apt update
 sudo apt-get install wget
 sudo apt install git
+#install R stuff
 sudo apt install dirmngr apt-transport-https ca-certificates software-properties-common gnupg2
 sudo apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF'
 sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/debian buster-cran35/'
 sudo apt install r-base
 sudo apt install build-essential
+#install python stuff
 sudo apt-get install libcurl4-openssl-dev libssl-dev
 sudo apt install python3-pip
 sudo add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
 sudo apt install sqlite3
-
 #gdal python install stuff
-sudo apt-get install libgdal-dev
-export CPLUS_INCLUDE_PATH=/usr/include/gdal
-export C_INCLUDE_PATH=/usr/include/gdal
+sudo apt-get install python3-gdal
+
+#sudo apt-get install libgdal-dev
+#export CPLUS_INCLUDE_PATH=/usr/include/gdal
+#export C_INCLUDE_PATH=/usr/include/gdal
 
 #make some folders to store the data
 cd data
@@ -50,12 +53,6 @@ sudo Rscript $SCRIPT_PATH_PLUS_PPT
 echo downloaded ppt data
 
 
-#Compile QGIS from Source
-#sudo apt install gnupg software-properties-common
-#wget -qO - https://qgis.org/downloads/qgis-2020.gpg.key | sudo gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/qgis-archive.gpg --import
-#sudo chmod a+r /etc/apt/trusted.gpg.d/qgis-archive.gpg
-#sudo add-apt-repository "deb https://qgis.org/ubuntu $(lsb_release -c -s) main"
-#sudo apt install qgis qgis-plugin-grass
 
 #reveals path for QGIS python
 #import sys
@@ -70,10 +67,6 @@ sudo pip3 install guppy3
 sudo pip3 install --upgrade pip
 sudo pip3 install pyproj
 sudo pip3 install fiona
-sudo pip3 install GDAL
-
-
-#sudo pip3 install --global-option=build_ext --global-option="-I/usr/include/gdal" GDAL==`gdal-config --version`
 
 #install proj-7
 cd ..
@@ -82,35 +75,32 @@ tar xvzf proj-7.2.0.tar.gz
 cd proj-7.2.0
 sudo ./configure --without-curl
 sudo make && sudo make install
-#Download GDAL v3.3.0
+#Download GDAL v3.3.0 from source
 cd ..
 sudo wget download.osgeo.org/gdal/3.3.0/gdal330.zip
 sudo unzip gdal330.zip
 cd gdal-3.3.0
-sudo ./configure --with-proj=/usr/local
+sudo ./configure --with-proj=/usr/local --with-python3
 sudo make clean && sudo make && sudo make install
-
 # Set LD_LIBRARY_PATH so that recompiled GDAL is used
 export LD_LIBRARY_PATH=/usr/local/lib
 
 ## Check if it works
 gdalinfo --version
 
-#install python bindings
-cd swig
-cd python
-sudo python3 setup.py build
-sudo python3 setup.py install
 
-/usr/local/lib/python3.7/dist-packages/GDAL-3.3.0-py3.7-linux-x86_64.egg
+#install python bindings?
+#cd swig
+#cd python
+#sudo python3 setup.py build
+#sudo python3 setup.py install
+#/usr/local/lib/python3.7/dist-packages/GDAL-3.3.0-py3.7-linux-x86_64.egg
 
-# NOTES
-# https://blog.mastermaps.com/2012/06/creating-color-relief-and-slope-shading.html
-# https://gdal.org/programs/gdal2tiles.html
+sudo pip3 install GDAL==3.3.0
 
 #make path variables to python scripts
-cd ..
-cd ..
+#cd ..
+#cd ..
 cd ..
 cd polarbearGIS
 
@@ -138,15 +128,34 @@ sudo a2enmod ssl
 sudo vm_hostname="$(curl -H "Metadata-Flavor:Google" \
 http://169.254.169.254/computeMetadata/v1/instance/name)"
 sudo echo "Page served from: $vm_hostname" | \
-tee /var/www/html/index.html
+sudo tee /var/www/html/index.html
 
+# NOTES
+# https://blog.mastermaps.com/2012/06/creating-color-relief-and-slope-shading.html
+# https://gdal.org/programs/gdal2tiles.html
+#make some dirs to hold the xyz tiles
+sudo mkdir /var/www/html/ppt_bil2tif_LaElNeu_analysis_xyz/
+sudo mkdir /var/www/html/tmean_bil2tif_LaElNeu_analysis_xyz/
+sudo mkdir /var/www/html/tmean_cor_xyz/
+sudo mkdir /var/www/html/ppt_cor_xyz/
+sudo mkdir /var/www/html/ppt_bil2tif_LaElNeu_analysis_xyz/xyz_pptJanELNin
+sudo mkdir /var/www/html/ppt_bil2tif_LaElNeu_analysis_xyz/xyz_pptJanLANin
+sudo mkdir /var/www/html/ppt_bil2tif_LaElNeu_analysis_xyz/xyz_pptJanNeutral
+sudo mkdir /var/www/html/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanELNin
+sudo mkdir /var/www/html/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanLANin
+sudo mkdir /var/www/html/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanNeutral
+sudo mkdir /var/www/html/tmean_cor_xyz/tmean_cor_xyz_tmean_pearson_final
+sudo mkdir /var/www/html/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final
+
+#make the color txt files
+sudo nano $VARIABLENAME/data/tmeanJanELNin/color_relief.txt
+
+#make it pretty (and 8bit)
+sudo gdaldem color-relief $VARIABLENAME/data/tmeanJanELNin/tmeanJanELNin.tif $VARIABLENAME/data/tmeanJanELNin/color_relief.txt $VARIABLENAME/data/tmeanJanELNin/tmeanJanELNin_color.tif -alpha
 #generate TMS tiles
-sudo mkdir /var/www/html/tmeanJanELNin
-sudo gdal2tiles.py --zoom=2-8 /home/davleifer/polarbearGIS/data/tmeanJanELNin/tmeanJanELNin.tif /var/www/html/tmeanJanELNin
-
-http://35.222.214.226/tmeanJanELNin/index.html
+sudo gdal2tiles.py --zoom=2-8 --tilesize=128 $VARIABLENAME/data/tmeanJanELNin/tmeanJanELNin_color.tif /var/www/html/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanELNin
 
 
-
+http://34.122.XXX.XXX/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanELNin/openlayers.html
 
 

@@ -47,6 +47,8 @@ const osm = new TileLayer({
 /* Add to map */
 map.addLayer(osm);
 map.addLayer(all_tile_layers[0]);
+
+
 $(function() {
     $( "#slider" ).slider({
         value:3,
@@ -59,7 +61,6 @@ $(function() {
     });
     $( "#minbeds" ).val( $( "#slider" ).slider( "value" ) );
 });
-
 
 $(document).ready(function(){
   $("#slider").on("slide", function(event, ui){
