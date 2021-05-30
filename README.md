@@ -11,7 +11,7 @@ A pipeline for GIS climate raster data. A script of scripts, using GCP.</br>
 + [Used Libraries](#used-libraries)
 + [TODO](#todo)
 + [GeoStreamable](#geostreamable)
-+ [Pol Ivers](#pol-ivers)
++ [Polar Bears](#polar-bears)
 
 ### Support PolarbearGIS
 * Polarbears are vulnerable!
@@ -102,8 +102,8 @@ Some of the technical details are outlined in my blog, which can be found on my 
 5. Ingest each file and programmatically add to map
 6. Add popup info window to tweet to display text but noo personally identifiable information from the user (as carefully stipulated in the docs)
 
-### Pol Ivers
+### Polar Bears
 Got an angel on my left shoulder, a devil on the polar</br>
 Got a mug a frigid, got a mug a solar, sliiiide over</br>
 
-![Pol Ivers](/imgs/pol-ivers.png?raw=true)
+![Polar Bears](/imgs/polar-bears.png?raw=true)
