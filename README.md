@@ -14,7 +14,7 @@ A pipeline for GIS climate raster data. A script of scripts, using GCP.</br>
 + [Pol Ivers](#pol-ivers)
 
 ### Support PolarbearGIS
-* Polarbears are endangered!
+* Polarbears are vulnerable!
 * Star, fork and watch it on Github.
 * Contribute <a href="https://github.com/DavidLeifer/polarbearGIS/issues">bug reports or suggest features</a>
 * Translate it into a different language and have </br>
