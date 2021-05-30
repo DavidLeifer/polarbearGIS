@@ -100,7 +100,7 @@ Some of the technical details are outlined in my blog, which can be found on my 
 4. Point in polygon and round the data to 15 minute increments and save as a geojson file
 - APPLICATION
 5. Ingest each file and programmatically add to map
-6. Add popup info window to tweet to display text but noo personally identify information from the user (as carefully stipulated in the docs)
+6. Add popup info window to tweet to display text but noo personally identifiable information from the user (as carefully stipulated in the docs)
 
 ### Pol Ivers
 Got an angel on my left shoulder, a devil on the polar</br>
