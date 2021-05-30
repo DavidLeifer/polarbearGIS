@@ -86,17 +86,7 @@ sudo make clean && sudo make && sudo make install
 export LD_LIBRARY_PATH=/usr/local/lib
 
 ## Check if it works
-gdalinfo --version
-
-
-#install python bindings?
-#cd swig
-#cd python
-#sudo python3 setup.py build
-#sudo python3 setup.py install
-#/usr/local/lib/python3.7/dist-packages/GDAL-3.3.0-py3.7-linux-x86_64.egg
-
-sudo pip3 install GDAL==3.3.0
+#gdalinfo --version
 
 #make path variables to python scripts
 #cd ..
@@ -156,6 +146,6 @@ sudo gdaldem color-relief $VARIABLENAME/data/tmeanJanELNin/tmeanJanELNin.tif $VA
 sudo gdal2tiles.py --zoom=2-8 --tilesize=128 $VARIABLENAME/data/tmeanJanELNin/tmeanJanELNin_color.tif /var/www/html/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanELNin
 
 
-http://34.122.247.201/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanELNin/openlayers.html
+http://34.xxx.xxx.xxx/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanELNin/openlayers.html
 
 
