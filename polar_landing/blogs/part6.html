@@ -1,0 +1,551 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 7.0.3.1 (MacOSX)"/>
+	<meta name="created" content="2020-12-23T01:09:30.773145562"/>
+	<meta name="changed" content="2021-03-27T23:29:47.432401944"/>
+	<style type="text/css">
+		@page { size: 8.5in 11in; margin: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Serif", serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Songti SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "Arial Unicode MS"; font-size: 14pt; font-weight: bold }
+		pre { font-family: "Liberation Mono", monospace; font-size: 10pt; background: transparent }
+		strong { font-weight: bold }
+		a:link { color: #000080; so-language: zxx; text-decoration: underline }
+		a:visited { color: #800000; so-language: zxx; text-decoration: underline }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr"><h3 class="western">
+Part 6: How to Benchmark XYZ Tile Files vs GeoServer TileWMS for
+Raster Timeseries NPM Web Applications</h3>
+<p><br/>
+<br/>
+
+</p>
+<p><img src="part6_html_c356d1f5dbee7a6f.jpg" name="Image1" align="bottom" width="750" height="872" border="0"/>
+</p>
+<p><strong>Part </strong><strong>1</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part1.html"><strong><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part</span></u></span></font></strong><strong><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">1</span></u></span></font></strong><strong><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">.html</span></u></span></font></strong></a></p>
+<p><strong>Part 2: </strong><strong><a href="https://www.davidjleifer.com/blogs/part2.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part2.html</span></u></span></font></a></strong></p>
+<p><strong>Part 3:</strong>
+<strong><a href="https://www.davidjleifer.com/blogs/part3.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part3.html</span></u></span></font></a></strong></p>
+<p><strong>Part 4: </strong><strong><a href="https://www.davidjleifer.com/blogs/part4.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part4.html</span></u></span></font></a></strong></p>
+<p><strong>Part 5: </strong><strong><a href="https://www.davidjleifer.com/blogs/part5.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part5.html</span></u></span></font></a></strong></p>
+<p><strong>Part </strong><strong>7</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part7.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part7.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>8</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part8.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part8.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>9</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part9.html</u></span></font></a></p>
+<p><br/>
+<br/>
+
+</p>
+<p>We should really rewrite our Leaflet map from Part 4with
+OpenLayers and include some sort of timeseries slider, similar to
+what is going on in the GeoServer hosted WMS time slider web app from
+Part 1, Part 2, and Part 3. This method requires NPM (JavaScript
+Package Manager) and Node.JS. As long as we are standardizing things,
+we might as well modify the original timeseries app to use NPM. That
+way it can be more map tile file vs GeoServer WMS and not if Leaflet
+or OpenLayers is quicker. Or if using NPM/Not using NPM played a role
+in the speed.</p>
+<p><strong>Download the Data and Get it on Google Cloud Platform
+(GCP)</strong></p>
+<p>Here is the link to 4 XYZ map tile directories of Oregon Gridded
+Precipitation data:
+<a href="https://drive.google.com/file/d/1Yl5-9iDOqxanw9aWHNOX5_AAZeBtGYWu/view?usp=sharing" target="_blank">https://drive.google.com/file/d/1Yl5-9iDOqxanw9aWHNOX5_AAZeBtGYWu/view?usp=sharing</a></p>
+<p>We will be using wget to download from that link and get it on our
+GeoServer’s web server folder, located on GCP. First, navigate to
+the correct folder, make a directory, and enter said directory.</p>
+<pre>cd /var/lib/tomcat8/webapps/geoserver/data/www
+sudo mkdir xyz-timeseries-data
+cd xyz-timeseries-data</pre><p>
+Then download the data with WGET.</p>
+<pre style="margin-bottom: 0.2in">sudo wget --load-cookies /tmp/cookies.txt &quot;<a href="https://docs.google.com/uc?export=download&amp;confirm=$%28wget" target="_blank">https://docs.google.com/uc?export=download&amp;confirm=$(wget</a> --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate '<a href="https://docs.google.com/uc?export=download&amp;id=1Yl5-9iDOqxanw9aWHNOX5_AAZeBtGYWu%27" target="_blank">https://docs.google.com/uc?export=download&amp;id=1Yl5-9iDOqxanw9aWHNOX5_AAZeBtGYWu'</a> -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&amp;id=1Yl5-9iDOqxanw9aWHNOX5_AAZeBtGYWu&quot; -O xyz-timeseries-data &amp;&amp; rm -rf /tmp/cookies.txt</pre><p>
+Unzip the file.</p>
+<pre style="margin-bottom: 0.2in">sudo unzip xyz-timeseries-data</pre><p>
+Remove the zip file.</p>
+<pre>sudo rm -r xyz-timeseries-data
+ls</pre><p>
+This will output the four XYZ directories on GeoServer’s web
+server.</p>
+<p><strong>Install NVM to Manage Node.JS Packages on GCP</strong></p>
+<p>This is how you install Node:
+<a href="https://cloud.google.com/nodejs/docs/setup" target="_blank">https://cloud.google.com/nodejs/docs/setup</a></p>
+<p>This is how you install NVM: <a href="https://github.com/nvm-sh/nvm" target="_blank">https://github.com/nvm-sh/nvm</a></p>
+<p>Google Cloud Platform recommends installing NPM this way but I
+couldn’t get it to work…</p>
+<p>Get to “/” dir with:</p>
+<pre style="margin-bottom: 0.2in">cd /</pre><p>
+Run the NVM install script:</p>
+<pre style="margin-bottom: 0.2in">sudo wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash</pre><p>
+Then leave the terminal and open a new SSH on GCP. Return to the /
+dir and test nvm:</p>
+<pre>cd /
+nvm</pre><p>
+Should output an up and running nvm.</p>
+<p><strong>Install Node.JS and NPM</strong></p>
+<p>Run this command to install Node.JS.</p>
+<pre style="margin-bottom: 0.2in">nvm install stable</pre><p>
+“Now using node v15.5.0 (npm v7.3.0)”</p>
+<p>Run the commands to create a directory and navigate into that
+directory.</p>
+<pre>sudo mkdir npm-maptile-v2
+cd npm-maptile-v2</pre><p>
+<strong>Download Nodesource</strong></p>
+<p>Realize that didn’t work and install with nodesource.
+<a href="https://github.com/nodesource/distributions" target="_blank">https://github.com/nodesource/distributions</a></p>
+<pre>sudo curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+sudo apt-get install -y nodejs</pre><p>
+When I ran:</p>
+<pre style="margin-bottom: 0.2in">sudo npm init</pre><p>
+And pressed enter until I got back to terminal, it got back the
+terminal.</p>
+<p>Run the rest of the installers for npm libraries:</p>
+<pre>sudo npm install ol
+sudo npm install -g parcel-bundler</pre><p>
+It threw 2 high severity vulnerabilities but when I ran this:</p>
+<pre style="margin-bottom: 0.2in">sudo npm audit</pre><p>
+It said 0 vulnerabilities.&nbsp;</p>
+<p>Umm.</p>
+<p><strong>Set Firewall Rules</strong></p>
+<p>Set the same firewall rules on port 1234 and 1235 as you did in
+<strong><a href="https://medium.com/@davleifer/setting-up-geoserver-on-google-cloud-platform-for-timeseries-raster-display-c9a48ba49f2" target="_blank">Part
+1</a></strong> of this series.</p>
+<p><strong>Touch some HTML and JS Files for the XYZ Tile Map</strong></p>
+<p>Now we will create the HTML, JS, and JSON files.</p>
+<pre>sudo touch index.html
+sudo nano index.html</pre><p>
+Then copy this in there:</p>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+&lt;script&gt;
+    window.onload = function () {
+      var loadTime = window.performance.timing.domContentLoadedEventEnd-window.performance.timing.navigationStart;
+      console.log('Page load time is '+ loadTime);
+  }
+  &lt;/script&gt;
+  
+    &lt;title&gt;WMS Time&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;<a href="https://openlayers.org/en/v4.6.5/css/ol.css" target="_blank">https://openlayers.org/en/v4.6.5/css/ol.css</a>&quot; type=&quot;text/css&quot;&gt;
+    &lt;script src=&quot;<a href="https://openlayers.org/en/v4.6.5/build/ol.js" target="_blank">https://openlayers.org/en/v4.6.5/build/ol.js</a>&quot;&gt;&lt;/script&gt;
+&lt;style&gt;
+/* Setting up the slider styling */
+    .slidecontainer {
+        width: 120px;
+        margin-bottom: -20px;
+        margin-left: 10px;
+        z-index: 100px;
+        position: relative;
+    }
+.slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 15px;
+        border-radius: 5px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+    }
+.slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background:   #00008B;
+        cursor: pointer;
+    }
+.slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: #4CAF50;
+        cursor: pointer;
+      }
+    #legend {
+        background: #4CAF50;
+        position: absolute;
+        left:10px; 
+        top:200px; 
+        z-index:10000; 
+        width:150px; 
+        height:450px; 
+      }
+    .map {
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+      }
+    body {
+        height: 98%;
+      }
+    html {
+        height: 98%;
+    }
+    .title {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        height:30px;
+      }
+    #button {
+        position: absolute;
+        left:10px; 
+        top:130px;
+        z-index:10000; 
+      }
+    &lt;/style&gt;
+  &lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;title&quot; class=&quot;title&quot;&gt;
+      &lt;h2&gt;Oregon Gridded Precipitation&lt;/h2&gt;
+    &lt;/div&gt;
+    &lt;!-- Create map container --&gt;
+    &lt;div id=&quot;map&quot; class=&quot;map&quot;&gt;
+&lt;!-- Create Button --&gt;
+    &lt;div id=&quot;button&quot; class=&quot;button&quot;&gt;
+      &lt;button onclick=&quot;myFunction()&quot; style=&quot;height:50px; width:150px&quot;&gt;Legend&lt;/button&gt;
+    &lt;/div&gt;
+&lt;!-- Create legend container inside map container--&gt;
+    &lt;div id=&quot;legend&quot;&gt;
+        &lt;img src=&quot;<a href="http://35.239.133.210:8080/geoserver/cite/wms?REQUEST=GetLegendGraphic&amp;VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=cite:timeseries_oregon&amp;STYLE=oregon_style" target="_blank">http://35.239.133.210:8080/geoserver/cite/wms?REQUEST=GetLegendGraphic&amp;VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=cite:timeseries_oregon&amp;STYLE=oregon_style</a>&quot;&gt;
+    &lt;!-- Create slider container inside legend container--&gt;
+    &lt;div class=&quot;slidecontainer&quot;&gt;
+      &lt;h3&gt;Timeslider&lt;/h3&gt;
+      &lt;input type=&quot;range&quot; min=&quot;0&quot; max=&quot;2&quot; value=&quot;0&quot; class=&quot;slider&quot; id=&quot;myRange&quot;&gt;
+      &lt;p&gt;Date: &lt;span id=&quot;date_value&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+    &lt;/div&gt;    
+    &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div role=&quot;group&quot; aria-label=&quot;Animation controls&quot;&gt;
+&lt;script src=&quot;main.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+      function myFunction() {
+        var x = document.getElementById(&quot;legend&quot;);
+        if (x.style.display === &quot;none&quot;) {
+          x.style.display = &quot;block&quot;;
+        } else {
+          x.style.display = &quot;none&quot;;
+        }
+      }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><p>
+Press control+x (on mac) and press “y” to save the file and press
+“enter”.</p>
+<p>Then create the “main.js” and “package.json” files the
+same way and copy them over.</p>
+<p>main.js</p>
+<pre>//<a href="https://openlayers.org/en/latest/examples/xyz-retina.html" target="_blank">https://openlayers.org/en/latest/examples/xyz-retina.html</a>
+//<a href="https://openlayers.org/en/latest/doc/tutorials/bundle.html" target="_blank">https://openlayers.org/en/latest/doc/tutorials/bundle.html</a>
+//<a href="https://openlayers.org/en/latest/examples/raster.html" target="_blank">https://openlayers.org/en/latest/examples/raster.html</a>
+import 'ol/ol.css';
+import Map from 'ol/Map';
+import TileLayer from 'ol/layer/Tile';
+import OSM from 'ol/source/OSM';
+import View from 'ol/View';
+import XYZ from 'ol/source/XYZ';
+import {transform} from 'ol/proj';
+var urls = [&quot;<a href="http://35.239.133.210:8080/geoserver/www/xyz-timeseries-data/timeseries_19810101/%7Bz%7D/%7Bx%7D/%7By%7D.png" target="_blank">http://35.239.133.210:8080/geoserver/www/xyz-timeseries-data/timeseries_19810101/{z}/{x}/{y}.png</a>&quot;, 
+&quot;<a href="http://35.239.133.210:8080/geoserver/www/xyz-timeseries-data/timeseries_19910101/%7Bz%7D/%7Bx%7D/%7By%7D.png" target="_blank">http://35.239.133.210:8080/geoserver/www/xyz-timeseries-data/timeseries_19910101/{z}/{x}/{y}.png</a>&quot;, 
+&quot;<a href="http://35.239.133.210:8080/geoserver/www/xyz-timeseries-data/timeseries_20010101/%7Bz%7D/%7Bx%7D/%7By%7D.png" target="_blank">http://35.239.133.210:8080/geoserver/www/xyz-timeseries-data/timeseries_20010101/{z}/{x}/{y}.png</a>&quot;,
+&quot;<a href="http://35.239.133.210:8080/geoserver/www/xyz-timeseries-data/timeseries_20110101/%7Bz%7D/%7Bx%7D/%7By%7D.png" target="_blank">http://35.239.133.210:8080/geoserver/www/xyz-timeseries-data/timeseries_20110101/{z}/{x}/{y}.png</a>&quot;,];
+var map = new Map({
+  target: 'map',
+  layers: [
+    new TileLayer({
+      source: new OSM(),
+    }),
+    new TileLayer({
+      source: new XYZ({
+        urls: urls,
+      }),
+    }) ],
+  view: new View({
+    projection: 'EPSG:3857',
+    center: transform([-120.49999999999997, 44.11035109149999], 'EPSG:4326', 'EPSG:3857'),
+    zoom: 6.5,
+  }),
+});
+///Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/data/oregon/mapTiled/{z}/{x}/{y}<a href="http://twitter.com/2x" target="_blank">@2x</a>.png
+//<a href="http://35.239.133.210:8080/geoserver/data/www/localdata/%7Bz%7D/%7Bx%7D/%7By%7D.png" target="_blank">http://35.239.133.210:8080/geoserver/data/www/localdata/{z}/{x}/{y}.png</a></pre><p>
+package.json</p>
+<pre>{
+  &quot;name&quot;: &quot;xyz&quot;,
+  &quot;dependencies&quot;: {
+    &quot;ol&quot;: &quot;6.4.3&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;parcel&quot;: &quot;1.12.4&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;parcel index.html -p 1234&quot;,
+    &quot;build&quot;: &quot;parcel build --experimental-scope-hoisting --public-url . index.html&quot;
+  }
+}</pre><p>
+Now start npm:</p>
+<pre style="margin-bottom: 0.2in">sudo npm start</pre><p>
+And point your browser to:</p>
+<p><a href="http://34.72.131.193:1234/" target="_blank">http://34.72.131.193:1234/</a></p>
+<p>It works! Well, sort of, I still need to figure out a time slider
+solution for the 4 XYZ tiles.</p>
+<p><strong>Touch HTML and JSON to Build GeoServer TileWMS</strong></p>
+<p>Now we need to basically do the same thing all over agin (how
+tedious). We need to keep npm built for this project, so don’t X
+out of the window. Instead, open a new SSH in Google Compute and
+enter the following.</p>
+<pre>cd ..
+cd /
+sudo mkdir timeseries_OR_npm
+cd timeseries_OR_npm
+sudo npm install ol
+sudo npm install -g parcel-bundler
+sudo npm audit</pre><p>
+Then initialize npm.</p>
+<pre style="margin-bottom: 0.2in">sudo npm init</pre><p>
+Hold enter until you get back to the terminal.</p>
+<pre style="margin-bottom: 0.2in">sudo nano package.json</pre><p>
+package.json</p>
+<pre>{
+  &quot;name&quot;: &quot;timeseries_or_npm&quot;,
+  &quot;dependencies&quot;: {
+    &quot;ol&quot;: &quot;6.4.3&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;parcel&quot;: &quot;1.11.0&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;parcel index.html -p 1235&quot;,
+    &quot;build&quot;: &quot;parcel build --experimental-scope-hoisting --public-url . index.html&quot;
+  }
+}</pre><p>
+Then create the index.html.</p>
+<pre>sudo touch index.html
+sudo nano index.html</pre><p>
+index.html</p>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+&lt;script&gt;
+    window.onload = function () {
+      var loadTime = window.performance.timing.domContentLoadedEventEnd-window.performance.timing.navigationStart;
+      console.log('Page load time is '+ loadTime);
+  }
+  &lt;/script&gt;
+  
+    &lt;title&gt;WMS Time&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;<a href="https://openlayers.org/en/v4.6.5/css/ol.css" target="_blank">https://openlayers.org/en/v4.6.5/css/ol.css</a>&quot; type=&quot;text/css&quot;&gt;
+    &lt;script src=&quot;<a href="https://openlayers.org/en/v4.6.5/build/ol.js" target="_blank">https://openlayers.org/en/v4.6.5/build/ol.js</a>&quot;&gt;&lt;/script&gt;
+&lt;style&gt;
+/* Setting up the slider styling */
+    .slidecontainer {
+        width: 120px;
+        margin-bottom: -20px;
+        margin-left: 10px;
+        z-index: 100px;
+        position: relative;
+    }
+.slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 15px;
+        border-radius: 5px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+    }
+.slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background:     #00008B;
+        cursor: pointer;
+    }
+.slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: #4CAF50;
+        cursor: pointer;
+      }
+    #legend {
+        background: #4CAF50;
+        position: absolute;
+        left:10px; 
+        top:200px; 
+        z-index:10000; 
+        width:150px; 
+        height:450px; 
+      }
+    .map {
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+      }
+    body {
+        height: 98%;
+      }
+    html {
+        height: 98%;
+    }
+    .title {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        height:30px;
+      }
+    #button {
+        position: absolute;
+        left:10px; 
+        top:130px;
+        z-index:10000; 
+      }
+    &lt;/style&gt;
+  &lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;title&quot; class=&quot;title&quot;&gt;
+      &lt;h2&gt;Oregon Gridded Precipitation&lt;/h2&gt;
+    &lt;/div&gt;
+    &lt;!-- Create map container --&gt;
+    &lt;div id=&quot;map&quot; class=&quot;map&quot;&gt;
+&lt;!-- Create Button --&gt;
+    &lt;div id=&quot;button&quot; class=&quot;button&quot;&gt;
+      &lt;button onclick=&quot;myFunction()&quot; style=&quot;height:50px; width:150px&quot;&gt;Legend&lt;/button&gt;
+    &lt;/div&gt;
+&lt;!-- Create legend container inside map container--&gt;
+    &lt;div id=&quot;legend&quot;&gt;
+        &lt;img src=&quot;<a href="http://35.239.133.210:8080/geoserver/cite/wms?REQUEST=GetLegendGraphic&amp;VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=cite:timeseries_oregon&amp;STYLE=oregon_style" target="_blank">http://35.239.133.210:8080/geoserver/cite/wms?REQUEST=GetLegendGraphic&amp;VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=cite:timeseries_oregon&amp;STYLE=oregon_style</a>&quot;&gt;
+    &lt;!-- Create slider container inside legend container--&gt;
+    &lt;div class=&quot;slidecontainer&quot;&gt;
+      &lt;h3&gt;Timeslider&lt;/h3&gt;
+      &lt;input type=&quot;range&quot; min=&quot;0&quot; max=&quot;2&quot; value=&quot;0&quot; class=&quot;slider&quot; id=&quot;myRange&quot;&gt;
+      &lt;p&gt;Date: &lt;span id=&quot;date_value&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+    &lt;/div&gt;    
+    &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div role=&quot;group&quot; aria-label=&quot;Animation controls&quot;&gt;
+&lt;script&gt;
+// Set up the layers
+      var layers = [
+        new ol.layer.Tile({
+            source: new ol.source.OSM()
+          }),
+        new ol.layer.Tile({
+          source: new ol.source.TileWMS({
+            url: '<a href="http://35.239.133.210:8080/geoserver/cite/wms%27" target="_blank">http://35.239.133.210:8080/geoserver/cite/wms'</a>,
+            params: {'LAYERS': 'cite:timeseries_oregon'}
+          })
+        })
+      ];
+var map = new ol.Map({
+        layers: layers,
+        target: 'map',
+        view: new ol.View({
+          // Defining the location in Lat Lon. In this case our image is from OR
+          center:  ol.proj.transform([-120.5542,43.8041], 'EPSG:4326', 'EPSG:3857'),
+          zoom: 6
+        })
+      });
+function myFunction() {
+        var x = document.getElementById(&quot;legend&quot;);
+        if (x.style.display === &quot;none&quot;) {
+          x.style.display = &quot;block&quot;;
+        } else {
+          x.style.display = &quot;none&quot;;
+        }
+      }
+// Define the available dates
+      var dates = ['1981-01-01T00:00:00.000Z', '1991-01-01T00:00:00.000Z', '2001-01-01T00:00:00.000Z', '2011-01-01T00:00:00.000Z']
+var sliderRange = document.getElementById(&quot;myRange&quot;);
+      sliderRange.max = dates.length-1;
+var dateValue = document.getElementById(&quot;date_value&quot;);
+      dateValue.innerHTML = dates[sliderRange.value].slice(0,10);
+      layers[1].getSource().updateParams({'TIME': dates[sliderRange.value]});
+// Update the current slider value (each time you drag the slider handle)
+      sliderRange.oninput = function() {
+      dateValue.innerHTML = dates[this.value].slice(0,10);
+      layers[1].getSource().updateParams({'TIME': dates[this.value]});
+      }
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre><p>
+Then start npm.</p>
+<pre style="margin-bottom: 0.2in">sudo npm start</pre><p>
+Now point your browser here:</p>
+<p><a href="http://34.72.131.193:1235/" target="_blank">http://34.72.131.193:1235</a></p>
+<p><strong>Page Load Times Benchmark</strong></p>
+<p>Here is a script that counts load times. I stole it from stack
+exchange, updated for python 3, and put it in a for loop on Google
+Collab:
+<a href="https://colab.research.google.com/drive/1Kktz6zXx84EbMTavWQbklf73Yzlco_pa?usp=sharing" target="_blank">https://colab.research.google.com/drive/1Kktz6zXx84EbMTavWQbklf73Yzlco_pa?usp=sharing</a></p>
+<p>The code looks something like this:&nbsp;</p>
+<pre style="margin-bottom: 0.2in">#https://stackoverflow.com/questions/16202548/measuring-the-time-to-load-a-page-python
+#https://stackoverflow.com/questions/55508303/how-to-write-a-list-of-list-into-excel-using-python
+import urllib
+import pandas as pd
+from time import time
+from datetime import datetime
+from urllib.request import urlopen
+mylist1 = []
+mylist2 = []
+mylist3 = []
+#http://35.239.133.210:8080/geoserver/www/oregeonMapTiled3.html
+#http://35.239.133.210:8080/geoserver/www/timeseries_oregon.html
+for x in range(1000):
+today = datetime.now()
+stream = urlopen(&quot;http://34.72.131.193:1235&quot;)
+start_time = time()
+output = stream.read()
+end_time = time()
+stream.close()
+timed_result = end_time-start_time
+mylist1.append(x)
+mylist2.append(today)
+mylist3.append(timed_result)
+df = pd.DataFrame()
+df['id'] = mylist1
+df['date'] = mylist2
+df['timed_results'] = mylist3
+df[&quot;timed_results&quot;].mean()</pre><p>
+Output of 1000 loads looked like this:</p>
+<pre style="margin-bottom: 0.2in">XYZ Tile (X1000): 0.07768535614013672 milliseconds
+Tile WMS (X1000): 0.07946944236755371 milliseconds</pre><p>
+Honestly seems pretty fast for both data ingestion methods, with XYZ
+Tile being&nbsp;.02 milliseconds faster. On the other hand, I never
+got XYZ tile to work properly as a time slider so it is technically
+less lines of code. Building NPM in the cloud speeds up the app
+significantly too, it’s almost suspiciously fast.</p>
+<p><strong>Part </strong><strong>1</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part1.html"><strong><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part</span></u></span></font></strong><strong><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">1</span></u></span></font></strong><strong><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">.html</span></u></span></font></strong></a></p>
+<p><strong>Part 2: </strong><strong><a href="https://www.davidjleifer.com/blogs/part2.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part2.html</span></u></span></font></a></strong></p>
+<p><strong>Part 3:</strong>
+<strong><a href="https://www.davidjleifer.com/blogs/part3.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part3.html</span></u></span></font></a></strong></p>
+<p><strong>Part 4: </strong><strong><a href="https://www.davidjleifer.com/blogs/part4.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part4.html</span></u></span></font></a></strong></p>
+<p><strong>Part 5: </strong><strong><a href="https://www.davidjleifer.com/blogs/part5.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part5.html</span></u></span></font></a></strong></p>
+<p><strong>Part </strong><strong>7</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part7.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part7.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>8</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part8.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part8.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>9</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part9.html</u></span></font></a></p>
+<p><br/>
+<br/>
+
+</p>
+</body>
+</html>

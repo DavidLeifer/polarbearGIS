@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 7.0.3.1 (MacOSX)"/>
+	<meta name="created" content="2021-05-27T21:11:56.838872571"/>
+	<meta name="changed" content="2021-05-27T21:51:37.343282674"/>
+	<style type="text/css">
+		@page { size: 8.5in 11in; margin: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		pre { font-family: "Liberation Mono", monospace; font-size: 10pt; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Serif", serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Songti SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "Arial Unicode MS"; font-size: 14pt; font-weight: bold }
+		a:link { color: #000080; so-language: zxx; text-decoration: underline }
+		a:visited { color: #800000; so-language: zxx; text-decoration: underline }
+		strong { font-weight: bold }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr"><h3 class="western">
+<font face="Liberation Serif, serif"><font size="4" style="font-size: 14pt"><b>Part
+11: Rewriting Precipitation and </b></font></font><font face="Liberation Serif, serif"><font size="4" style="font-size: 14pt"><b>Nino34</b></font></font><font face="Liberation Serif, serif"><font size="4" style="font-size: 14pt"><b>
+Correlation Applications</b></font></font></h3>
+<p>This series is me chronicling my adventure making a data pipeline.
+This pipe is outlined on GitHub here in the readme:
+<a href="https://github.com/DavidLeifer/polarbearGIS" target="_blank">https://github.com/DavidLeifer/polarbearGIS</a></p>
+<p><strong>This is the </strong><strong><b>eleventh</b></strong><strong>
+part in a series used to build my website:</strong>
+<a href="https://davidjleifer.com/" target="_blank">https://davidjleifer.com/</a></p>
+<p><strong>Part </strong><strong>1</strong><strong>:
+</strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part</span></u></span></font></a></strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">1</span></u></span></font></a></strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">.html</span></u></span></font></a></strong></p>
+<p><strong>Part 2: </strong><strong><a href="https://www.davidjleifer.com/blogs/part2.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part2.html</span></u></span></font></a></strong></p>
+<p><strong>Part 3:</strong>
+<strong><a href="https://www.davidjleifer.com/blogs/part3.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part3.html</span></u></span></font></a></strong></p>
+<p><strong>Part 4: </strong><strong><a href="https://www.davidjleifer.com/blogs/part4.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part4.html</span></u></span></font></a></strong></p>
+<p><strong>Part 5: </strong><strong><a href="https://www.davidjleifer.com/blogs/part5.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part5.html</span></u></span></font></a></strong></p>
+<p><strong>Part 6: </strong><a href="https://www.davidjleifer.com/blogs/part6.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part6.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>7</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part7.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part7.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>8</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part8.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part8.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>9</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>9</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>1</strong><strong>0</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part10.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/par</u></span></font><font color="#000080"><span lang="zxx"><u>t1</u></span></font><font color="#000080"><span lang="zxx"><u>0</u></span></font><font color="#000080"><span lang="zxx"><u>.html</u></span></font></a></p>
+<p><br/>
+<br/>
+
+</p>
+<p>With our original time slider for visualizing correlation between
+the nino34 index and precipitation, we could only view four years.
+This study employed 33 years between 1981 and 2014. It would be
+beneficial if we could see them all at once. It’s as easy as 1, 2 ,
+3!</p>
+<p><strong>Step 1: </strong><strong><b>Importing </b></strong><strong><b>m</b></strong><strong><b>odules
+</b></strong><strong><b>and defining our paths</b></strong></p>
+<p>The main changes will be done in the /js/layer/layers/js file of
+the node application. First we need to do some imports of ol modules.
+Then we create an “xyz_url” const variable, which contains the
+url string of the directory containing our XYZ tile files on our GCP
+server. We also define the XYZ tile ending url string called
+“xyz_ending”. Then we create an empty “year” const variable
+and populate the array with strings of years between 1981 and 2014.</p>
+<p>Next we create an empty array const variable called xyz_year. We
+populate that one with a concatenated variable called “staged”,
+containing “xyz_url”, “year”, and “xyz_ending”.</p>
+<pre>/** Add layers to the map
+ */
+
+import map from '../map';
+import TileLayer from 'ol/layer/Tile.js';
+import OSM from 'ol/source/OSM';
+import LayerGroup from 'ol/layer/Group'
+import View from 'ol/View';
+import XYZ from 'ol/source/XYZ';
+
+//set up the url
+const xyz_url = &quot;https://www.davidjleifer.com/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final_&quot;
+const xyz_ending = &quot;/{z}/{x}/{y}.png&quot;
+//create year array to hold years between 1981 and 2014
+const year = [];
+for (var i = 1981; i &lt;= 2014; i++) {
+    year.push(i);
+}
+
+//create xyz_year to hold array of url strings
+const xyz_year = [];
+for (var ii in year){
+  var staged = xyz_url + year[ii] + xyz_ending;
+  xyz_year.push(staged);
+};
+</pre><p>
+<strong>Step </strong><strong>2</strong><strong>: </strong><strong>Feeding
+each year’s url into a layer and then </strong><strong>into an</strong><strong>
+array</strong></p>
+<p>We create an empty array const variable called “all_tile_layers”.
+Then loop over two variables at the same time, similar to the zip
+function in python. So forEach “xyz_year”, we create a variable
+named “iii” and “index”. Then we feed that “index” into
+the “year” array and set it as a const variable named “num2”
+in the loop. We feed the “iii” variable into a new tileLayer url
+parameter, with the title parameter being set to a concatenation of
+“num2” and the string ‘ Jan Correlation’. The title is
+important because we use it to identify which layer is being
+displayed in the application. We push each of these
+“staged_tile_layer” into the empty array “all_tile_layers”.</p>
+<p>We also add a basemap layer called “osm” and add the “osm”
+layer and the first layer of the array “all_tile_layers” on our
+“map” core.</p>
+<pre>//create array all_tile_layers to hold all the tile layers
+//loop over xyz_year and year arrays
+const all_tile_layers = []
+xyz_year.forEach((iii, index) =&gt; {
+  const num2 = year[index];
+  const staged_tile_layer = new TileLayer({
+    title: num2 + ' Jan Correlation',
+    source: new XYZ({
+    url: iii,
+    }),
+  });
+  all_tile_layers.push(staged_tile_layer);
+});
+
+/* OSM layer */
+const osm = new TileLayer({
+    title: 'OSM',
+    source: new OSM()
+});
+
+/* Add to map */
+map.addLayer(osm);
+map.addLayer(all_tile_layers[0]);
+
+
+
+</pre><p>
+<strong>Step </strong><strong>3</strong><strong>: </strong><strong>Creating
+a neat little time slider</strong></p>
+<p>The neat little time slider is created with jQuery, the old man of
+the modern web. 
+</p>
+<p><img src="part11_html_a755b8842b17ff5.jpg" name="Image2" align="left" width="706" height="530">
+  <br clear="left"/>
+</img>
+<br/>
+<br/>
+
+</p>
+<p>The first function is pretty self explanatory, it creates a slider
+functionality in the #minbeds part of the html document. The second
+function tells the slider on slide, create a variable named “v”
+to hold the “ui” value and use the Object.keys method on
+“all_tile_layers” array. Then, forEach of these, call the
+function on the object’s key where if the variable “v” is equal
+to the “year” key, add that specific “all_title_layers” to
+the map. Else, remove the layer.</p>
+<pre>$(function() {
+    $( &quot;#slider&quot; ).slider({
+        value:3,
+        step: 1,
+        min: 1981,
+        max: 2014,
+       slide: function( event, ui ) {
+          $( &quot;#minbeds&quot; ).val( ui.value );
+       }    
+    });
+    $( &quot;#minbeds&quot; ).val( $( &quot;#slider&quot; ).slider( &quot;value&quot; ) );
+});
+
+$(document).ready(function(){
+  $(&quot;#slider&quot;).on(&quot;slide&quot;, function(event, ui){
+    var v = ui.value;
+    Object.keys(all_tile_layers).forEach(function(key){
+      if (v == year[key]){
+        map.addLayer(all_tile_layers[key]);
+      }
+      else {
+        map.removeLayer(all_tile_layers[key]);
+      }
+    });
+ });
+});
+
+export {all_tile_layers, osm}
+
+<img src="part11_html_bd313b3d613e51e7.png" name="Image1" align="left" width="783" height="587">
+  <br clear="left"/>
+</img>
+</pre><p>
+<br/>
+<br/>
+
+</p>
+<p>This series is me chronicling my adventure making a data pipeline.
+This pipe is outlined on GitHub here in the readme:
+<a href="https://github.com/DavidLeifer/polarbearGIS" target="_blank">https://github.com/DavidLeifer/polarbearGIS</a></p>
+<p><strong>This is the </strong><strong><b>eleventh</b></strong><strong>
+part in a series used to build my website:</strong>
+<a href="https://davidjleifer.com/" target="_blank">https://davidjleifer.com/</a></p>
+<p><strong>Part </strong><strong>1</strong><strong>:
+</strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part</span></u></span></font></a></strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">1</span></u></span></font></a></strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">.html</span></u></span></font></a></strong></p>
+<p><strong>Part 2: </strong><strong><a href="https://www.davidjleifer.com/blogs/part2.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part2.html</span></u></span></font></a></strong></p>
+<p><strong>Part 3:</strong>
+<strong><a href="https://www.davidjleifer.com/blogs/part3.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part3.html</span></u></span></font></a></strong></p>
+<p><strong>Part 4: </strong><strong><a href="https://www.davidjleifer.com/blogs/part4.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part4.html</span></u></span></font></a></strong></p>
+<p><strong>Part 5: </strong><strong><a href="https://www.davidjleifer.com/blogs/part5.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part5.html</span></u></span></font></a></strong></p>
+<p><strong>Part 6: </strong><a href="https://www.davidjleifer.com/blogs/part6.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part6.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>7</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part7.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part7.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>8</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part8.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part8.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>9</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>9</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>1</strong><strong>0</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part10.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/par</u></span></font><font color="#000080"><span lang="zxx"><u>t1</u></span></font><font color="#000080"><span lang="zxx"><u>0</u></span></font><font color="#000080"><span lang="zxx"><u>.html</u></span></font></a></p>
+</body>
+</html>

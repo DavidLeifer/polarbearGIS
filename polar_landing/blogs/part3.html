@@ -1,0 +1,363 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 7.0.3.1 (MacOSX)"/>
+	<meta name="created" content="2020-12-19T11:16:25.141838017"/>
+	<meta name="changed" content="2021-03-27T23:33:58.719641443"/>
+	<style type="text/css">
+		@page { size: 8.5in 11in; margin: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		pre { font-family: "Liberation Mono", monospace; font-size: 10pt; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Serif", serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Songti SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "Arial Unicode MS"; font-size: 14pt; font-weight: bold }
+		a:link { color: #000080; so-language: zxx; text-decoration: underline }
+		strong { font-weight: bold }
+		a:visited { color: #800000; so-language: zxx; text-decoration: underline }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr"><h3 class="western" style="line-height: 0.5in; orphans: 2; widows: 2">
+Adding a Legend and Toggle Button Using OpenLayers for Geoserver
+Timeseries Raster: Part&nbsp;3</h3>
+<p><strong>Part </strong><strong>1</strong><strong>:
+</strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part</span></u></span></font></a></strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">1</span></u></span></font></a></strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">.html</span></u></span></font></a></strong></p>
+<p><strong>Part 2: </strong><strong><a href="https://www.davidjleifer.com/blogs/part2.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part2.html</span></u></span></font></a></strong></p>
+<p><strong>Part 4: </strong><strong><a href="https://www.davidjleifer.com/blogs/part4.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part4.html</span></u></span></font></a></strong></p>
+<p><strong>Part 5: </strong><strong><a href="https://www.davidjleifer.com/blogs/part5.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part5.html</span></u></span></font></a></strong></p>
+<p><strong>Part 6: </strong><a href="https://www.davidjleifer.com/blogs/part6.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part6.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>7</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part7.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part7.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>8</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part8.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part8.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>9</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part9.html</u></span></font></a></p>
+<p><br/>
+<br/>
+
+</p>
+<p>Today we will be adding a legend in Geoserver to our previously
+published Geoserver timeseries rasters using OpenLayers, which is an
+open source JavaScript (JS) library for web GIS. We will fiddle with
+some basic HTML, CSS and JS in order to get this to work properly and
+hopefully learn a thing or two about web GIS.</p>
+<p>To begin, we will need to point our browser to our Geoserver
+homepage, with the X’s being replaced with your server’s external
+IP address:</p>
+<pre style="margin-bottom: 0.2in"><a href="http://35.239.133.210:8080/geoserver/web/" target="_blank">http://XX.XXX.XXX.XXX:8080/geoserver/web/</a></pre><p>
+On the right hand menu under <strong>Data</strong> click the “Styles”
+button. Next, click our previously created “oregon_style”. Copy
+and paste the following XML code into the editor:</p>
+<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;StyledLayerDescriptor xmlns=&quot;<a href="http://www.opengis.net/sld" target="_blank">http://www.opengis.net/sld</a>&quot; xmlns:sld=&quot;<a href="http://www.opengis.net/sld" target="_blank">http://www.opengis.net/sld</a>&quot; version=&quot;1.0.0&quot; xmlns:ogc=&quot;<a href="http://www.opengis.net/ogc" target="_blank">http://www.opengis.net/ogc</a>&quot; xmlns:gml=&quot;<a href="http://www.opengis.net/gml" target="_blank">http://www.opengis.net/gml</a>&quot;&gt;
+  &lt;UserLayer&gt;
+    &lt;sld:LayerFeatureConstraints&gt;
+      &lt;sld:FeatureTypeConstraint/&gt;
+    &lt;/sld:LayerFeatureConstraints&gt;
+    &lt;sld:UserStyle&gt;
+      &lt;sld:Name&gt;Oregon Precipitation&lt;/sld:Name&gt;
+      &lt;sld:FeatureTypeStyle&gt;
+        &lt;sld:Rule&gt;
+          &lt;sld:RasterSymbolizer&gt;
+            &lt;sld:ChannelSelection&gt;
+              &lt;sld:GrayChannel&gt;
+                &lt;sld:SourceChannelName&gt;1&lt;/sld:SourceChannelName&gt;
+              &lt;/sld:GrayChannel&gt;
+            &lt;/sld:ChannelSelection&gt;
+            &lt;sld:ColorMap type=&quot;ramp&quot;&gt;
+              &lt;sld:ColorMapEntry color=&quot;#f7fbff&quot; quantity=&quot;10.6999998092651&quot; label=&quot;10 mm&quot;/&gt;
+              &lt;sld:ColorMapEntry color=&quot;#deebf7&quot; quantity=&quot;63.7959004688263&quot; label=&quot;60 mm&quot;/&gt;
+              &lt;sld:ColorMapEntry color=&quot;#c6dbef&quot; quantity=&quot;116.891801128387&quot; label=&quot;120 mm&quot;/&gt;
+              &lt;sld:ColorMapEntry color=&quot;#9ecae1&quot; quantity=&quot;169.987701787949&quot; label=&quot;170 mm&quot;/&gt;
+              &lt;sld:ColorMapEntry color=&quot;#6baed6&quot; quantity=&quot;223.08360244751&quot; label=&quot;220 mm&quot;/&gt;
+              &lt;sld:ColorMapEntry color=&quot;#4292c6&quot; quantity=&quot;276.179503107071&quot; label=&quot;280 mm&quot;/&gt;
+              &lt;sld:ColorMapEntry color=&quot;#2171b5&quot; quantity=&quot;329.275403766632&quot; label=&quot;330 mm&quot;/&gt;
+              &lt;sld:ColorMapEntry color=&quot;#08519c&quot; quantity=&quot;378.287004375458&quot; label=&quot;380 mm&quot;/&gt;
+              &lt;sld:ColorMapEntry color=&quot;#08306b&quot; quantity=&quot;419.130004882813&quot; label=&quot;420 mm&quot;/&gt;
+            &lt;/sld:ColorMap&gt;
+          &lt;/sld:RasterSymbolizer&gt;
+        &lt;/sld:Rule&gt;
+      &lt;/sld:FeatureTypeStyle&gt;
+    &lt;/sld:UserStyle&gt;
+  &lt;/UserLayer&gt;
+&lt;/StyledLayerDescriptor&gt;</pre><p>
+Under “Legend” in the upper right hand corner click the “Add
+Legend” button. We can click the “Preview” button to view the
+newly created legend. Now click “Validate” and “Apply” at the
+bottom of the screen. We have now reformatted the attributes to be
+consistent numbering, included a millimeter denotation, and also a
+legend for the style. We can also click on the “Layer Preview”
+button to see what our rasters and their legend will look like:</p>
+<p><img src="part3_html_13c440de8173f071.png" name="Image1" align="bottom" width="755" height="462" border="0"/>
+</p>
+<p>The legend image itself can be found at the following address,
+with your server’s external IP address included in place of the
+X’s:</p>
+<pre style="margin-bottom: 0.2in"><a href="http://35.239.133.210:8080/geoserver/cite/wms?REQUEST=GetLegendGraphic&amp;VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=cite:timeseries_oregon&amp;STYLE=oregon_style" target="_blank">http://xx.XXX.XXX.XXX:8080/geoserver/cite/wms?REQUEST=GetLegendGraphic&amp;VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=cite:timeseries_oregon&amp;STYLE=oregon_style</a></pre><p>
+Now we will edit the HTML/CSS/JS file to contain our newly created
+legend image. If you are having trouble following along, the entire
+file will be included at the end of this article for easier
+copy/pasting. We will go block by block to explain which code does
+what.</p>
+<p>Below the &lt;style&gt; section and inside the &lt;body&gt; of our
+HTML will go our “Title” div to explain what kind of data we are
+displaying:</p>
+<pre>&lt;div id=&quot;title&quot; class=&quot;title&quot;&gt;
+    &lt;h2&gt;Oregon Gridded Precipitation&lt;/h2&gt;
+&lt;/div&gt;</pre><p>
+Now scroll back up and in between the CSS &lt;style&gt; markers will
+go the div “title” style:</p>
+<pre>.title {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        height:30px;
+}</pre><p>
+Scroll back down to the &lt;body&gt; of the HTML section. View the
+“map” div that we created in the previous two parts. After the
+first ending &gt; but before the div’s ending &lt;/div&gt; we will
+create our legend toggle button:</p>
+<pre>&lt;div id=&quot;button&quot; class=&quot;button&quot;&gt;
+    &lt;button onclick=&quot;myFunction()&quot; style=&quot;height:50px; width:150px&quot;&gt;Legend&lt;/button&gt;
+&lt;/div&gt;</pre><p>
+Scroll up to the CSS &lt;style&gt; again and include the button’s
+style:</p>
+<pre>#button {
+        position: absolute;
+        left:10px; 
+        top:130px;
+        z-index:10000; 
+}</pre><p>
+In order to toggle our legend on and off, we need to include some JS,
+so scroll to the bottom of the document. In between the &lt;script&gt;
+tags but below the map and layers var, create a function to toggle
+the legend:</p>
+<pre>function myFunction() {
+        var x = document.getElementById(&quot;legend&quot;);
+        if (x.style.display === &quot;none&quot;) {
+          x.style.display = &quot;block&quot;;
+        } else {
+          x.style.display = &quot;none&quot;;
+        }
+      }</pre><p>
+Scroll back up to the the HTML &lt;body&gt; and below the button
+&lt;div&gt; create the legend with our legend image from Geoserver.
+Again, make sure to replace the X’s with your server’s external
+IP address:</p>
+<pre>&lt;div id=&quot;legend&quot;&gt;
+        &lt;img src=&quot;<a href="http://35.239.133.210:8080/geoserver/cite/wms?REQUEST=GetLegendGraphic&amp;VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=cite:timeseries_oregon&amp;STYLE=oregon_style" target="_blank">http://xx.XXX.XXX.XXX:8080/geoserver/cite/wms?REQUEST=GetLegendGraphic&amp;VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=cite:timeseries_oregon&amp;STYLE=oregon_style</a>&quot;&gt;</pre><p>
+Notice that we did NOT include a closing &lt;/div&gt; for this code.
+This will be explained later. Now scroll back up to the CSS and
+include the following code in our &lt;style&gt; tags for our legend:</p>
+<pre>#legend {
+        background: #4CAF50;
+        position: absolute;
+        left:10px; 
+        top:200px; 
+        z-index:10000; 
+        width:150px; 
+        height:450px; 
+}</pre><p>
+Remember how something will be explained later? Now is that time. In
+the HTML &lt;body&gt;, move the slidecontainer and its code directly
+below the legend div. Now we will include the closing divs for the
+map, legend, and slidecontainer:</p>
+<pre>&lt;div class=&quot;slidecontainer&quot;&gt;
+      &lt;h3&gt;Timeslider&lt;/h3&gt;
+      &lt;input type=&quot;range&quot; min=&quot;0&quot; max=&quot;2&quot; value=&quot;0&quot; class=&quot;slider&quot; id=&quot;myRange&quot;&gt;
+      &lt;p&gt;Date: &lt;span id=&quot;date_value&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+    &lt;/div&gt;    
+  &lt;/div&gt;
+&lt;/div&gt;</pre><p>
+Scroll up to the CSS &lt;style&gt; and include the following code to
+modify the slider container:</p>
+<pre>.slidecontainer {
+        width: 120px;
+        margin-bottom: -20px;
+        margin-left: 10px;
+        z-index: 100px;
+        position: relative;
+}</pre><p>
+The entire code will look like this, with you replacing the X’s
+with your external IP address from your server:</p>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;WMS Time&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;<a href="https://openlayers.org/en/v4.6.5/css/ol.css" target="_blank">https://openlayers.org/en/v4.6.5/css/ol.css</a>&quot; type=&quot;text/css&quot;&gt;
+    &lt;script src=&quot;<a href="https://openlayers.org/en/v4.6.5/build/ol.js" target="_blank">https://openlayers.org/en/v4.6.5/build/ol.js</a>&quot;&gt;&lt;/script&gt;
+&lt;style&gt;
+/* Setting up the slider styling */
+    .slidecontainer {
+        width: 120px;
+        margin-bottom: -20px;
+        margin-left: 10px;
+        z-index: 100px;
+        position: relative;
+    }
+.slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 15px;
+        border-radius: 5px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+    }
+.slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background:  #00008B;
+        cursor: pointer;
+    }
+.slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: #4CAF50;
+        cursor: pointer;
+      }
+    #legend {
+        background: #4CAF50;
+        position: absolute;
+        left:10px; 
+        top:200px; 
+        z-index:10000; 
+        width:150px; 
+        height:450px; 
+      }
+    .map {
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+      }
+    body {
+        height: 98%;
+      }
+    html {
+        height: 98%;
+    }
+    .title {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        height:30px;
+      }
+    #button {
+        position: absolute;
+        left:10px; 
+        top:130px;
+        z-index:10000; 
+      }
+    &lt;/style&gt;
+  &lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;title&quot; class=&quot;title&quot;&gt;
+      &lt;h2&gt;Oregon Gridded Precipitation&lt;/h2&gt;
+    &lt;/div&gt;
+    &lt;!-- Create map container --&gt;
+    &lt;div id=&quot;map&quot; class=&quot;map&quot;&gt;
+&lt;!-- Create Button --&gt;
+    &lt;div id=&quot;button&quot; class=&quot;button&quot;&gt;
+      &lt;button onclick=&quot;myFunction()&quot; style=&quot;height:50px; width:150px&quot;&gt;Legend&lt;/button&gt;
+    &lt;/div&gt;
+&lt;!-- Create legend container inside map container--&gt;
+    &lt;div id=&quot;legend&quot;&gt;
+        &lt;img src=&quot;<a href="http://35.239.133.210:8080/geoserver/cite/wms?REQUEST=GetLegendGraphic&amp;VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=cite:timeseries_oregon&amp;STYLE=oregon_style" target="_blank">http://xx.XXX.XX.XXX:8080/geoserver/cite/wms?REQUEST=GetLegendGraphic&amp;VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=cite:timeseries_oregon&amp;STYLE=oregon_style</a>&quot;&gt;
+    &lt;!-- Create slider container inside legend container--&gt;
+    &lt;div class=&quot;slidecontainer&quot;&gt;
+      &lt;h3&gt;Timeslider&lt;/h3&gt;
+      &lt;input type=&quot;range&quot; min=&quot;0&quot; max=&quot;2&quot; value=&quot;0&quot; class=&quot;slider&quot; id=&quot;myRange&quot;&gt;
+      &lt;p&gt;Date: &lt;span id=&quot;date_value&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+    &lt;/div&gt;    
+    &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div role=&quot;group&quot; aria-label=&quot;Animation controls&quot;&gt;
+&lt;script&gt;
+// Set up the layers
+      var layers = [
+        new ol.layer.Tile({
+            source: new ol.source.OSM()
+          }),
+        new ol.layer.Tile({
+          source: new ol.source.TileWMS({
+            url: '<a href="http://35.239.133.210:8080/geoserver/cite/wms%27" target="_blank">http://xx.XXX.XXX.XXX:8080/geoserver/cite/wms'</a>,
+            params: {'LAYERS': 'cite:timeseries_oregon'}
+          })
+        })
+      ];
+var map = new ol.Map({
+        layers: layers,
+        target: 'map',
+        view: new ol.View({
+          // Defining the location in Lat Lon. In this case our image is from Brazil
+          center:  ol.proj.transform([-120.5542,43.8041], 'EPSG:4326', 'EPSG:3857'),
+          zoom: 6
+        })
+      });
+function myFunction() {
+        var x = document.getElementById(&quot;legend&quot;);
+        if (x.style.display === &quot;none&quot;) {
+          x.style.display = &quot;block&quot;;
+        } else {
+          x.style.display = &quot;none&quot;;
+        }
+      }
+// Define the available dates
+      var dates = ['1981-01-01T00:00:00.000Z', '1991-01-01T00:00:00.000Z', '2001-01-01T00:00:00.000Z', '2011-01-01T00:00:00.000Z']
+var sliderRange = document.getElementById(&quot;myRange&quot;);
+      sliderRange.max = dates.length-1;
+var dateValue = document.getElementById(&quot;date_value&quot;);
+      dateValue.innerHTML = dates[sliderRange.value].slice(0,10);
+      layers[1].getSource().updateParams({'TIME': dates[sliderRange.value]});
+// Update the current slider value (each time you drag the slider handle)
+      sliderRange.oninput = function() {
+      dateValue.innerHTML = dates[this.value].slice(0,10);
+      layers[1].getSource().updateParams({'TIME': dates[this.value]});
+      }
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre><p>
+Replace your timeseries_oregon.html file in the www folder on your
+Geoserver on Google Cloud Platform with the above code and you will
+be set!</p>
+<p>It will look like this:</p>
+<p><img src="part3_html_3ab2d4cfd1177768.png" name="Image2" align="bottom" width="735" height="468" border="0"/>
+</p>
+<p><br/>
+<br/>
+
+</p>
+<p>Next post we will probably be changing the Timeslider to become
+larger so it is easier to slide on mobile devices. It would also be
+cool to include a layer toggle to toggle on and off the layers. Maybe
+we will also acquire some station data for these dates to include
+point data and include a popup-info-window for these points.</p>
+<p>Remember it is #rasternotmonster.</p>
+<p><strong>Part </strong><strong>1</strong><strong>:
+</strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part</span></u></span></font></a></strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">1</span></u></span></font></a></strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">.html</span></u></span></font></a></strong></p>
+<p><strong>Part 2: </strong><strong><a href="https://www.davidjleifer.com/blogs/part2.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part2.html</span></u></span></font></a></strong></p>
+<p><strong>Part 4: </strong><strong><a href="https://www.davidjleifer.com/blogs/part4.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part4.html</span></u></span></font></a></strong></p>
+<p><strong>Part 5: </strong><strong><a href="https://www.davidjleifer.com/blogs/part5.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part5.html</span></u></span></font></a></strong></p>
+<p><strong>Part 6: </strong><a href="https://www.davidjleifer.com/blogs/part6.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part6.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>7</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part7.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part7.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>8</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part8.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part8.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>9</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part9.html</u></span></font></a></p>
+<p><br/>
+<br/>
+
+</p>
+</body>
+</html>
