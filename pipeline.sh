@@ -156,6 +156,6 @@ sudo gdaldem color-relief $VARIABLENAME/data/tmeanJanELNin/tmeanJanELNin.tif $VA
 sudo gdal2tiles.py --zoom=2-8 --tilesize=128 $VARIABLENAME/data/tmeanJanELNin/tmeanJanELNin_color.tif /var/www/html/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanELNin
 
 
-http://34.122.XXX.XXX/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanELNin/openlayers.html
+http://34.122.247.201/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanELNin/openlayers.html
 
 

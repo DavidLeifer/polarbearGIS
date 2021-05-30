@@ -1,5 +1,5 @@
 # PolarbearGIS
-pipeline for GIS climate raster data </br>
+A pipeline for GIS climate raster data. A script of scripts, using GCP.</br>
 
 ### TLDR
 Overall goal is to have it down to a single bash script that </br> automatically installs the R, python, and npm libraries, downloads </br> the data from Prism, does analysis with python, creates four npm web </br> applications that display climate and weather data. </br>
@@ -13,56 +13,27 @@ cd polarbearGIS</br>
 chmod u+x pipeline.sh</br>
 ./pipeline.sh</br>
 
-# Progress as of 05/17/2021:
-
-## Step 1: Download Data With R: Complete
-Runs 2 R scripts to download data from Oregon St Prism to tmean and ppt folders in the data directory. </br>
-This is 33 years of ppt and tmean across the US, 1981-2014. </br>
-
-## Step 2: Run Analysis with Python
-### Section 1: Complete
+PolarbearGIS is a spatiotemporal data pipeline at the intersection of climatological, computer science, and geospatial technologies. The processing occurs on a Google Cloud Platform Debian instance and is orchestrated by a BASH script, installing libraries required for Python, R, NPM, and compiling GDAL from source to generate XYZ tile files. Data is downloaded through an R script and a module called Prism to examine the El Nino-Southern Oscillation (ENSO), which is said to control precipitation and temperature in the Pacific North West and Southeastern United States. By manipulating such Python libraries as Rasterio, GDAL, Geopandas, SciPy, Numpy, and Seaborn, correlation between the elnino34 index and climate rasters has been achieved for 33 years of data. Analysis of the Variance of the Means (ANOVA) and mean groupings for El Nino, La Nina, and Neutral years are further used to examine spatial patterns. Tweepy, geocoder, and NLTK are also utilized to create geojson files of twitter sentiment to be displayed overlaid radar data of a winter storm event dubbed the Polar Vortex of 2019. NPM installs OpenLayers packages and are choreographed to generate space-time visualizations for display across multiple browsers and platforms.
 </br>
-Run ppt_cor.py to output a directory of .tifs that contain raster shapes of elnino.xlsx for each year: /data/ppt_pearson_output/ppt_pearson_output_ </br>
-Also saves bils as tif here: /data/ppt_bil2tif_resize/ppt_bil2tif_resize_ </br>
-Use those two outputs from ppt_cor.py and input them into ppt_cor_actually.py which runs a moving pearson correlation of 2 columns by 3 rows over index raster </br>
-tif and ppt raster tif. Outputs to /data/ppt_pearson_final/ppt_pearson_final_ </br>
-Run ppt_tif2XYZ.py (has to use QGIS processing li/brary "import processing", AKA in QGIS python development) which creates XYZ tiles for each correlation </br>
-year. Use that as input to section1 of the web application. </br>
-TODO: Figure out how to run QGIS libs outside of QGIS (might be QGIS install, try</br> new stable v 3.16) OR firgure out how to use GDAL to style/convert tiffs to XYZ </br>tilefiles so I don't have to compile QGIS on linux in the cloud.</br>
+Some of the technical details are outlined in my blog, which can be found on my website and was generated using LibreOffice save to HTML function. This is the most FOSS4G I could think of.
 
-### Section 2: Complete
-</br>
-Run ppt_bil2tif_LaElNeu_analysis.py to output average ppt and tmean for all the years grouped by elnino, la nina, and neutral winter index (/data/nino34.xlsx) </br> output to: </br>
-/data/pptJanELNin/pptJanELNin.tif </br>
-/data/pptJanLANin/pptJanLANin.tif </br>
-/data/pptJanNeutral/pptJanNeutral.tif </br>
-/data/tmeanJanELNin/tmeanJanELNin.tif </br>
-/data/tmeanJanLANin/tmeanJanLANin.tif </br>
-/data/tmeanJanNeutral/tmeanJanNeutral.tif </br>
-These are converted to XYZ tiles and displayed in Section 2 of the web application (with explanation). </br>
+# TODO as of 05/29/2021:
+-GDAL -v 3.3.0 XYZ Tiles finally work (with color), need to build for the 33 years of prec, temp, and mean groupings</br>
+-Need to add a gdrive link to download the json of twitter sentiment so I can run the python scripts to split the data into a geojson file for each 15 minute time stamp to feed into the ol map</br>
+-Might add a streamhist function from ye ol farmer’s package, might be overkill tbh</br>
+-Have to install npm and build the files, might also be overkill</br>
+-Finish GeoStreamable?</br>
 
-### Section 3: Complete
-Run both ppt_ANOVA_analysis.py and tmean_ANOVA_analysis.py to output ANOVA values in /data/ppt_ANOVA_output.txt and /data/tmean_ANOVA_output.txt. </br>
-TODO: Not sure where to display these tbh</br>
+# GeoStreamable
+------------- </br>
+### SCRIPT
+1) Get tweets (set CRON job to reset every hour)</br>
+2) Sentiment analysis/geocode named places (Set CRON job to run after a json file of tweets is made)</br>
+3) Point in polygon and round the data to 15 minute increments and save as a geojson file</br>
+### APPLICATION
+4) Ingest each file and programmatically add to map</br>
+5) Add popup info window to tweet to display text but noo personally identify information from the user (as carefully stipulated in the docs)</br>
 
-### Section 4: Complete
-Create npm OL radar data web application set between Jan 28th and Feb 7th 2019 (maybe play with the speed setting) Status: Complete </br>
-Collect twitter data on the Polar Vortex in Jan 2019. Status: Complete </br>
-2 year old thesis script Part 1: pull profile location data for all the tweets using tweepy (old script used a hack) Status: Complete </br>
-2 year old thesis script Part 2: Geocode named location using Open Street Map Nominatim. Status: Complete </br>
-2 year old thesis script Part 3: Sentiment analysis on tweets. Status: Complete. </br>
-Combine into one file. Select the points by using a shapefile of the right half of the US. Status: Complete </br>
-Group points into increments of 15 minutes (created_at field), select a splice of time and save as geojson. Status: Complete </br>
-Make a time-aware OL layer in JS and link it with the radar imagery. Status: Complete </br>
-
-
-## Step 3: Web Appliction: Complete
-### Landing Page: Basic html resizeable columns with pics as links to the three pages as described below.
-### Page 1: Moving Pearson Correlation Tmean
-</br>Use Step 2 Section 1 XYZ tiles and use as input to OpenLayers/npm/node/bundler web app that allows you to click through the years.
-### Page 2: Moving Pearson Correlation PPT
-</br>Use Step 2 Section 1 XYZ tiles and use as input to OpenLayers/npm/node/bundler web app that allows you to click through the years. </br>
-### Page 3: ppt and tmean 33 year mean XYZ tiles for el nino, la nina, neutral winters (from part 2, section 2)
-### Page 4: Sentiment Analysis of people's opinion during a storm along side the path of the storm
-
+Got an angel on my left shoulder, a devil on the polar</br>
+Got a mug a frigid, got a mug a solar, slide over
 
