@@ -2,7 +2,7 @@
 A pipeline for GIS climate raster data. A script of scripts, using GCP.</br>
 
 ### TLDR
-Overall goal is to have it down to a single bash script that </br> automatically installs the R, python, and npm libraries, downloads </br> the data from Prism, does analysis with python, creates four npm web </br> applications that display climate and weather data. </br>
+A BASH script that automatically installs the R, python, and npm libraries, downloads the data from Prism, does analysis with python, and creates four npm web applications that display climate and weather data.</br>
 
 ### (Eventual) USAGE ON DEBIAN
 sudo apt update</br>
