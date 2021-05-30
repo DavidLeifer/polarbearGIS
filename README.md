@@ -14,13 +14,13 @@ A pipeline for GIS climate raster data. A script of scripts, using GCP.</br>
 + [Pol Ivers](#pol-ivers)
 
 ### Support PolarbearGIS
+* Polarbears are endangered!
 * Star, fork and watch it on Github.
 * Contribute <a href="https://github.com/DavidLeifer/polarbearGIS/issues">bug reports or suggest features</a>
 * Translate it into a different language and have </br>
 ![Fun](/imgs/fun.gif?raw=true)
 
 ### Screenshots
-<p>
 1. Temperature Correlated with nino34 Index
 ![Temp](/polar_landing/images/temp_cor.png)
 </br>
@@ -33,7 +33,6 @@ A pipeline for GIS climate raster data. A script of scripts, using GCP.</br>
 4. Twitter Sentiment Alongside Radar of the Polar Vortex 2019 Storm
 ![Temp](/polar_landing/images/polar_radar.png)
 </br>
-</p>
 
 ### Usage on Debian
 1. Update `sudo apt update`
