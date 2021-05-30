@@ -16,21 +16,22 @@ A pipeline for GIS climate raster data. A script of scripts, using GCP.</br>
 ### Support PolarbearGIS
 * Star, fork and watch it on Github.
 * Contribute <a href="https://github.com/DavidLeifer/polarbearGIS/issues">bug reports or suggest features</a>
-* Translate it into a different language and have ![Fun](/imgs/fun.gif?raw=true)
+* Translate it into a different language and have </br>
+![Fun](/imgs/fun.gif?raw=true)
 
 ### Screenshots
 1. Temperature Correlated with nino34 Index
 ![Temp](/polar_landing/images/temp_cor.png?raw=true)
 </br>
 2. Precipitation Correlated with nino34 Index
-![Precip](/polar_landing/images/ppt_cor.png?raw=true)
+![Precip](/polar_landing/images/temp_cor.png?raw=true)
 </br>
 3. Mean January Temperature and Precipitation Grouped by Oscillation
-![Groupings](/polar_landing/images/Part2Section2.png?raw=true)
+![Groupings](/polar_landing/images/temp_cor.png?raw=true)
 </br>
 4. Twitter Sentiment Alongside Radar of the Polar Vortex 2019 Storm
 </br>
-![PolarVortex](/polar_landing/images/polar_radar.png?raw=true)
+![PolarVortex](/polar_landing/images/temp_cor.png?raw=true)
 </br>
 
 ### Usage on Debian
@@ -59,6 +60,7 @@ Some of the technical details are outlined in my blog, which can be found on my 
 * Automated installation of libraries in the cloud
 * Compiling GDAL from source
 * HTTP/HTTPS load balancer
+* Bears.
 
 ### Used Libraries
 - Python
