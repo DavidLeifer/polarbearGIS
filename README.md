@@ -23,16 +23,12 @@ A pipeline for GIS climate raster data. A script of scripts, using GCP.</br>
 ### Screenshots
 1. Temperature Correlated with nino34 Index
 ![Temp](/polar_landing/images/temp_cor.png)
-</br>
 2. Precipitation Correlated with nino34 Index
 ![Temp](/polar_landing/images/ppt_cor.png)
-</br>
 3. Mean January Temperature and Precipitation Grouped by Oscillation
 ![Temp](/polar_landing/images/Part2Section2.png)
-</br>
 4. Twitter Sentiment Alongside Radar of the Polar Vortex 2019 Storm
 ![Temp](/polar_landing/images/polar_radar.png)
-</br>
 
 ### Usage on Debian
 1. Update `sudo apt update`
