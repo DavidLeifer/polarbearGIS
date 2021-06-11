@@ -15,10 +15,9 @@ A pipeline for GIS climate raster data. A script of scripts, using GCP.</br>
 
 ### Support PolarbearGIS
 * Polarbears are vulnerable!
-* Star, fork and watch it on Github.
-* Contribute <a href="https://github.com/DavidLeifer/polarbearGIS/issues">bug reports or suggest features</a>
-* Translate it into a different language and have </br>
-![Fun](/imgs/fun.gif?raw=true)
+* Star and fork it on GitLab
+* Contribute bug reports or suggest features
+* Translate it into a different language
 
 ### Screenshots
 1. Temperature Correlated with nino34 Index
@@ -33,16 +32,23 @@ A pipeline for GIS climate raster data. A script of scripts, using GCP.</br>
 ### Usage on Debian
 1. Update `sudo apt update`
 2. Install Git `sudo apt install git`
-3. Clone Repository `sudo git clone https://github.com/DavidLeifer/polarbearGIS.git`
+3. Clone Repository `sudo git clone https://gitlab.com/davleifer/polarbearGIS.git`
 4. `cd polarbearGIS`
 5. Make executable `chmod u+x pipeline.sh`
 6. Run the program `./pipeline.sh`
 
 ### Summary
-PolarbearGIS is a spatiotemporal data pipeline at the intersection of climatological, computer science, and geospatial technologies. The processing occurs on a Google Cloud Platform Debian instance and is orchestrated by a BASH script, installing libraries required for Python, R, NPM, and compiling GDAL from source to generate XYZ tile files. Data is downloaded through an R script and a module called Prism to examine the El Nino-Southern Oscillation (ENSO), which is said to control precipitation and temperature in the Pacific North West and Southeastern United States.</br></br>
+PolarbearGIS is a simple data pipeline at the intersection of climatological, computer science, and geospatial technologies. The processing occurs on a Google Cloud Platform Debian instance and is orchestrated by a BASH script, installing libraries required for Python, R, NPM, and compiling GDAL from source to generate XYZ tile files. Data is downloaded through an R script and a module called Prism to examine the El Nino-Southern Oscillation (ENSO), which is said to control precipitation and temperature in the Pacific North West and Southeastern United States.
+
+
+
+
 By manipulating such Python libraries as Rasterio, GDAL, Geopandas, SciPy, Numpy, and Seaborn, correlation between the nino34 index and climate rasters has been achieved for 33 years of data. Analysis of the Variance of the Means (ANOVA) and mean groupings for El Nino, La Nina, and Neutral years are further used to examine spatial and statistical patterns. Tweepy, geocoder, and NLTK are also utilized to create geojson files of twitter sentiment to be displayed overlaid radar data of a winter storm event dubbed the Polar Vortex of 2019. NPM installs OpenLayers packages and are choreographed to generate space-time visualizations for display across multiple browsers and platforms.
-</br></br>
-Some of the technical details are outlined in my blog, which can be found on my website and were generated using LibreOffice's save to HTML function. This is the most FOSS4G I could think of. </br>
+
+
+
+
+Some of the technical details are outlined in my blog, which can be found on my website and were generated using LibreOffice's save to HTML function. This is the most FOSS4G I could think of.
 
 ### Features
 * Generation of a series of rasters from a csv index
@@ -85,12 +91,20 @@ Some of the technical details are outlined in my blog, which can be found on my 
   * GDAL: https://gdal.org/download.html
 
 ### TODO 
-05/29/2021:</br>
-- GDAL -v 3.3.0 XYZ Tiles work (with color), need to build for the 33 years of prec, temp, and mean groupings: https://stackoverflow.com/questions/2437452/how-to-get-the-list-of-files-in-a-directory-in-a-shell-script</br>
-- Need to add a gdrive link to download the json of twitter sentiment so I can run the python scripts to split the data into a geojson file for each 15 minute time stamp to feed into the ol map</br>
-- Might add a streamhist function from ye ol farmer’s package to polar vortex, might be overkill tbh</br>
-- Have to install npm and build the web files, might also be overkill</br>
-- Finish GeoStreamable?</br>
+06/01/2021:</br>
+- Somehow getting wildly different ppt/nino34 cor values on debian as opposed to mac, maybe i need a fresh instance and reinstall everything (gonna have to test that eventually anyway). e.g. mac=1.2e3; debian=1.2e12. Difficulty: Hard (probably)
+- Quantile breaks look better than equal intervals, but id have to calculate the correct quantile breaks for 33 years and put it in 33 .txt files, make a list of all the txt files and feed it into the coloring step in pipeline.sh, also have to change the legend for each xyz in the web app part to reflect the different breaks, probably could do it with a for loop in js and place all the legend .png into their own directory. Difficulty: Medium
+- Include ANOVA values in the el nino, la nina, and neutral temp/ppt applications (already have values, just do some html/css). Difficulty: Easy (probably)
+- Map maps of the average El Niño – neutral January temperature and the average La Niña – neutral January temperature. Map the same maps for the precipitation differences. Difficulty: Easy
+- Build XYZ tiles for the previous map and include it in another application, link in polar_landing. Difficulty: Easy
+- Build tiles for the 33 years of temp by copying bash code from ppt and manipulating display options. Difficulty: Easy
+- Add a gdrive link to download the json of twitter sentiment so I can run the python scripts to split the data into a geojson file for each 15 minute time stamp to feed into the ol map. Difficulty: Easy
+- Install npm and build the web files, follow steps from my blog that I did in Jan. Difficulty: Easy (probably)
+- Move the info window in the app to appear in front of the legend, otherwise it is partially blocked on mobile. Difficulty: Easy
+- Add logic to change year and slider position based on drop down input. Difficulty: Medium
+- Refactor code into OOP so it is more reusable. Difficulty: Hard
+- Add a streamhist function from ye ol farmer’s package to polar vortex? Difficulty: Medium
+- Finish GeoStreamable? Difficulty: Hard
 
 ### GeoStreamable
 - SCRIPT
@@ -100,10 +114,7 @@ Some of the technical details are outlined in my blog, which can be found on my 
 4. Point in polygon and round the data to 15 minute increments and save as a geojson file
 - APPLICATION
 5. Ingest each file and programmatically add to map
-6. Add popup info window to tweet to display text but noo personally identifiable information from the user (as carefully stipulated in the docs)
+6. Add popup info window to display tweet text but noo personally identifiable information from the user (as carefully stipulated in the docs)
 
 ### Polar Bears
-Got an angel on my left shoulder, a devil on the polar</br>
-Got a mug a frigid, got a mug a solar, sliiiide over</br>
-
 ![Polar Bears](/imgs/polar-bears.png?raw=true)

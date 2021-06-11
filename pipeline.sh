@@ -80,7 +80,7 @@ cd ..
 sudo wget download.osgeo.org/gdal/3.3.0/gdal330.zip
 sudo unzip gdal330.zip
 cd gdal-3.3.0
-sudo ./configure --with-proj=/usr/local --with-python3
+sudo ./configure --with-proj=/usr/local
 sudo make clean && sudo make && sudo make install
 # Set LD_LIBRARY_PATH so that recompiled GDAL is used
 export LD_LIBRARY_PATH=/usr/local/lib
@@ -110,6 +110,8 @@ sudo python3 $PATH_PLUS_PPT_ANOVA
 sudo python3 $PATH_PLUS_TMEAN_ANOVA
 sudo python3 $PPT_COR
 sudo python3 $TMEAN_COR
+sudo python3 $PPT_COR_ACTUALLY
+sudo python3 $TMEAN_COR_ACTUALLY
 
 #open the gates!
 sudo apt-get install apache2 -y
@@ -137,15 +139,106 @@ sudo mkdir /var/www/html/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanNeutral
 sudo mkdir /var/www/html/tmean_cor_xyz/tmean_cor_xyz_tmean_pearson_final
 sudo mkdir /var/www/html/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final
 
-#make the color txt files
-sudo nano $VARIABLENAME/data/tmeanJanELNin/color_relief.txt
-
-#make it pretty (and 8bit)
-sudo gdaldem color-relief $VARIABLENAME/data/tmeanJanELNin/tmeanJanELNin.tif $VARIABLENAME/data/tmeanJanELNin/color_relief.txt $VARIABLENAME/data/tmeanJanELNin/tmeanJanELNin_color.tif -alpha
 #generate TMS tiles
 sudo gdal2tiles.py --zoom=2-8 --tilesize=128 $VARIABLENAME/data/tmeanJanELNin/tmeanJanELNin_color.tif /var/www/html/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanELNin
 
+#make it pretty (and 8bit) tmeanJanLANin
+sudo gdaldem color-relief $VARIABLENAME/data/tmeanJanLANin/tmeanJanLANin.tif $VARIABLENAME/data/tmeanJanELNin/color_relief.txt $VARIABLENAME/data/tmeanJanLANin/tmeanJanLANin_color.tif -alpha
+#generate TMS tiles
+sudo gdal2tiles.py --zoom=2-8 --tilesize=128 $VARIABLENAME/data/tmeanJanLANin/tmeanJanLANin_color.tif /var/www/html/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanLANin
 
-http://34.xxx.xxx.xxx/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanELNin/openlayers.html
+#Declare a tmean_grouping_array of string with type
+declare -a tmean_grouping_array=(
+	"$VARIABLENAME/data/tmeanJanELNin/tmeanJanELNin.tif" 
+	"$VARIABLENAME/data/tmeanJanLANin/tmeanJanLANin.tif" 
+	"$VARIABLENAME/data/tmeanJanNeutral/tmeanJanNeutral.tif" )
+
+#Declare a tmean_grouping_array_color
+declare -a tmean_grouping_array_color=(
+	"$VARIABLENAME/data/tmeanJanELNin/tmeanJanELNin_color.tif" 
+	"$VARIABLENAME/data/tmeanJanLANin/tmeanJanLANin_color.tif" 
+	"$VARIABLENAME/data/tmeanJanNeutral/tmeanJanNeutral_color.tif" )
+
+#Declare a tmean_grouping_array_xyz
+TMEAN_BIL2TIF_LAELNEU_ANALYSIS_XYZ="/var/www/html/tmean_bil2tif_LaElNeu_analysis_xyz"
+declare -a tmean_grouping_array_xyz=(
+	"$TMEAN_BIL2TIF_LAELNEU_ANALYSIS_XYZ/xyz_tmeanJanELNin" 
+	"$TMEAN_BIL2TIF_LAELNEU_ANALYSIS_XYZ/xyz_tmeanJanLANin" 
+	"$TMEAN_BIL2TIF_LAELNEU_ANALYSIS_XYZ/xyz_tmeanJanNeutral" )
+
+#tmean_color_relief
+TMEAN_COLOR_RELIEF=$VARIABLENAME/data/tmean_color_relief.txt
+
+#Iterate all tmean_grouping_array*
+for index in ${!tmean_grouping_array[*]};
+do
+	 #make pretty colors
+	 sudo gdaldem color-relief ${tmean_grouping_array[$index]} $TMEAN_COLOR_RELIEF ${tmean_grouping_array_color[$index]} -alpha
+    #build xyz tiles
+    sudo gdal2tiles.py --zoom=2-8 --tilesize=128 ${tmean_grouping_array_color[$index]} ${tmean_grouping_array_xyz[$index]}
+done
+
+#Declare a ppt_grouping_array of string with type
+declare -a ppt_grouping_array=(
+	"$VARIABLENAME/data/pptJanELNin/pptJanELNin.tif" 
+	"$VARIABLENAME/data/pptJanLANin/pptJanLANin.tif" 
+	"$VARIABLENAME/data/pptJanNeutral/pptJanNeutral.tif" )
+
+#Declare a ppt_grouping_array_color
+declare -a ppt_grouping_array_color=(
+	"$VARIABLENAME/data/pptJanELNin/pptJanELNin_color.tif" 
+	"$VARIABLENAME/data/pptJanLANin/pptJanLANin_color.tif" 
+	"$VARIABLENAME/data/pptJanNeutral/pptJanNeutral_color.tif" )
+
+#Declare a tmean_grouping_array_xyz
+PPT_BIL2TIF_LAELNEU_ANALYSIS_XYZ="/var/www/html/ppt_bil2tif_LaElNeu_analysis_xyz"
+declare -a ppt_grouping_array_xyz=(
+	"$PPT_BIL2TIF_LAELNEU_ANALYSIS_XYZ/xyz_pptJanELNin" 
+	"$PPT_BIL2TIF_LAELNEU_ANALYSIS_XYZ/xyz_pptJanLANin" 
+	"$PPT_BIL2TIF_LAELNEU_ANALYSIS_XYZ/xyz_pptJanNeutral" )
+
+#ppt_color_relief
+PPT_COLOR_RELIEF=$VARIABLENAME/data/ppt_color_relief.txt
+
+#Iterate all ppt_grouping_array*
+for index_2 in ${!ppt_grouping_array[*]};
+do
+	 #make pretty colors
+	 sudo gdaldem color-relief ${ppt_grouping_array[$index_2]} $PPT_COLOR_RELIEF ${ppt_grouping_array_color[$index_2]} -alpha
+    #build xyz tiles
+    sudo gdal2tiles.py --zoom=2-8 --tilesize=128 ${ppt_grouping_array_color[$index_2]} ${ppt_grouping_array_xyz[$index_2]}
+done
+
+#make ppt_pearson_final variable
+ppt_pearson_final="$VARIABLENAME/data/ppt_pearson_final"
+#ppt_pearson_final_color
+PPT_PEARSON_FINAL_COLOR=$VARIABLENAME/data/ppt_pearson_final_color.txt
+COLOR="_color.tif"
+#PPT_COR_XYZ_BASE folders for xyz tiles
+PPT_COR_XYZ_BASE="/var/www/html/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final_"
+
+increment=1981
+#loop over ppt_pearson_final, concat _color.tif to the output, build xyz tiles
+for ppt_index in "$ppt_pearson_final"/*.tif
+do
+	 #make ppt_index_color_output concat the base of ppt_index with COLOR for color output
+	 ppt_index_color_output=${ppt_index%%.*}$COLOR
+    #make PPT_COR_XYZ_OUTPUT concat PPT_COR_XYZ_BASE with the year for xyz tile output folder
+	 PPT_COR_XYZ_OUTPUT=$PPT_COR_XYZ_BASE$increment
+	 sudo gdaldem color-relief $ppt_index $PPT_PEARSON_FINAL_COLOR $ppt_index_color_output -alpha
+	 echo "Color tif for year "$increment
+	 sudo gdal2tiles.py --zoom=2-8 --tilesize=128 $ppt_index_color_output $PPT_COR_XYZ_OUTPUT
+	 echo "xyz tiles for year"$increment
+    increment=$((increment+1))
+    if [[ $increment -eq 2015 ]];
+    then
+       break
+    fi
+done
+
+#sudo rm *_color.tif
+http://34.xxx.xxx.xxx/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final_1981/openlayers.html
+
+
 
 

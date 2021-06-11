@@ -57,6 +57,7 @@ for example_tif, index_tif in zip(ppt_bil2tif_resize_list,ppt_pearson_output_lis
     newarr2 = np.nan_to_num(x=newarr,nan=-9999,posinf=.00001,neginf=-.00001)
     newarr2[newarr2 == .00001] = -9999
     newarr2[newarr2 == -.00001] = -9999
+    newarr2[newarr2 == 0] = -9999
     newarr2[newarr2 == 1] = -9999
     newarr2[newarr2 == -1] = -9999
 
