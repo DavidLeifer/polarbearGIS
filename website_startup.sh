@@ -32,7 +32,6 @@ cd ..
 sudo mkdir images
 cd polar_landing
 cd images
-sudo mv fart.png /var/www/html/images
 sudo mv Part2Section2.png /var/www/html/images
 sudo mv ppt_cor.png /var/www/html/images
 sudo mv temp_cor.png /var/www/html/images
@@ -74,16 +73,15 @@ sudo unzip xyz-timeseries-data
 sudo rm xyz-timeseries-data
 
 #pandamoniumGIS_part2Section2-dist
-#https://drive.google.com/file/d/1xhjlLrUmNjDqGqZQuKIbqytHcB2usbEW/view?usp=sharing
+#https://drive.google.com/file/d/1J_-rP0xNeRxEdCFxCTyEYNLdoKT7UzUV/view?usp=sharing
 sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1J_-rP0xNeRxEdCFxCTyEYNLdoKT7UzUV' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1J_-rP0xNeRxEdCFxCTyEYNLdoKT7UzUV" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
 
 sudo unzip xyz-timeseries-data
 sudo rm xyz-timeseries-data
 
-#pandamoniumGIS20210110_tmeanbuild-dist
-#https://drive.google.com/file/d/1k1WrXHWL2Z5ZBKmUqZg3zuaVOAI_qS7w/view?usp=sharing
-
-sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1wFbGzUJxpcVoqAvCf6h-_dVFd950c8se' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1wFbGzUJxpcVoqAvCf6h-_dVFd950c8se" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+#pandamoniumGIS20210110_tmeanbuild
+#https://drive.google.com/file/d/1DvyOhuaOx76U9LowPnOSqK7FzhaoEg9s/view?usp=sharing
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1DvyOhuaOx76U9LowPnOSqK7FzhaoEg9s' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1DvyOhuaOx76U9LowPnOSqK7FzhaoEg9s" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
 
 sudo unzip xyz-timeseries-data
 sudo rm xyz-timeseries-data

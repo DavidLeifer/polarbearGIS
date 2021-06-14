@@ -56,14 +56,22 @@
         position: absolute;
         left:10px; 
         top:69px; 
-        z-index:10000; 
+        z-index:0; 
         width:69px; 
         height:420px; 
+      }
+    #button1 {
+        position: absolute;
+        left:10px; 
+        top:79px;
+        z-index:0; 
       }
     .map {
         width: 100%;
         height: 100%;
         cursor: pointer;
+        position: absolute;
+        z-index:-1;
       }
     body {
         height: 98%;
@@ -78,12 +86,6 @@
         text-align: center;
         height:30px;
       }
-    #button1 {
-        position: absolute;
-        left:10px; 
-        top:79px;
-        z-index:10000; 
-      }
     </style>
   </head>
   <body>
@@ -93,7 +95,7 @@
     </div>
 
     <!-- About -->
-    <div class="about" style="display:none">
+    <div class="about" style="display:none" position="absolute" z-index="0">
       <h1 class="button">About...</h1>
       <p>
         This displays mean temperature and precipitation grouped by El Nino, La Nina, and Neutral January means for 33 years of data (1981-2014).
@@ -103,13 +105,12 @@
       </p>
     </div>
 
-          <div id="button1" class="button1">
-        <button onclick="myFunction()" style="height:42.0px; width:69px">Legend</button>
-
-      <!-- Create legend container inside map container-->
-      <div id="legend">
-        <img src="./data/legend_image/laelneu_legend.png" height="200px" width="120px">
-      </div>
+      <div id="button1" class="button1">
+        <button onclick="e()" style="height:42.0px; width:69px">Legend</button>
+        <!-- Create legend container inside map container-->
+        <div id="legend">
+          <img src="./data/legend_image/laelneu_legend.png" height="200px" width="120px">
+        </div>
       </div>
 
       <div id="year">
@@ -131,7 +132,7 @@
 
       <script src="./index.js"></script>
       <script>
-      function myFunction() {
+      function e() {
         var x = document.getElementById("legend");
         if (x.style.display === "none") {
           x.style.display = "block";

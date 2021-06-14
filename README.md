@@ -91,16 +91,19 @@ Some of the technical details are outlined in my blog, which can be found on my 
   * GDAL: https://gdal.org/download.html
 
 ### TODO 
-06/01/2021:</br>
+06/13/2021:</br>
+- ~~Build tiles for the 33 years of temp by copying bash code from ppt and manipulating display options. Difficulty: Easy~~
+- ~~Move the info window in the app to appear in front of the legend, otherwise it is partially blocked on mobile. Difficulty: Easy~~
+- ~~Figure out how to use legend toggle button without having to copy/paste post-build. Difficulty: Easy~~
+- ~~Include ANOVA values in the el nino, la nina, and neutral temp/ppt applications (already have values, do html/css). Difficulty: Easy (probably)~~
+- Move the layer toggle on the third app. Difficulty: should be easy but was really frustrating
 - Somehow getting wildly different ppt/nino34 cor values on debian as opposed to mac, maybe i need a fresh instance and reinstall everything (gonna have to test that eventually anyway). e.g. mac=1.2e3; debian=1.2e12. Difficulty: Hard (probably)
 - Quantile breaks look better than equal intervals, but id have to calculate the correct quantile breaks for 33 years and put it in 33 .txt files, make a list of all the txt files and feed it into the coloring step in pipeline.sh, also have to change the legend for each xyz in the web app part to reflect the different breaks, probably could do it with a for loop in js and place all the legend .png into their own directory. Difficulty: Medium
-- Include ANOVA values in the el nino, la nina, and neutral temp/ppt applications (already have values, just do some html/css). Difficulty: Easy (probably)
+- Change legend to show hide legend/display legend on click (like in the 4th app)
 - Map maps of the average El Niño – neutral January temperature and the average La Niña – neutral January temperature. Map the same maps for the precipitation differences. Difficulty: Easy
 - Build XYZ tiles for the previous map and include it in another application, link in polar_landing. Difficulty: Easy
-- Build tiles for the 33 years of temp by copying bash code from ppt and manipulating display options. Difficulty: Easy
 - Add a gdrive link to download the json of twitter sentiment so I can run the python scripts to split the data into a geojson file for each 15 minute time stamp to feed into the ol map. Difficulty: Easy
 - Install npm and build the web files, follow steps from my blog that I did in Jan. Difficulty: Easy (probably)
-- Move the info window in the app to appear in front of the legend, otherwise it is partially blocked on mobile. Difficulty: Easy
 - Add logic to change year and slider position based on drop down input. Difficulty: Medium
 - Refactor code into OOP so it is more reusable. Difficulty: Hard
 - Add a streamhist function from ye ol farmer’s package to polar vortex? Difficulty: Medium

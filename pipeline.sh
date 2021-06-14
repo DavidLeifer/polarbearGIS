@@ -52,14 +52,7 @@ echo downloaded tmean data
 sudo Rscript $SCRIPT_PATH_PLUS_PPT
 echo downloaded ppt data
 
-
-
-#reveals path for QGIS python
-#import sys
-#print(sys.executable)
-
-#install the python libraries to QGIS
-#QGIS_PYTHON_PATH="/usr/bin/python3"
+#install python libraries with pip3
 sudo pip3 install rasterio
 sudo pip3 install pandas
 sudo pip3 install seaborn
@@ -138,6 +131,10 @@ sudo mkdir /var/www/html/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanLANin
 sudo mkdir /var/www/html/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanNeutral
 sudo mkdir /var/www/html/tmean_cor_xyz/tmean_cor_xyz_tmean_pearson_final
 sudo mkdir /var/www/html/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final
+
+#copy over the ANOVA files onto web server
+sudo cp ~/polarbearGIS/data/tmean_ANOVA_output.txt /var/www/html
+sudo cp ~/polarbearGIS/data/ppt_ANOVA_output.txt /var/www/html
 
 #generate TMS tiles
 sudo gdal2tiles.py --zoom=2-8 --tilesize=128 $VARIABLENAME/data/tmeanJanELNin/tmeanJanELNin_color.tif /var/www/html/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanELNin
@@ -236,9 +233,41 @@ do
     fi
 done
 
-#sudo rm *_color.tif
-http://34.xxx.xxx.xxx/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final_1981/openlayers.html
+#make tmean_pearson_final variable
+tmean_pearson_final="$VARIABLENAME/data/tmean_pearson_final"
+#tmean_pearson_final_color
+TMEAN_PEARSON_FINAL_COLOR=$VARIABLENAME/data/tmean_pearson_final_color.txt
+COLOR="_color.tif"
+#TMEAN_COR_XYZ_BASE folders for xyz tiles
+TMEAN_COR_XYZ_BASE="/var/www/html/tmean_cor_xyz/tmean_cor_xyz_tmean_pearson_final_"
+
+#one caveat in tmean cor is that the 0 values are being set to transparent in the tmean_pearson_final_color.txt
+#this differs from ppt cor, where 0 values are set to -9999 in the python script
+#then -9999 is set to transparent in ppt_pearson_final_color.txt
+#hope this makes sense future dave!
+increment=1981
+#loop over tmean_pearson_final, concat _color.tif to the output, build xyz tiles
+for tmean_index in "$tmean_pearson_final"/*.tif
+do
+	 #make tmean_index_color_output concat the base of tmean_index with COLOR for color output
+	 tmean_index_color_output=${tmean_index%%.*}$COLOR
+    #make TMEAN_COR_XYZ_OUTPUT concat TMEAN_COR_XYZ_BASE with the year for xyz tile output folder
+	 TMEAN_COR_XYZ_OUTPUT=$TMEAN_COR_XYZ_BASE$increment
+	 sudo gdaldem color-relief $tmean_index $TMEAN_PEARSON_FINAL_COLOR $tmean_index_color_output -alpha
+	 echo "Color tif for year "$increment
+	 sudo gdal2tiles.py --zoom=2-8 --tilesize=128 $tmean_index_color_output $TMEAN_COR_XYZ_OUTPUT
+	 echo "xyz tiles for year"$increment
+    increment=$((increment+1))
+    if [[ $increment -eq 2015 ]];
+    then
+       break
+    fi
+done
 
 
+#sudo rm /home/davleifer/polarbearGIS/data/tmean_pearson_final/*_color.tif
+#sudo rm -R /var/www/html/tmean_cor_xyz/
+#sudo mkdir /var/www/html/tmean_cor_xyz/
 
+http://XX.XX.xxx.XX/tmean_cor_xyz/tmean_cor_xyz_tmean_pearson_final_1981/openlayers.html
 

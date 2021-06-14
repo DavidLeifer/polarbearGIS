@@ -54,11 +54,11 @@
        }  
     #legend {
         position: absolute;
-        left:10px; 
-        top:150px; 
-        z-index:10000; 
-        width:69px; 
-        height:420px; 
+        left:10px;
+        top:150px;
+        z-index:1;
+        width:69px;
+        height:420px;
       }
     .map {
         width: 100%;
@@ -82,7 +82,7 @@
         position: absolute;
         left:10px; 
         top:100px;
-        z-index:10000; 
+        z-index:1; 
       }
     </style>
   </head>
@@ -93,10 +93,10 @@
     </div>
 
     <!-- About -->
-    <div class="about" style="display:none">
+    <div class="about" style="display:none" position="absolute" z-index="0">
       <h1 class="button">About...</h1>
       <p>
-        This is Pearson Correlation (-.0004 to .0004) between precipitation
+        This is Pearson Correlation (-1 to 1) between precipitation
         compared with the year's El Nino index (degrees C above/below 5 month running mean).
       </p>
       <p class="buttons">
@@ -105,7 +105,7 @@
     </div>
 
     <div id="button1" class="button1">
-        <button onclick="myFunction()" style="height:42.0px; width:69px">Legend</button>
+        <button onclick="e()" style="height:42.0px; width:69px">Legend</button>
     </div>
 
       <!-- Create legend container inside map container-->
@@ -159,15 +159,15 @@
     <script src="./js/layer/layers.js"></script>
 
     <script src="./index.js"></script>
-        <script>
-      function myFunction() {
-        var x = document.getElementById("legend");
-        if (x.style.display === "none") {
-          x.style.display = "block";
+    <script>
+    function e() {
+        var legend_dairy = document.getElementById("legend");
+        if (legend_dairy.style.display === "none") {
+          legend_dairy.style.display = "block";
         } else {
-          x.style.display = "none";
+          legend_dairy.style.display = "none";
         }
-      }
+    }
     </script>
 
   </body>

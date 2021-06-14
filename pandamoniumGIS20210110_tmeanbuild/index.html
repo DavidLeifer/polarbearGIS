@@ -56,7 +56,7 @@
         position: absolute;
         left:10px; 
         top:90px; 
-        z-index:10000; 
+        z-index:1; 
         width:69px; 
         height:420px; 
       }
@@ -82,7 +82,7 @@
         position: absolute;
         left:10px; 
         top:100px;
-        z-index:10000; 
+        z-index:1; 
       }
     </style>
   </head>
@@ -93,7 +93,7 @@
     </div>
 
     <!-- About -->
-    <div class="about" style="display:none">
+    <div class="about" style="display:none" position="absolute" z-index="0">
       <h1 class="button">About...</h1>
       <p>
         This is Pearson Correlation (-.0004 to .0004) between temperature
@@ -105,7 +105,7 @@
     </div>
 
     <div id="button1" class="button1">
-      <button onclick="myFunction()" style="height:42.0px; width:69px">Legend</button>
+      <button onclick="e()" style="height:42.0px; width:69px">Legend</button>
       <!-- Create legend container inside map container-->
       <div id="legend">
         <img src="./data/legend_image/ppt_corr_legend.png" height="200px" width="69px">
@@ -158,7 +158,7 @@
     <script src="./index.js"></script>
 
     <script>
-      function myFunction() {
+      function e() {
         var x = document.getElementById("legend");
         if (x.style.display === "none") {
           x.style.display = "block";

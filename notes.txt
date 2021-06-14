@@ -218,8 +218,8 @@ chmod u+x pipeline.sh
 
 git init
 git add .
-git commit -m "commit 75"
-git remote add origin https://github.com/DavidLeifer/polarbearGIS.git
+git commit -m "commit 96"
+git remote add origin https://gitlab.com/davleifer/polarbearGIS.git
 git push -u origin main
 
 git clone https://github.com/DavidLeifer/polarbearGIS.git
@@ -267,4 +267,58 @@ How to get a polygon from a raster:
 3) horray!
 
 testing the commits
+
+
+ARIMA
+https://spacetimewithr.org/Spatio-Temporal%20Statistics%20with%20R.pdf
+
+https://otexts.com/fpp2/stationarity.html
+
+POISSON TIME
+https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-262-discrete-stochastic-processes-spring-2011/course-notes/MIT6_262S11_chap02.pdf
+
+https://math.stackexchange.com/questions/250733/how-is-the-erlang-pdf-derived
+
+SPATIO-TEMPORAL STATISTICS WITH R
+some notes
+https://spacetimewithr.org/Spatio-Temporal%20Statistics%20with%20R.pdf
+
+Chapter 1
+
+P.21 How does one do spatio-temporal statistics? Well, it is not enough to consider just
+spatial snapshots of a process at a given time, nor just time-series profiles at a given spatial
+location – the behavior at spatial locations at one time point will almost certainly affect the
+behavior at nearby spatial locations at the next time point. Only by considering time and
+space together can we address how spatially coherent entities change over time or, in some
+cases, why they change. It turns out that a big part of the how and why of such change is
+due to interactions across space and time, and across multiple processes.
+
+P. 23 DYNAMICALLY, the model says that the value at the
+current time is equal to a “propagation factor” (or “transition factor”) times the value at
+the previous time, plus an independent “innovation error.” This is a mechanistic way of
+presenting the model that is easy to simulate and easy to interpret.
+
+DESCRIPTIVELY, the same probability structure can be obtained by defining the correlation
+between two values at any two given time points to be an exponentially decreasing function
+Wikle, of the lag between the two time points. (The rate of decrease depends on the AR(1) propagation factor.) Viewing the model this way, it is not immediately obvious how to simulate from it nor what the behavior of the correlation function means physically
+
+Chapter 2
+
+p.44 HOVMÖLLER plot- (Hovmöller, 1949) is a two-dimensional space-time visualization in
+which space is collapsed (projected or averaged) onto one dimension and where the second
+dimension denotes time
+
+p.51 in order to find the lag-τ COVARIANCE matrices, we consider the cross products of the
+residual vectors for each spatial location and each time point relative to its corresponding
+time-averaged empirical spatial mean.
+
+p.52 Thus, for measures of the joint spatio-temporal dependence, we consider empirical spatio-temporal COVARIOGRAMS (and their close cousins, semivariograms). The biggest difference between what we are doing here and the covariance estimates in the previous
+section is that we are interested in characterizing the covariability in the spatio-temporal
+data as a function of specific lags in time and in space
+
+Note that the lag in time is a SCALAR (e.g. has size, no direction),
+but the lag in space is a VECTOR (e.g. has size AND direction) (corresponding to the displacement between locations in
+d-dimensional space).
+
+
 
