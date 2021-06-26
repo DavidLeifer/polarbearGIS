@@ -1,9 +1,0 @@
-GeoStreamable
--------------
-SCRIPT
-1) Get tweets (set CRON job to reset every hour)
-2) Sentiment analysis/geocode named places (Set CRON job to run after a json file of tweets is made)
-3) Point in polygon and round the data to 15 minute increments and save as a geojson file (Set job to run immediately after step 2)
-
-APPLICATION
-4) Ingest each file and programmatically add to map
