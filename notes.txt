@@ -60,7 +60,7 @@ print(gdal.__version__)
 
 git init
 git add .
-git commit -m "commit 101"
+git commit -m "commit 105"
 git remote add origin https://gitlab.com/davleifer/polarbearGIS.git
 git push -u origin main
 
@@ -192,3 +192,8 @@ You won't get no answers,
 not for the stuff that keeps you up, 
 you won't never get no answers
 
+Told my ex-wife where I stashed it, just in case
+She paused, then she said, "Okay”
+Couldn't think of much else to say, a labyrinth is not a maze
+That's okay, but that's not the Haze
+J.D. Salinger, just stay away

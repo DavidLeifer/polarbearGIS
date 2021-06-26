@@ -72,6 +72,22 @@ sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=dow
 sudo unzip xyz-timeseries-data
 sudo rm xyz-timeseries-data
 
+#tha_difference
+#https://drive.google.com/file/d/1RXQRf90naDhu2wYmoNSrCDIctVa9GD8x/view?usp=sharing
+
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1RXQRf90naDhu2wYmoNSrCDIctVa9GD8x' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1RXQRf90naDhu2wYmoNSrCDIctVa9GD8x" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+
+sudo unzip xyz-timeseries-data
+sudo rm xyz-timeseries-data
+
+#tha_difference-dist
+#https://drive.google.com/file/d/1iSGmmZ7Aoi10EJMO5RzCx5Cogow5ZXl6/view?usp=sharing
+
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1iSGmmZ7Aoi10EJMO5RzCx5Cogow5ZXl6' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1iSGmmZ7Aoi10EJMO5RzCx5Cogow5ZXl6" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+
+sudo unzip xyz-timeseries-data
+sudo rm xyz-timeseries-data
+
 #pandamoniumGIS_part2Section2-dist
 #https://drive.google.com/file/d/1J_-rP0xNeRxEdCFxCTyEYNLdoKT7UzUV/view?usp=sharing
 sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1J_-rP0xNeRxEdCFxCTyEYNLdoKT7UzUV' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1J_-rP0xNeRxEdCFxCTyEYNLdoKT7UzUV" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
