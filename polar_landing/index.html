@@ -22,18 +22,11 @@
 <link rel="stylesheet" href="./index.scss">
 
 <script src="./index.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<!--
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<!-- Gallery -->
-<!-- 
-Gallery is linked to lightbox using data attributes.
-
-To open lightbox, this is added to the gallery element: {data-toggle="modal" data-target="#exampleModal"}.
-
-To open carousel on correct image, this is added to each image element: {data-target="#carouselExample" data-slide-to="0"}.
-Replace '0' with corresponding slide number.
--->
 <style>
 .center {
   padding: 70px 0;
@@ -60,8 +53,21 @@ Replace '0' with corresponding slide number.
       <input type="image" class="w-100" src="./images/temp_cor.png" alt="First slide" data-target="#carouselExample" data-slide-to="0">
      </a></br>
      <p>ANOVA between TEMP El Nino, La Nina, Neutral grouped means</br>
-     <p>F Statistic: 827.37</br>
-     <p>P-value: 0.0</p>
+     <p id="tmean_fstat"></p>
+     <p id="tmean_pvalue"></p>
+     <script> 
+      $.get('./tmean_ANOVA_output.txt', function (tmean) {
+        var tmeanANOVA_fstat = tmean.substr(25, 6);
+        var fstat_str = "F Statistic: "
+        var fstat_concat = fstat_str.concat(tmeanANOVA_fstat)
+        document.getElementById('tmean_fstat').innerHTML = fstat_concat;
+        var tmeanANOVA_pvalue = tmean.substr(51, 3);
+        var pval_str = "P Value: "
+        var pval_concat = pval_str.concat(tmeanANOVA_pvalue)
+        document.getElementById('tmean_pvalue').innerHTML = pval_concat;
+      });
+      
+     </script>
   </div>
   <div class="col-12 col-sm-6 col-lg-3">
     <p>Precipitation correlated with El Nino 3.4 Index</p>
@@ -69,8 +75,21 @@ Replace '0' with corresponding slide number.
       <input type="image" class="w-100" src="./images/ppt_cor.png" alt="First slide" data-target="#carouselExample" data-slide-to="1">
      </a></br>
      <p>ANOVA between PPT El Nino, La Nina, Neutral grouped means</br>
-     <p>F Statistic: 2384.39</br>
-     <p>P-value: 0.0</p>
+     <p id="ppt_fstat"></p>
+     <p id="ppt_pvalue"></p>
+     <script> 
+      $.get('./ppt_ANOVA_output.txt', function (ppt) {
+        var pptANOVA_fstat = ppt.substr(25, 7);
+        var ppt_fstat_str = "F Statistic: "
+        var ppt_fstat_concat = ppt_fstat_str.concat(pptANOVA_fstat)
+        document.getElementById('ppt_fstat').innerHTML = ppt_fstat_concat;
+        var pptANOVA_pvalue = ppt.substr(52, 3);
+        var ppt_pval_str = "P Value: "
+        var ppt_pval_concat = ppt_pval_str.concat(pptANOVA_pvalue)
+        document.getElementById('ppt_pvalue').innerHTML = ppt_pval_concat;
+      });
+      
+     </script>
   </div>
   <div class="col-12 col-sm-6 col-lg-3">
     <p>Mean Temperature and Precipitation for Winter Classes</p>

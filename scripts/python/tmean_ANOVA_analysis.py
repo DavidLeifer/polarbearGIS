@@ -84,6 +84,7 @@ arr = lanina_array_out[lanina_array_out != -9999.0]
 arr2 = neautral_array_out[neautral_array_out != -9999.0]
 arr3 = elnino_array_out[elnino_array_out != -9999.0]
 ppt_ANOVA = str(stats.f_oneway(arr, arr2, arr3))
+print(ppt_ANOVA)
 #write anova to txt file
 ppt_ANOVA_output = cwd + "/data/tmean_ANOVA_output.txt"
 with open(ppt_ANOVA_output, 'w') as f:

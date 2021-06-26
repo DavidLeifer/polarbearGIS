@@ -89,8 +89,8 @@ cd polarbearGIS
 
 PATH_PLUS_PPT_LaElNeu="$VARIABLENAME/scripts/python/ppt_bil2tif_LaElNeu_analysis.py"
 PATH_PLUS_TMEAN_LaElNeu="$VARIABLENAME/scripts/python/tmean_bil2tif_LaElNeu_analysis.py"
-PATH_PLUS_PPT_ANOVA="$VARIABLENAME/scripts/python/ppt_ANOVA_analysis.py"
-PATH_PLUS_TMEAN_ANOVA="$VARIABLENAME/scripts/python/tmean_ANOVA_analysis.py"
+#PATH_PLUS_PPT_ANOVA="$VARIABLENAME/scripts/python/ppt_ANOVA_analysis.py"
+#PATH_PLUS_TMEAN_ANOVA="$VARIABLENAME/scripts/python/tmean_ANOVA_analysis.py"
 PPT_COR="$VARIABLENAME/scripts/python/ppt_cor.py"
 TMEAN_COR="$VARIABLENAME/scripts/python/tmean_cor.py"
 PPT_COR_ACTUALLY="$VARIABLENAME/scripts/python/ppt_cor_actually.py"
@@ -99,8 +99,8 @@ TMEAN_COR_ACTUALLY="$VARIABLENAME/scripts/python/tmean_cor_actually.py"
 #Run the python scripts
 sudo python3 $PATH_PLUS_PPT_LaElNeu
 sudo python3 $PATH_PLUS_TMEAN_LaElNeu
-sudo python3 $PATH_PLUS_PPT_ANOVA
-sudo python3 $PATH_PLUS_TMEAN_ANOVA
+#sudo python3 $PATH_PLUS_PPT_ANOVA
+#sudo python3 $PATH_PLUS_TMEAN_ANOVA
 sudo python3 $PPT_COR
 sudo python3 $TMEAN_COR
 sudo python3 $PPT_COR_ACTUALLY
@@ -135,14 +135,6 @@ sudo mkdir /var/www/html/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final
 #copy over the ANOVA files onto web server
 sudo cp ~/polarbearGIS/data/tmean_ANOVA_output.txt /var/www/html
 sudo cp ~/polarbearGIS/data/ppt_ANOVA_output.txt /var/www/html
-
-#generate TMS tiles
-sudo gdal2tiles.py --zoom=2-8 --tilesize=128 $VARIABLENAME/data/tmeanJanELNin/tmeanJanELNin_color.tif /var/www/html/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanELNin
-
-#make it pretty (and 8bit) tmeanJanLANin
-sudo gdaldem color-relief $VARIABLENAME/data/tmeanJanLANin/tmeanJanLANin.tif $VARIABLENAME/data/tmeanJanELNin/color_relief.txt $VARIABLENAME/data/tmeanJanLANin/tmeanJanLANin_color.tif -alpha
-#generate TMS tiles
-sudo gdal2tiles.py --zoom=2-8 --tilesize=128 $VARIABLENAME/data/tmeanJanLANin/tmeanJanLANin_color.tif /var/www/html/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanLANin
 
 #Declare a tmean_grouping_array of string with type
 declare -a tmean_grouping_array=(
