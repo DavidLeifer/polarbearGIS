@@ -91,13 +91,10 @@ Some of the technical details are outlined in my blog, which can be found on my 
   * GDAL: https://gdal.org/download.html
 
 ### TODO 
-06/13/2021:</br>
-- ~~Build tiles for the 33 years of temp by copying bash code from ppt and manipulating display options. Difficulty: Easy~~
-- ~~Move the info window in the app to appear in front of the legend, otherwise it is partially blocked on mobile. Difficulty: Easy~~
-- ~~Figure out how to use legend toggle button without having to copy/paste post-build. Difficulty: Easy~~
-- ~~Include ANOVA values in the el nino, la nina, and neutral temp/ppt applications (already have values, do html/css). Difficulty: Easy (probably)~~
+06/25/2021:</br>
+- ~~Make ANOVA values use the output txt file from the python script, read in with JS. Difficulty: Easy~~
 - Move the layer toggle on the third app. Difficulty: should be easy but was really frustrating
-- Somehow getting wildly different ppt/nino34 cor values on debian as opposed to mac, maybe i need a fresh instance and reinstall everything (gonna have to test that eventually anyway). e.g. mac=1.2e3; debian=1.2e12. Difficulty: Hard (probably)
+- Somehow getting wildly different ppt/nino34 cor values on debian as opposed to mac. e.g. mac=1.2e3; debian=1.2e12. - try copy gitlab code to debian instance and rerun - if that doesnt work reinstall - if that doesnt work, no idea. Difficulty: Hard (probably) 
 - Quantile breaks look better than equal intervals, but id have to calculate the correct quantile breaks for 33 years and put it in 33 .txt files, make a list of all the txt files and feed it into the coloring step in pipeline.sh, also have to change the legend for each xyz in the web app part to reflect the different breaks, probably could do it with a for loop in js and place all the legend .png into their own directory. Difficulty: Medium
 - Change legend to show hide legend/display legend on click (like in the 4th app)
 - Map maps of the average El Niño – neutral January temperature and the average La Niña – neutral January temperature. Map the same maps for the precipitation differences. Difficulty: Easy

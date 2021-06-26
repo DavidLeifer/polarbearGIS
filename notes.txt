@@ -1,133 +1,3 @@
-sudo apt-get install unzip
-sudo apt-get install wget
-y
-
-#polar_landing
-#https://drive.google.com/file/d/1BmEveFAfZtponioIzz37gPWyckJk-uFy/view?usp=sharing
-cd /var/www/html/
-
-sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1BmEveFAfZtponioIzz37gPWyckJk-uFy' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1BmEveFAfZtponioIzz37gPWyckJk-uFy" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
-
-sudo unzip xyz-timeseries-data
-
-cd polar_landing
-sudo mv index.html /var/www/html
-sudo mv index.js /var/www/html
-sudo mv index.scss /var/www/html
-cd ..
-sudo mkdir images
-cd polar_landing
-cd images
-sudo mv fart.png /var/www/html/images
-sudo mv Part2Section2.png /var/www/html/images
-sudo mv ppt_cor.png /var/www/html/images
-sudo mv temp_cor.png /var/www/html/images
-sudo mv polar_radar.png /var/www/html/images
-
-cd ..
-cd ..
-sudo rm -R polar_landing
-sudo rm xyz-timeseries-data
-
-#more detailed test
-#https://drive.google.com/file/d/1LrXLx22bypakYRAArlmXI7VPjrjM4Ok2/view?usp=sharing
-
-sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1LrXLx22bypakYRAArlmXI7VPjrjM4Ok2' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1LrXLx22bypakYRAArlmXI7VPjrjM4Ok2" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
-
-
-#test wrong proj/
-#https://drive.google.com/file/d/1CCaUrsX2nAmzTVam2ujswFcAKr2-O93R/view?usp=sharing
-
-sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1CCaUrsX2nAmzTVam2ujswFcAKr2-O93R' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1CCaUrsX2nAmzTVam2ujswFcAKr2-O93R" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
-
-#ppt_cor_xyz.zip
-#https://drive.google.com/file/d/1gk20RXafRluaVIZ473SgLp0N-YfFjAKn/view?usp=sharing
-
-sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1gk20RXafRluaVIZ473SgLp0N-YfFjAKn' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1gk20RXafRluaVIZ473SgLp0N-YfFjAKn" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
-
-sudo unzip xyz-timeseries-data
-sudo rm xyz-timeseries-data
-
-#tmean_bil2tif_LaElNeu_analysis_xyz
-#https://drive.google.com/file/d/1kjvAl3BRLuD6fNSOftoqDHZRjOqjbyDk/view?usp=sharing
-
-sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1kjvAl3BRLuD6fNSOftoqDHZRjOqjbyDk' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1kjvAl3BRLuD6fNSOftoqDHZRjOqjbyDk" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
-
-sudo unzip xyz-timeseries-data
-sudo rm xyz-timeseries-data
-
-#ppt_bil2tif_LaElNeu_analysis_xyz
-#https://drive.google.com/file/d/17W2rT_OMYgCq9w8T66By9los9m_y8ITb/view?usp=sharing
-
-sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=17W2rT_OMYgCq9w8T66By9los9m_y8ITb' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=17W2rT_OMYgCq9w8T66By9los9m_y8ITb" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
-
-sudo unzip xyz-timeseries-data
-sudo rm xyz-timeseries-data
-
-#tmean_cor_xyz
-#https://drive.google.com/file/d/1c-ZPMmlcGAxfWLKP5QxPgrVDuMZOiT69/view?usp=sharing
-
-sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1c-ZPMmlcGAxfWLKP5QxPgrVDuMZOiT69' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1c-ZPMmlcGAxfWLKP5QxPgrVDuMZOiT69" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
-
-sudo unzip xyz-timeseries-data
-sudo rm xyz-timeseries-data
-
-cd /var/www/html/
-sudo rm -R polar_radar
-
-#polar_radar
-#https://drive.google.com/file/d/1wCTA1W04c9Wq3mF7oo4cCXG7rVdfqe1F/view?usp=sharing
-
-sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1wCTA1W04c9Wq3mF7oo4cCXG7rVdfqe1F' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1wCTA1W04c9Wq3mF7oo4cCXG7rVdfqe1F" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
-
-sudo unzip xyz-timeseries-data
-sudo rm xyz-timeseries-data
-
-#pandamoniumGIS_part2Section2-dist
-https://drive.google.com/file/d/1J_-rP0xNeRxEdCFxCTyEYNLdoKT7UzUV/view?usp=sharing
-
-sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1J_-rP0xNeRxEdCFxCTyEYNLdoKT7UzUV' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1J_-rP0xNeRxEdCFxCTyEYNLdoKT7UzUV" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
-
-#MountHood
-https://drive.google.com/file/d/1mjyNRWISVGChfm0ROByAdAgkcj1LsXTj/view?usp=sharing
-
-sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1mjyNRWISVGChfm0ROByAdAgkcj1LsXTj' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1mjyNRWISVGChfm0ROByAdAgkcj1LsXTj" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
-
-sudo unzip xyz-timeseries-data
-sudo rm xyz-timeseries-data
-
-#pandamoniumGIS20210110_tmeanbuild
-https://drive.google.com/file/d/1wFbGzUJxpcVoqAvCf6h-_dVFd950c8se/view?usp=sharing
-
-9
-sudo unzip xyz-timeseries-data
-sudo rm xyz-timeseries-data
-
-#polarbear-dist
-https://drive.google.com/file/d/1Ej9z0w9i4kVj3CRmzAFxwHMwtQPZne2v/view?usp=sharing
-
-sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1Ej9z0w9i4kVj3CRmzAFxwHMwtQPZne2v' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1Ej9z0w9i4kVj3CRmzAFxwHMwtQPZne2v" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
-
-sudo unzip xyz-timeseries-data
-sudo rm xyz-timeseries-data
-
-sudo mv /var/www/html/dist /var/www/html/polarbearGIS
-sudo mv /var/www/html/pandamoniumGIS20210110_tmeanbuild-dist /var/www/html/pandamoniumGIS20210110_tmeanbuild
-
-#blogs
-#https://drive.google.com/file/d/1XpOCrcraIMo8cz8O04chw31Al3_9qHSi/view?usp=sharing
-
-sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1XpOCrcraIMo8cz8O04chw31Al3_9qHSi' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1XpOCrcraIMo8cz8O04chw31Al3_9qHSi" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
-
-sudo unzip xyz-timeseries-data
-sudo rm xyz-timeseries-data
-
-# clipping shape
-https://drive.google.com/file/d/15qxxvGH4oHoer1YY5pwofSdW_Y10xyRs/view?usp=sharing
-
-sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=15qxxvGH4oHoer1YY5pwofSdW_Y10xyRs' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=15qxxvGH4oHoer1YY5pwofSdW_Y10xyRs" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
-
-
 sudo curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
@@ -146,7 +16,6 @@ sudo npm install glob
 
 #report node
 node -r node-report app.js
-
 
 #RUN FOREVER IN PROJECT DIR
 cd polarbearGIS
@@ -169,29 +38,11 @@ ps aux | grep node
 #build static mini you dummy
 sudo npm run-script build
 
-
-
-
-
-
-
-
-#port forwarding
-#sudo iptables -t nat -I PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8080
-#domain setup: https://cloud.google.com/dns/docs/tutorials/create-domain-tutorial
-
 sudo chmod -R ugo+rw /var/lib/tomcat8/webapps/geoserver/data/data/oregonmaptile
 
 polarbearGIS
 
-cd /var/lib/tomcat8/webapps
-
 sudo chmod -R ugo+rw /var/lib/tomcat8/webapps/geoserver/data/www/localdata
-
-sudo rm -r dirname
-sudo rm -r npm-maptile-v2
-
-/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.8 /Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/panda_testing/pandamoniumGIS/scripts/python/ppt_cor.py
 
 /Applications/QGIS.app/Contents/MacOS/bin/python3.7 -m pip install descartes
 /Applications/QGIS.app/Contents/MacOS/bin/python3.7 -m pip install brewer2mpl
@@ -202,15 +53,6 @@ sudo rm -r npm-maptile-v2
 
 print(gdal.__version__)
 
-export QT_QPA_PLATFORM_PLUGIN_PATH=/Applications/QGIS.app/Contents/PlugIns
-
-USAGE
-#clone directory structure from git
-git clone https://github.com/DavidLeifer/pandamoniumGIS.git
-cd pandamoniumGIS
-chmod u+x pipeline.sh
-./pipeline.sh
-
 #raterio docs https://readthedocs.org/projects/rasterio/downloads/pdf/latest/
 /Library/Frameworks/Python.framework/Versions/3.6/Resources/Python.app/Contents/MacOS/Python
 /Applications/QGIS.app/Contents/MacOS/bin/python3.7
@@ -218,7 +60,7 @@ chmod u+x pipeline.sh
 
 git init
 git add .
-git commit -m "commit 96"
+git commit -m "commit 100"
 git remote add origin https://gitlab.com/davleifer/polarbearGIS.git
 git push -u origin main
 
@@ -237,8 +79,6 @@ https://rdrr.io/cran/spatialEco/man/download.prism.html
 
 nslookup davidjleifer.com
 
-sudo gcloud compute firewall-rules create port1234v2 --allow tcp:1234 --source-ranges=0.0.0.0/0 --description=""
-
 #https://openlayers.org/en/latest/doc/tutorials/bundle.html
 npm install -g npm
 
@@ -251,32 +91,17 @@ https://www.ncdc.noaa.gov/data-access/radar-data/noaa-big-data-project
 https://en.wikipedia.org/wiki/January%E2%80%93February_2019_North_American_cold_wave
 https://openlayers.org/en/latest/examples/wms-time.html
 
-gcloud beta compute ssl-certificates describe www-ssl-cert \
-    --global \
-    --format="get(name,managed.status)"
-
-
-gcloud beta compute ssl-certificates describe www-ssl-cert \
-    --global \
-    --format="get(managed.domainStatus)"
-
 How to get a polygon from a raster:
 
 1) QGIS contour polygon- 1982.bil
 2) dissolve
 3) horray!
 
-testing the commits
-
-
 ARIMA
 https://spacetimewithr.org/Spatio-Temporal%20Statistics%20with%20R.pdf
-
 https://otexts.com/fpp2/stationarity.html
-
 POISSON TIME
 https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-262-discrete-stochastic-processes-spring-2011/course-notes/MIT6_262S11_chap02.pdf
-
 https://math.stackexchange.com/questions/250733/how-is-the-erlang-pdf-derived
 
 SPATIO-TEMPORAL STATISTICS WITH R
@@ -286,12 +111,7 @@ https://spacetimewithr.org/Spatio-Temporal%20Statistics%20with%20R.pdf
 Chapter 1
 
 P.21 How does one do spatio-temporal statistics? Well, it is not enough to consider just
-spatial snapshots of a process at a given time, nor just time-series profiles at a given spatial
-location – the behavior at spatial locations at one time point will almost certainly affect the
-behavior at nearby spatial locations at the next time point. Only by considering time and
-space together can we address how spatially coherent entities change over time or, in some
-cases, why they change. It turns out that a big part of the how and why of such change is
-due to interactions across space and time, and across multiple processes.
+spatial snapshots of a process at a given time, nor just time-series profiles at a given spatial location – the behavior at spatial locations at one time point will almost certainly affect the behavior at nearby spatial locations at the next time point. Only by considering time and space together can we address how spatially coherent entities change over time or, in some cases, why they change. It turns out that a big part of the how and why of such change is due to interactions across space and time, and across multiple processes.
 
 P. 23 DYNAMICALLY, the model says that the value at the
 current time is equal to a “propagation factor” (or “transition factor”) times the value at
@@ -320,5 +140,55 @@ Note that the lag in time is a SCALAR (e.g. has size, no direction),
 but the lag in space is a VECTOR (e.g. has size AND direction) (corresponding to the displacement between locations in
 d-dimensional space).
 
+Chapter 3
 
+Inverse Distance Weighting (IDW)- average in space and time following toblers law
+
+is a kernel function (i.e., a function that quantifies the similarity between two locations)
+
+Gaussian radial basis kernel
+
+
+
+168 hours a week
+49 hours on sleep
+down to 119 hours
+minus 40 hours of werk is 79
+minus 15 hours of extra work is 64
+minus 7 for walking/running is 57
+minus 7 for eating is 50
+minus 2 hours for coffee is 48
+minus 2 hours for driving/shopping is 46
+minus 7 hours of misc activities is 39
+what are misc activities? hiking, walking around campuses, listening to music, other
+WHAT DO I DO WITH THE OTHER 39?
+39 hours of internet?
+1 hour of indeed is 38
+1 hour of gmail is 37
+37 hours of youtube and wikipedia?
+maybe im underestimating somewhere
+
+$100 to $1,000 per ton of CO2 emission removal from the atmosphere
+43 billion tons emitted per year
+$4,300,000,000,000-$43,000,000,000,000
+earth gdp is 87,000,000,000,000
+
+Hell's bells every which way the the wind blows
+So I bang my head against any wall you can build, go
+
+You can't imagine all the misery we leap frog
+I make maps, I ain't a muthafuckin' peacock
+
+You won't get no answers, 
+not for the stuff that keeps you up, 
+you won't never get no answers
+You won't get no answers, 
+not for the stuff that keeps you up, 
+you won't get no answers
+You won't never get no answers, 
+not for the stuff that keeps you up, 
+you won't get no answers
+You won't get no answers, 
+not for the stuff that keeps you up, 
+you won't never get no answers
 
