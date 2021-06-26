@@ -55,8 +55,8 @@
     #legend {
         position: absolute;
         left:10px; 
-        top:90px; 
-        z-index:1; 
+        top:149px; 
+        z-index:0; 
         width:69px; 
         height:420px; 
       }
@@ -82,7 +82,7 @@
         position: absolute;
         left:10px; 
         top:100px;
-        z-index:1; 
+        z-index:1000; 
       }
     </style>
   </head>
@@ -103,14 +103,12 @@
         <button class='button'>OK</button>
       </p>
     </div>
-
     <div id="button1" class="button1">
-      <button onclick="e()" style="height:42.0px; width:69px">Legend</button>
-      <!-- Create legend container inside map container-->
+        <button onclick="e()" id="button_change" style="height:42.0px; width:69px">Hide Legend</button>
+      </div>
       <div id="legend">
         <img src="./data/legend_image/ppt_corr_legend.png" height="200px" width="69px">
       </div>
-    </div>
 
     <div id="year">
       <h4>Year</h4>
@@ -164,6 +162,12 @@
           x.style.display = "block";
         } else {
           x.style.display = "none";
+        }
+        var text_change = document.getElementById("button_change").textContent;
+        if (text_change === "Hide Legend"){
+          document.getElementById("button_change").textContent = "Show Legend";
+        } else {
+          document.getElementById("button_change").textContent = "Hide Legend";
         }
       }
     </script>

@@ -55,7 +55,7 @@
     #legend {
         position: absolute;
         left:10px; 
-        top:69px; 
+        top:129px; 
         z-index:0; 
         width:69px; 
         height:420px; 
@@ -64,7 +64,7 @@
         position: absolute;
         left:10px; 
         top:79px;
-        z-index:0; 
+        z-index:1000; 
       }
     .map {
         width: 100%;
@@ -106,11 +106,10 @@
     </div>
 
       <div id="button1" class="button1">
-        <button onclick="e()" style="height:42.0px; width:69px">Legend</button>
-        <!-- Create legend container inside map container-->
-        <div id="legend">
-          <img src="./data/legend_image/laelneu_legend.png" height="200px" width="120px">
-        </div>
+        <button onclick="e()" id="button_change" style="height:42.0px; width:69px">Hide Legend</button>
+      </div>
+      <div id="legend">
+        <img src="./data/legend_image/laelneu_legend.png" height="200px" width="120px">
       </div>
 
       <div id="year">
@@ -138,6 +137,12 @@
           x.style.display = "block";
         } else {
           x.style.display = "none";
+        }
+        var text_change = document.getElementById("button_change").textContent;
+        if (text_change === "Hide Legend"){
+          document.getElementById("button_change").textContent = "Show Legend";
+        } else {
+          document.getElementById("button_change").textContent = "Hide Legend";
         }
       }
       </script>

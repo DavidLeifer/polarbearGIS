@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Precipitation Raster Correlation</title>
+    <title>Temperature Raster Correlation</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" content="Precipitation Raster Correlation" />
+    <meta name="description" content="A cluster layer for OpenLayers (ol/ol3) that animates clusters on zoom change." />
     <meta name="keywords" content="ol3,cluster,animation,layer,selectio,animate,animated clusters,openlayers" />
   
     <meta charset="utf-8" />
@@ -54,11 +54,11 @@
        }  
     #legend {
         position: absolute;
-        left:10px;
-        top:150px;
-        z-index:1;
-        width:69px;
-        height:420px;
+        left:10px; 
+        top:149px; 
+        z-index:0; 
+        width:69px; 
+        height:420px; 
       }
     .map {
         width: 100%;
@@ -82,7 +82,7 @@
         position: absolute;
         left:10px; 
         top:100px;
-        z-index:1; 
+        z-index:1000; 
       }
     </style>
   </head>
@@ -96,22 +96,19 @@
     <div class="about" style="display:none" position="absolute" z-index="0">
       <h1 class="button">About...</h1>
       <p>
-        This is Pearson Correlation (-1 to 1) between precipitation
+        This is Pearson Correlation (-.0004 to .0004) between temperature
         compared with the year's El Nino index (degrees C above/below 5 month running mean).
       </p>
       <p class="buttons">
         <button class='button'>OK</button>
       </p>
     </div>
-
     <div id="button1" class="button1">
-        <button onclick="e()" style="height:42.0px; width:69px">Legend</button>
-    </div>
-
-      <!-- Create legend container inside map container-->
-    <div id="legend">
-      <img src="./data/legend_image/ppt_corr_legend.png" height="200px" width="69px">
-    </div>
+        <button onclick="e()" id="button_change" style="height:42.0px; width:69px">Hide Legend</button>
+      </div>
+      <div id="legend">
+        <img src="./data/legend_image/ppt_corr_legend.png" height="200px" width="69px">
+      </div>
 
     <div id="year">
       <h4>Year</h4>
@@ -155,19 +152,24 @@
     </select>
 
     <div id = "slider"></div>
-
     <script src="./js/layer/layers.js"></script>
-
     <script src="./index.js"></script>
+
     <script>
-    function e() {
-        var legend_dairy = document.getElementById("legend");
-        if (legend_dairy.style.display === "none") {
-          legend_dairy.style.display = "block";
+      function e() {
+        var x = document.getElementById("legend");
+        if (x.style.display === "none") {
+          x.style.display = "block";
         } else {
-          legend_dairy.style.display = "none";
+          x.style.display = "none";
         }
-    }
+        var text_change = document.getElementById("button_change").textContent;
+        if (text_change === "Hide Legend"){
+          document.getElementById("button_change").textContent = "Show Legend";
+        } else {
+          document.getElementById("button_change").textContent = "Hide Legend";
+        }
+      }
     </script>
 
   </body>

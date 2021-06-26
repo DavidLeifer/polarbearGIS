@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel index.html -p 700 --out-dir ./.dist",
+    "start": "parcel index.html -p 1235 --out-dir ./.dist",
     "build": "parcel build index.html --public-url ./"
   },
   "keywords": [
@@ -20,9 +20,15 @@
     "parcel-bundler": "^1.9.4"
   },
   "dependencies": {
-    "http-proxy": "^1.18.1",
-    "http-proxy-rules": "^1.1.3",
     "ol": "^6.5.0",
-    "ol-ext": "^3.1.19"
-  }
+    "ol-ext": "^3.2.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidLeifer/pandamoniumGIS.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DavidLeifer/pandamoniumGIS/issues"
+  },
+  "homepage": "https://github.com/DavidLeifer/pandamoniumGIS#readme"
 }

@@ -60,7 +60,7 @@ print(gdal.__version__)
 
 git init
 git add .
-git commit -m "commit 100"
+git commit -m "commit 101"
 git remote add origin https://gitlab.com/davleifer/polarbearGIS.git
 git push -u origin main
 
