@@ -2,7 +2,8 @@
 echo begin
 
 #install the correct libraries
-sudo apt update
+sudo apt-get update
+#sudo apt-get upgrade
 sudo apt-get install wget
 sudo apt install git
 #install R stuff
@@ -18,6 +19,17 @@ sudo add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
 sudo apt install sqlite3
 #gdal python install stuff
 sudo apt-get install python3-gdal
+#install geopandas stuf
+sudo apt install libspatialindex-dev
+#install node and npm
+sudo apt install nodejs npm
+
+#install node stuff with npm
+sudo npm install ol
+sudo npm install -g parcel-bundler
+sudo npm install ol-ext
+#sudo npm install http-proxy --save
+#sudo npm uninstall http-proxy-rules --save
 
 #sudo apt-get install libgdal-dev
 #export CPLUS_INCLUDE_PATH=/usr/include/gdal
@@ -60,6 +72,8 @@ sudo pip3 install guppy3
 sudo pip3 install --upgrade pip
 sudo pip3 install pyproj
 sudo pip3 install fiona
+sudo pip3 install geopandas
+sudo pip3 install rtree
 
 #install proj-7
 cd ..
@@ -81,12 +95,19 @@ export LD_LIBRARY_PATH=/usr/local/lib
 ## Check if it works
 #gdalinfo --version
 
-#make path variables to python scripts
-#cd ..
-#cd ..
+#return to ~/polarbearGIS/data/
 cd ..
 cd polarbearGIS
+cd data
 
+#download polar_radar_unsplit.zip data
+#https://drive.google.com/file/d/1hN8TKgep0bBL2x0NtkEX666Ge-WMLASZ/view?usp=sharing
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1hN8TKgep0bBL2x0NtkEX666Ge-WMLASZ' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1hN8TKgep0bBL2x0NtkEX666Ge-WMLASZ" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+sudo unzip xyz-timeseries-data
+sudo rm xyz-timeseries-data
+cd ..
+
+#make path variables to python scripts
 PATH_PLUS_PPT_LaElNeu="$VARIABLENAME/scripts/python/ppt_bil2tif_LaElNeu_analysis.py"
 PATH_PLUS_TMEAN_LaElNeu="$VARIABLENAME/scripts/python/tmean_bil2tif_LaElNeu_analysis.py"
 #PATH_PLUS_PPT_ANOVA="$VARIABLENAME/scripts/python/ppt_ANOVA_analysis.py"
@@ -95,16 +116,19 @@ PPT_COR="$VARIABLENAME/scripts/python/ppt_cor.py"
 TMEAN_COR="$VARIABLENAME/scripts/python/tmean_cor.py"
 PPT_COR_ACTUALLY="$VARIABLENAME/scripts/python/ppt_cor_actually.py"
 TMEAN_COR_ACTUALLY="$VARIABLENAME/scripts/python/tmean_cor_actually.py"
+GEOSENT_2ROUNDED="$VARIABLENAME/scripts/python_weather/geosent_2rounded.py"
+
 
 #Run the python scripts
 sudo python3 $PATH_PLUS_PPT_LaElNeu
 sudo python3 $PATH_PLUS_TMEAN_LaElNeu
-#sudo python3 $PATH_PLUS_PPT_ANOVA
-#sudo python3 $PATH_PLUS_TMEAN_ANOVA
+sudo python3 $PATH_PLUS_PPT_ANOVA
+sudo python3 $PATH_PLUS_TMEAN_ANOVA
 sudo python3 $PPT_COR
 sudo python3 $TMEAN_COR
 sudo python3 $PPT_COR_ACTUALLY
 sudo python3 $TMEAN_COR_ACTUALLY
+sudo python3 $GEOSENT_2ROUNDED
 
 #open the gates!
 sudo apt-get install apache2 -y
@@ -256,10 +280,34 @@ do
     fi
 done
 
-
 #sudo rm /home/davleifer/polarbearGIS/data/tmean_pearson_final/*_color.tif
 #sudo rm -R /var/www/html/tmean_cor_xyz/
 #sudo mkdir /var/www/html/tmean_cor_xyz/
 
 http://XX.XX.xxx.XX/tmean_cor_xyz/tmean_cor_xyz_tmean_pearson_final_1981/openlayers.html
+
+###################
+#build node applications with npm
+cd pandamoniumGIS20210110_tmeanbuild
+sudo npm run-script build
+cd ..
+cd pandamoniumGIS_part2Section2_build
+sudo npm run-script build
+cd ..
+cd polarbear
+sudo npm run-script build
+cd ..
+cd tha_difference
+sudo npm run-script build
+cd ..
+cd polar_radar
+sudo npm run-script build
+cd ..
+
+#move the newly created files to their web home
+sudo mv ~/polarbearGIS/pandamoniumGIS20210110_tmeanbuild/dist /var/www/html/pandamoniumGIS20210110_tmeanbuild
+sudo mv ~/polarbearGIS/pandamoniumGIS_part2Section2_build/dist /var/www/html/pandamoniumGIS_part2Section2_build-dist
+sudo mv ~/polarbearGIS/polarbear/dist /var/www/html/polarbearGIS
+sudo mv ~/polarbearGIS/tha_difference/dist /var/www/html/tha_difference-dist
+sudo mv ~/polarbearGIS/polar_radar/dist /var/www/html/polar_radar
 
