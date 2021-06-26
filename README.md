@@ -21,13 +21,15 @@ A pipeline for GIS climate raster data. A script of scripts, using GCP.</br>
 
 ### Screenshots
 1. Temperature Correlated with nino34 Index
-![Temp](/polar_landing/images/temp_cor.png)
+[![Temp](/polar_landing/images/temp_cor.png)](https://www.davidjleifer.com/pandamoniumGIS20210110_tmeanbuild/index.html)
 2. Precipitation Correlated with nino34 Index
-![Temp](/polar_landing/images/ppt_cor.png)
+[![Temp](/polar_landing/images/ppt_cor.png)](https://www.davidjleifer.com/polarbearGIS/index.html)
 3. Mean January Temperature and Precipitation Grouped by Oscillation
-![Temp](/polar_landing/images/Part2Section2.png)
-4. Twitter Sentiment Alongside Radar of the Polar Vortex 2019 Storm
-![Temp](/polar_landing/images/polar_radar.png)
+[![Temp](/polar_landing/images/Part2Section2.png)](https://www.davidjleifer.com/pandamoniumGIS_part2Section2_build-dist/index.html)
+4. Difference between El Nino and Neutral years and La Nina and Neutral years
+[![Temp](/polar_landing/images/difference-image.png)](https://www.davidjleifer.com/tha_difference-dist/index.html)
+5. Twitter Sentiment Alongside Radar of the Polar Vortex 2019 Storm
+[![Temp](/polar_landing/images/polar_radar.png)](https://www.davidjleifer.com/polar_radar/index.html)
 
 ### Usage on Debian
 1. Update `sudo apt update`

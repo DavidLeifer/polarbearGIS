@@ -58,12 +58,14 @@ print(gdal.__version__)
 /Applications/QGIS.app/Contents/MacOS/bin/python3.7
 /Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/panda_testing/pandamoniumGIS/scripts/python/ppt_cor.py
 
+#here be the normal git add stuff
 git init
 git add .
-git commit -m "commit 105"
+git commit -m "commit 109"
 git remote add origin https://gitlab.com/davleifer/polarbearGIS.git
 git push -u origin main
 
+#clone a repo
 git clone https://github.com/DavidLeifer/polarbearGIS.git
 
 #go to different branch
