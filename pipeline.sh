@@ -168,6 +168,10 @@ sudo mkdir /var/www/html/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final
 sudo cp ~/polarbearGIS/data/tmean_ANOVA_output.txt /var/www/html
 sudo cp ~/polarbearGIS/data/ppt_ANOVA_output.txt /var/www/html
 
+#copy over the sentiment histogram html files output from streamhist
+sudo cp ~/polarbearGIS/data/Histogram.png /var/www/html
+sudo cp ~/polarbearGIS/data/Breaks.png /var/www/html
+
 #Declare a tmean_grouping_array of string with type
 declare -a tmean_grouping_array=(
 	"$VARIABLENAME/data/tmeanJanELNin/tmeanJanELNin.tif" 

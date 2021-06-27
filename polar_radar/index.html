@@ -8,7 +8,7 @@
 	  function gtag(){dataLayer.push(arguments);}
 	  gtag('js', new Date());
 
-	  gtag('config', 'G-XXXXXXXXXX');
+	  gtag('config', 'G-0RS9QGYLJ3');
 	</script>
     <meta charset="UTF-8">
     <title>WMS Time</title>
@@ -98,11 +98,23 @@
     </style>
   </head>
   <body>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <div class="center"> 
       <H1>2019 Polar Vortex</H1><br>
-      <H3>This map displays timeseries radar data and sentiment analysis of geolocated tweets on January 29th from 18:45 until 20:00.</H3><br>
+      <H3>This map and stream histogram graph displays timeseries radar data and sentiment analysis of geolocated tweets on January 29th from 18:45 until 20:00.</H3><br>
       <p>The 2019 Polar Vortex was a winter event that brought an intense snow storm to much of the upper midwest, followed by a period of frigid cold temperatures. This was caused by a weakened jet stream around the arctic and brought some of the lowest temperatures to areas in decades. Once the temperatures warmed up, widespread flooding ensued, particularly along the Mississippi River. <a href="https://en.wikipedia.org/wiki/January%E2%80%93February_2019_North_American_cold_wave">Wiki Link</a>
       </p>
+    </div>
+    </br>
+    <div class="center" height="500px" width="100%" position="absolute">
+      <img src="../data/Histogram.png" width="100%">
+    </div>
+    </br>
+    <div class="center" height="500px" width="100%" position="absolute">
+      <img src="../data/Breaks.png" width="100%">
+    </br>
+    <p>Credit to the <a href="https://github.com/carsonfarmer/streamhist">StreamHist</a> package by Dr. Farmer.
+    </p>
     </div>
     <br>
     <div id=invisDate>
@@ -117,16 +129,15 @@
     </br>
     <div id="map" class="map">
       <div id="button1" class="button1">
-        <button onclick="e()" id="button_change" style="height:42.0px; width:69px">Hide Legend</button>
+        <button onclick="myFunction()" id="button_change" style="height:42.0px; width:69px">Hide Legend</button>
       </div>
       <div id="legend">
         <img src="./polar_radar_legend.png" height="100px" width="69px">
       </div>
     </div>
-
     <script src="main.js"></script>
     <script>
-      function e() {
+      function myFunction() {
         var x = document.getElementById("legend");
         if (x.style.display === "none") {
           x.style.display = "block";

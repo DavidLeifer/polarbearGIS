@@ -8,11 +8,6 @@ npm install -g npm@7.11.2
 sudo npm install ol
 sudo npm install -g parcel-bundler
 sudo npm install ol-ext
-sudo npm install forever -g
-sudo npm install http-proxy --save
-sudo npm uninstall http-proxy-rules --save
-sudo npm install node-report
-sudo npm install glob
 
 #report node
 node -r node-report app.js
@@ -44,12 +39,7 @@ polarbearGIS
 
 sudo chmod -R ugo+rw /var/lib/tomcat8/webapps/geoserver/data/www/localdata
 
-/Applications/QGIS.app/Contents/MacOS/bin/python3.7 -m pip install descartes
-/Applications/QGIS.app/Contents/MacOS/bin/python3.7 -m pip install brewer2mpl
-
-/Applications/QGIS.app/Contents/MacOS/bin/python3.7 -m pip install -U pip
-
-/Applications/QGIS.app/Contents/MacOS/bin/python3.7 -m pip install --upgrade rasterio
+/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.8 -m pip install streamhist
 
 print(gdal.__version__)
 
@@ -61,7 +51,7 @@ print(gdal.__version__)
 #here be the normal git add stuff
 git init
 git add .
-git commit -m "commit 109"
+git commit -m "commit 112"
 git remote add origin https://gitlab.com/davleifer/polarbearGIS.git
 git push -u origin main
 
@@ -199,3 +189,6 @@ She paused, then she said, "Okay”
 Couldn't think of much else to say, a labyrinth is not a maze
 That's okay, but that's not the Haze
 J.D. Salinger, just stay away
+
+
+
