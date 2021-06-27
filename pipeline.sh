@@ -47,6 +47,11 @@ sudo mkdir tmeanJanLANin
 sudo mkdir tmeanJanNeutral
 sudo mkdir tmean_pearson_final
 sudo mkdir ppt_pearson_final
+
+sudo mkdir ppt_elnino_minus_neutral
+sudo mkdir ppt_lanina_minus_neutral
+sudo mkdir tmean_elnino_minus_neutral
+sudo mkdir tmean_lanina_minus_neutral
 cd ..
 
 #set up the paths
@@ -117,7 +122,8 @@ TMEAN_COR="$VARIABLENAME/scripts/python/tmean_cor.py"
 PPT_COR_ACTUALLY="$VARIABLENAME/scripts/python/ppt_cor_actually.py"
 TMEAN_COR_ACTUALLY="$VARIABLENAME/scripts/python/tmean_cor_actually.py"
 GEOSENT_2ROUNDED="$VARIABLENAME/scripts/python_weather/geosent_2rounded.py"
-
+TMEAN_LAELNEU_DIFF="$VARIABLENAME/scripts/python/tmean_LaElNeu_diff.py"
+PPT_LAELNEU_DIFF="$VARIABLENAME/scripts/python/ppt_LaElNeu_diff.py"
 
 #Run the python scripts
 sudo python3 $PATH_PLUS_PPT_LaElNeu
@@ -129,6 +135,8 @@ sudo python3 $TMEAN_COR
 sudo python3 $PPT_COR_ACTUALLY
 sudo python3 $TMEAN_COR_ACTUALLY
 sudo python3 $GEOSENT_2ROUNDED
+sudo python3 $TMEAN_LAELNEU_DIFF
+sudo python3 $PPT_LAELNEU_DIFF
 
 #open the gates!
 sudo apt-get install apache2 -y
@@ -220,6 +228,62 @@ do
 	 sudo gdaldem color-relief ${ppt_grouping_array[$index_2]} $PPT_COLOR_RELIEF ${ppt_grouping_array_color[$index_2]} -alpha
     #build xyz tiles
     sudo gdal2tiles.py --zoom=2-8 --tilesize=128 ${ppt_grouping_array_color[$index_2]} ${ppt_grouping_array_xyz[$index_2]}
+done
+
+#Declare a PPT_DIFF of string with type
+declare -a PPT_DIFF=(
+	"$VARIABLENAME/data/ppt_elnino_minus_neutral/ppt_elnino_minus_neutral.tif" 
+	"$VARIABLENAME/data/ppt_lanina_minus_neutral/ppt_lanina_minus_neutral.tif" )
+
+#Declare a PPT_DIFF_COLOR output
+declare -a PPT_DIFF_COLOR=(
+	"$VARIABLENAME/data/ppt_elnino_minus_neutral/ppt_elnino_minus_neutral_color.tif" 
+	"$VARIABLENAME/data/ppt_lanina_minus_neutral/ppt_lanina_minus_neutral_color.tif" )
+
+#Declare a array of ppt xyz diff output
+VAR_WWW_HTML="/var/www/html"
+declare -a PPT_DIFF_ARRAY_XYZ=(
+	"$VAR_WWW_HTML/ppt_elnino_minus_neutral_xyz" 
+	"$VAR_WWW_HTML/ppt_lanina_minus_neutral_xyz" )
+
+#PPT_DIFF_COLOR_RELIEF
+PPT_DIFF_COLOR_RELIEF=$VARIABLENAME/data/ppt_diff_color_relief.txt
+
+#Iterate all PPT_DIFF*
+for index in ${!PPT_DIFF[*]};
+do
+	 #make pretty colors
+	 sudo gdaldem color-relief ${PPT_DIFF[$index]} $PPT_DIFF_COLOR_RELIEF ${PPT_DIFF_COLOR[$index]} -alpha
+    #build xyz tiles
+    sudo gdal2tiles.py --zoom=2-8 --tilesize=128 ${PPT_DIFF_COLOR[$index]} ${PPT_DIFF_ARRAY_XYZ[$index]}
+done
+
+#Declare a TMEAN_DIFF of string with type
+declare -a TMEAN_DIFF=(
+	"$VARIABLENAME/data/tmean_elnino_minus_neutral/tmean_elnino_minus_neutral.tif" 
+	"$VARIABLENAME/data/tmean_lanina_minus_neutral/tmean_lanina_minus_neutral.tif" )
+
+#Declare a TMEAN_DIFF_COLOR output
+declare -a TMEAN_DIFF_COLOR=(
+	"$VARIABLENAME/data/tmean_elnino_minus_neutral/tmean_elnino_minus_neutral_color.tif" 
+	"$VARIABLENAME/data/tmean_lanina_minus_neutral/tmean_lanina_minus_neutral_color.tif" )
+
+#Declare a array of tmean xyz diff output
+VAR_WWW_HTML="/var/www/html"
+declare -a TMEAN_DIFF_ARRAY_XYZ=(
+	"$VAR_WWW_HTML/tmean_elnino_minus_neutral_xyz" 
+	"$VAR_WWW_HTML/tmean_lanina_minus_neutral_xyz" )
+
+#TMEAN_DIFF_COLOR_RELIEF
+TMEAN_DIFF_COLOR_RELIEF=$VARIABLENAME/data/tmean_diff_color_relief.txt
+
+#Iterate all TMEAN_DIFF*
+for index in ${!TMEAN_DIFF[*]};
+do
+	 #make pretty colors
+	 sudo gdaldem color-relief ${TMEAN_DIFF[$index]} $TMEAN_DIFF_COLOR_RELIEF ${TMEAN_DIFF_COLOR[$index]} -alpha
+    #build xyz tiles
+    sudo gdal2tiles.py --zoom=2-8 --tilesize=128 ${TMEAN_DIFF_COLOR[$index]} ${TMEAN_DIFF_ARRAY_XYZ[$index]}
 done
 
 #make ppt_pearson_final variable

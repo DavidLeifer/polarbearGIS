@@ -95,7 +95,8 @@ Some of the technical details are outlined in my blog, which can be found on my 
 ### TODO 
 06/26/2021:</br>
 - ~~Map maps of the average El Niño – neutral January temperature and the average La Niña – neutral January temperature. Map the same maps for the precipitation differences. Difficulty: Easy~~
-- ~~Build XYZ tiles for the previous map and include it in another application, link in polar_landing. Difficulty: Easy~~
+- ~~Build XYZ tiles for dif map and include it in another application, link in polar_landing. Difficulty: Easy~~
+- ~~Build XYZ tiles with GDAL for diff map. Difficulty: Easy~~
 - ~~Add a gdrive link to download the json of twitter sentiment so I can run the python scripts to split the data into a geojson file for each 15 minute time stamp to feed into the ol map. Difficulty: Easy~~
 - ~~Install npm and build the web files, follow steps from my blog that I did in Jan. Difficulty: Easy~~
 - Somehow getting wildly different ppt/nino34 cor values on debian as opposed to mac. e.g. mac=1.2e3; debian=1.2e12. - try copy gitlab code to debian instance and rerun - if that doesnt work reinstall - if that doesnt work, no idea. Difficulty: Hard (probably) 

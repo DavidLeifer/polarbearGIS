@@ -54,6 +54,7 @@ def read_file(file):
 array_list = [read_file(x) for x in elninolist2]
 # Perform averaging
 elnino_array_out = np.mean(array_list, axis=0)
+elnino_array_out[elnino_array_out == -9999] = -19998
 
 #create list of neither files based on year from neither varible
 neither_list = neither['Year'].tolist()
@@ -90,7 +91,7 @@ dataset.SetGeoTransform(geotrans)
 dataset.SetProjection(proj)
 dataset.FlushCache()
 band = dataset.GetRasterBand(1)
-band.SetNoDataValue(0)
+band.SetNoDataValue(-9999)
 band=None
 dataset=None
 
@@ -109,6 +110,7 @@ lanina_list2 = lanina_df5[0].tolist()
 lanina_array_list = [read_file(x) for x in lanina_list2]
 # Perform averaging
 lanina_array_out = np.mean(lanina_array_list, axis=0)
+lanina_array_out[lanina_array_out == -9999] = -19998
 
 #perform tha difference
 lanina_minus_neutral = lanina_array_out - neutral_array_out
@@ -127,7 +129,7 @@ dataset.SetGeoTransform(geotrans)
 dataset.SetProjection(proj)
 dataset.FlushCache()
 band = dataset.GetRasterBand(1)
-band.SetNoDataValue(0)
+band.SetNoDataValue(-9999)
 band=None
 dataset=None
 
