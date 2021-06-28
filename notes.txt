@@ -52,8 +52,10 @@ print(gdal.__version__)
 git init
 git add .
 git commit -m "commit 112"
-git remote add origin https://gitlab.com/davleifer/polarbearGIS.git
 git push -u origin main
+
+#git remote add origin https://gitlab.com/davleifer/polarbearGIS.git
+#git remote add origin https://github.com/DavidLeifer/polarbearGIS.git
 
 #clone a repo
 git clone https://github.com/DavidLeifer/polarbearGIS.git
@@ -168,27 +170,10 @@ earth gdp is 87,000,000,000,000
 Hell's bells every which way the the wind blows
 So I bang my head against any wall you can build, go
 
+I pay the rent in pennies and ride off into the ether
+On a donkey painted like a zebra, take me to your leader
 You can't imagine all the misery we leap frog
 I make maps, I ain't a muthafuckin' peacock
-
-You won't get no answers, 
-not for the stuff that keeps you up, 
-you won't never get no answers
-You won't get no answers, 
-not for the stuff that keeps you up, 
-you won't get no answers
-You won't never get no answers, 
-not for the stuff that keeps you up, 
-you won't get no answers
-You won't get no answers, 
-not for the stuff that keeps you up, 
-you won't never get no answers
-
-Told my ex-wife where I stashed it, just in case
-She paused, then she said, "Okay”
-Couldn't think of much else to say, a labyrinth is not a maze
-That's okay, but that's not the Haze
-J.D. Salinger, just stay away
 
 
 

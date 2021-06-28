@@ -1,0 +1,313 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 7.0.3.1 (MacOSX)"/>
+	<meta name="created" content="2021-06-27T14:33:36.257321717"/>
+	<meta name="changed" content="2021-06-27T20:24:58.533592700"/>
+	<style type="text/css">
+		@page { size: 8.5in 11in; margin: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Serif", serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Songti SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "Arial Unicode MS"; font-size: 14pt; font-weight: bold }
+		pre { font-family: "Liberation Mono", monospace; font-size: 10pt; background: transparent }
+		strong { font-weight: bold }
+		a:link { color: #000080; so-language: zxx; text-decoration: underline }
+		a:visited { color: #800000; so-language: zxx; text-decoration: underline }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr"><h3 class="western">
+<font face="Liberation Serif, serif"><font size="4" style="font-size: 14pt"><b>Part
+1</b></font></font><font face="Liberation Serif, serif"><font size="4" style="font-size: 14pt"><b>3</b></font></font><font face="Liberation Serif, serif"><font size="4" style="font-size: 14pt"><b>:
+</b></font></font><font face="Liberation Serif, serif"><font size="4" style="font-size: 14pt"><b>Using
+the Streamhist package to make histograms of the streams</b></font></font></h3>
+<p>This series is me chronicling my adventure making a data pipeline.
+This pipe is outlined on GitLab here in the readme:
+<a href="https://gitlab.com/davleifer/polarbearGIS">https://gitlab.com/davleifer/polarbearGIS</a></p>
+<p><strong>This is the </strong><strong><b>eleventh</b></strong><strong>
+part in a series used to build my website:</strong>
+<a href="https://davidjleifer.com/" target="_blank">https://</a><a href="https://davidjleifer.com/" target="_blank">www.</a><a href="https://davidjleifer.com/" target="_blank">davidjleifer.com/</a></p>
+<p><strong>Part </strong><strong>1</strong><strong>:
+</strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part</span></u></span></font></a></strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">1</span></u></span></font></a></strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">.html</span></u></span></font></a></strong></p>
+<p><strong>Part 2: </strong><strong><a href="https://www.davidjleifer.com/blogs/part2.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part2.html</span></u></span></font></a></strong></p>
+<p><strong>Part 3:</strong>
+<strong><a href="https://www.davidjleifer.com/blogs/part3.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part3.html</span></u></span></font></a></strong></p>
+<p><strong>Part 4: </strong><strong><a href="https://www.davidjleifer.com/blogs/part4.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part4.html</span></u></span></font></a></strong></p>
+<p><strong>Part 5: </strong><strong><a href="https://www.davidjleifer.com/blogs/part5.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part5.html</span></u></span></font></a></strong></p>
+<p><strong>Part 6: </strong><a href="https://www.davidjleifer.com/blogs/part6.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part6.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>7</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part7.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part7.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>8</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part8.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part8.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>9</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>9</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>1</strong><strong>0</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part10.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/par</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part10.html"><font color="#000080"><span lang="zxx"><u>t1</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part10.html"><font color="#000080"><span lang="zxx"><u>0</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part10.html"><font color="#000080"><span lang="zxx"><u>.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>1</strong><strong>1</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part11.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/par</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part11.html"><font color="#000080"><span lang="zxx"><u>t1</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part11.html"><font color="#000080"><span lang="zxx"><u>1</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part11.html"><font color="#000080"><span lang="zxx"><u>.html</u></span></font></a></p>
+<p><b>Part 12: </b><a href="https://www.davidjleifer.com/blogs/part12.html"><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part12.html</span></a></p>
+<p><b>Part 13: </b><a href="https://www.davidjleifer.com/blogs/part13.html"><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part13.html</span></a></p>
+<p style="font-weight: normal"><br/>
+<br/>
+
+</p>
+<p><span style="font-weight: normal">Th</span><span style="font-weight: normal">is</span><span style="font-weight: normal">
+will be building on what </span><span style="font-weight: normal">we
+did</span><span style="font-weight: normal"> in part 9 and 10 for our
+Polar Vortex application. We need to make a summary of our data so we
+can more easily view the distribution of the sentiment analysis
+scores. To do this, we will be using a package written in Python by
+Dr. Carson Farmer called streamhist:
+</span><a href="https://github.com/carsonfarmer/streamhist">https://github.com/carsonfarmer/streamhist</a>.</p>
+<p><span style="font-weight: normal">Pesky streaming data, always
+adding more data onto </span><span style="font-weight: normal">our</span><span style="font-weight: normal">
+data. How would we ever visualize such a thing? You need streamhist,
+a neat package that updates </span><span style="font-weight: normal">the
+bin size</span><span style="font-weight: normal"> as </span><span style="font-weight: normal">data</span><span style="font-weight: normal">
+arrive</span><span style="font-weight: normal">s</span><span style="font-weight: normal">
+</span><span style="font-weight: normal">from the</span><span style="font-weight: normal">
+data collection server. </span>
+</p>
+<p><b>Part 1: Installing Streamhist, importing the libraries and
+setting our paths up</b></p>
+<p><span style="font-weight: normal">We will first need to install
+streamhist, which is available through pip. </span><span style="font-weight: normal">You</span><span style="font-weight: normal">
+only </span><span style="font-weight: normal">have</span><span style="font-weight: normal">
+to know the location of the python path:</span></p>
+<p><br/>
+<br/>
+
+</p>
+<pre style="font-weight: normal">/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.8 -m pip install streamhist</pre><p style="font-weight: normal">
+<br/>
+<br/>
+
+</p>
+<p><span style="font-weight: normal">We will also need the libraries
+</span><i><span style="font-weight: normal">numpy, matplotlib,
+functools, pandas, os, </span></i><span style="font-style: normal"><span style="font-weight: normal">and</span></span><i><span style="font-weight: normal">
+glob</span></i><span style="font-style: normal"><span style="font-weight: normal">.
+The next part of the script gets the current working directory </span></span><span style="font-style: normal"><span style="font-weight: normal">and
+sets it to the variable </span></span><i><span style="font-weight: normal">cwd</span></i><span style="font-style: normal"><span style="font-weight: normal">.
+This was designed to run in polarbearGIS, so we </span></span><span style="font-style: normal"><span style="font-weight: normal">concatenate
+the current working directory </span></span><span style="font-style: normal"><span style="font-weight: normal">variable</span></span><span style="font-style: normal"><span style="font-weight: normal">
+</span></span><span style="font-style: normal"><span style="font-weight: normal">to</span></span><span style="font-style: normal"><span style="font-weight: normal">
+the folder </span></span><span style="font-style: normal"><span style="font-weight: normal">string</span></span><span style="font-style: normal"><span style="font-weight: normal">
+</span></span><i><span style="font-weight: normal">data/polar_radar_unsplit</span></i><span style="font-style: normal"><span style="font-weight: normal">
+as a variable named </span></span><i><span style="font-weight: normal">folders</span></i><span style="font-style: normal"><span style="font-weight: normal">.
+We then make a variable named </span></span><i><span style="font-weight: normal">all_files</span></i><span style="font-style: normal"><span style="font-weight: normal">,
+which utilizes glob to make a list of all the files ending with
+</span></span><i><span style="font-weight: normal">geo_sent.json</span></i><span style="font-style: normal"><span style="font-weight: normal">.
+The wildcard * is the key here.</span></span></p>
+<pre style="font-style: normal; font-weight: normal">import numpy as np
+import matplotlib.pyplot as plt
+plt.style.use(&quot;ggplot&quot;)  # Makes for nicer looking plots
+
+try:
+    from functools import reduce
+except ImportError:
+    pass
+
+from streamhist import StreamHist
+from numpy import histogram, allclose
+import pandas as pd
+import os
+from glob import glob
+#from mpld3 import save_html
+
+#gotta add cwd in server version after testing
+cwd = os.getcwd()
+folders = cwd + &quot;/data/polar_radar_unsplit&quot;
+#folders = &quot;/Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/data/polar_radar_unsplit&quot;
+
+all_files = glob(os.path.join(folders, &quot;*geo_sent.json&quot;))
+</pre><p>
+<b>Part </b><b>2</b><b>: </b><b>Setting up a for loop and converting
+our </b><b>list of</b><b> json into one numpy array</b></p>
+<p><span style="font-weight: normal">Next we need to set up a for
+loop and loop over the </span><i><span style="font-weight: normal">all_files</span></i><span style="font-style: normal"><span style="font-weight: normal">
+list variable with another variable called </span></span><i><span style="font-weight: normal">json_files</span></i><span style="font-style: normal"><span style="font-weight: normal">.
+Before we do this, we setup an empty np.array list called
+</span></span><i><span style="font-weight: normal">numpy_of_compound_json</span></i><span style="font-style: normal"><span style="font-weight: normal">.
+This will be our numpy array that we append the arrays of compound
+scores to. The first part of the for loop will make a variable named
+</span></span><i><span style="font-weight: normal">json </span></i><span style="font-style: normal"><span style="font-weight: normal">which
+reads in each of our </span></span><i><span style="font-weight: normal">json_file</span></i><span style="font-style: normal"><span style="font-weight: normal">
+paths with pandas </span></span><i><span style="font-weight: normal">read_json</span></i><span style="font-style: normal"><span style="font-weight: normal">
+method. Then we make a variable named </span></span><i><span style="font-weight: normal">json_comp</span></i><span style="font-style: normal"><span style="font-weight: normal">
+which holds the </span></span><i><span style="font-weight: normal">json</span></i><span style="font-style: normal"><span style="font-weight: normal">
+compound score, which is just a column. </span></span><span style="font-style: normal"><span style="font-weight: normal">W</span></span><span style="font-style: normal"><span style="font-weight: normal">e
+replace the zeros with numpy’</span></span><span style="font-style: normal"><span style="font-weight: normal">s</span></span><span style="font-style: normal"><span style="font-weight: normal">
+“not a number” (or nan) and call it </span></span><i><span style="font-weight: normal">json_naned</span></i><span style="font-style: normal"><span style="font-weight: normal">.
+We then drop those nan and set the result to a variable named
+</span></span><i><span style="font-weight: normal">json_no_nan</span></i><span style="font-style: normal"><span style="font-weight: normal">.
+Next we convert the </span></span><i><span style="font-weight: normal">json_no_nan</span></i><span style="font-style: normal"><span style="font-weight: normal">
+variable to a numpy array and call it </span></span><i><span style="font-weight: normal">compound_json.
+</span></i><span style="font-style: normal"><span style="font-weight: normal">Finally,
+we switch from using pandas methods to numpy and concatenate the
+arrays into our empty variable </span></span><i><span style="font-weight: normal">numpy_of_compound_json</span></i><span style="font-style: normal"><span style="font-weight: normal">.</span></span></p>
+<p style="font-style: normal; font-weight: normal"><br/>
+<br/>
+
+</p>
+<pre style="font-style: normal; font-weight: normal">#read json, convert 0 to nan, drop nan, append json files to list_of_compound_json, 
+numpy_of_compound_json = np.array([])
+for json_files in all_files:
+    json = pd.read_json(json_files)
+    json_comp = json['compound']
+    json_naned = json_comp.replace(0.000, np.nan)
+    json_no_nan = json_naned.dropna(how='all', axis=0)
+    compound_json = json_no_nan.to_numpy()
+    numpy_of_compound_json = np.concatenate([numpy_of_compound_json, compound_json])
+</pre><p>
+<b>Part 3: Data visualization with streamhist</b></p>
+<p><span style="font-weight: normal">Now comes the fun part! </span>
+</p>
+<p style="font-weight: normal"><img src="part13_html_6d47afbe64c0a484.png" name="Image1" align="left" width="450" height="364">
+  <br clear="left"/>
+</img>
+<br/>
+<br/>
+
+</p>
+<p><span style="font-weight: normal">From the package itself:</span></p>
+<p style="font-weight: normal"><span style="font-variant: normal"><font color="#24292e"><font face="apple-system, system-ui, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji"><font size="2" style="font-size: 10pt"><span style="letter-spacing: normal"><span style="font-style: normal">This
+project is an implementation of the streaming, one-pass histograms
+described in Ben-Haim's&nbsp;</span></span></font></font></font></span><a href="http://jmlr.org/papers/volume11/ben-haim10a/ben-haim10a.pdf"><span style="font-variant: normal"><span style="text-decoration: none"><font face="apple-system, system-ui, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji"><font size="2" style="font-size: 10pt"><span style="letter-spacing: normal"><span style="font-style: normal"><span style="background: #ffffff">Streaming
+Parallel Decision Trees</span></span></span></font></font></span></span></a><span style="font-variant: normal"><font color="#24292e"><font face="apple-system, system-ui, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji"><font size="2" style="font-size: 10pt"><span style="letter-spacing: normal"><span style="font-style: normal">.
+The histograms act as an approximation of the underlying dataset. The
+histogram bins do not have a preset size, so as values stream into
+the histogram, bins are dynamically added and merged as needed. One
+particularly nice feature of streaming histograms is that they can be
+used to approximate quantiles without sorting (or even individually
+storing) values.</span></span></font></font></font></span></p>
+<p style="font-weight: normal">The interesting bit is in the <i>c1</i><span style="font-style: normal">
+and </span><i>c2</i><span style="font-style: normal"> variables,
+which compute bin size with list comprehensions based on the
+streamhist package’s method </span><i>compute_breaks</i><span style="font-style: normal">
+and the </span><i>StreamHist() </i><span style="font-style: normal">function.
+The rest is matplotlib to make the chart look nice.</span></p>
+<p style="font-weight: normal"><br/>
+<br/>
+
+</p>
+<pre style="font-style: normal; font-weight: normal">#create histogram of json
+length = numpy_of_compound_json.shape[0]
+bins = 25
+h9 = StreamHist().update(numpy_of_compound_json)
+hist1, bins1 = h9.compute_breaks(bins)
+hist2, bins2 = histogram(numpy_of_compound_json, bins=bins)
+
+if allclose(bins1, bins2):
+    print(&quot;The bin breaks are all close&quot;)
+if allclose(hist1, hist2, rtol=1, atol=length/(bins**2)):
+    print(&quot;The bin counts are all close&quot;)
+
+width = 0.7 * (bins2[1] - bins2[0])
+c1 = [(a + b)/2. for a, b in zip(bins1[:-1], bins1[1:])]
+c2 = [(a + b)/2. for a, b in zip(bins2[:-1], bins2[1:])]
+
+plt.figure(figsize=(2, 2))
+f, (ax1, ax2) = plt.subplots(1, 2, sharey=False, figsize=(2, 2))
+fig = plt.figure()
+plt.bar(c1, hist1, align='center', width=width)
+plt.title(&quot;Computed Sentiment Breaks&quot;)
+plt.ylabel(&quot;Frequency&quot;)
+plt.xlabel(&quot;Data&quot;)
+plt.savefig(cwd + '/data/Breaks.png')
+#save_html(fig,&quot;/scripts/python_weather/Breaks.html&quot;)
+
+fig2 = plt.figure()
+plt.bar(c2, hist2, align='center', width=width)
+plt.title(&quot;Numpy Sentiment Histogram&quot;)
+plt.ylabel(&quot;Frequency&quot;)
+plt.xlabel(&quot;Data&quot;)
+plt.savefig(cwd + '/data/Histogram.png')
+#save_html(fig2,&quot;/scripts/python_weather/Histogram.html&quot;)
+</pre><p style="font-weight: normal">
+<span style="font-style: normal">We end up saving the histogram plot
+as an image but you can also save it as an html file using the
+package mpld3. </span><span style="font-style: normal">In the next
+step, I use the histograms in a web application and since mpld3 is
+based on SVG, I found it a pain to resize the </span><span style="font-style: normal">output</span><span style="font-style: normal">
+html files. </span><span style="font-style: normal">They looked nice
+on desktop but 67% of my traffic comes from mobile devices, so I
+opted to use basic images.</span></p>
+<p style="font-style: normal"><br/>
+<br/>
+
+</p>
+<p style="font-weight: normal"><span style="font-style: normal"><b>S</b></span><span style="font-style: normal"><b>tep
+4: Including the .png in our web application</b></span></p>
+<p style="font-style: normal; font-weight: normal">It’s just two
+img src and two div lol. You can also insert html via an iframe or
+even with a jQuery .get or .load method.</p>
+<pre style="font-style: normal; font-weight: normal">&lt;div class=&quot;center&quot; height=&quot;500px&quot; width=&quot;100%&quot; position=&quot;absolute&quot;&gt;
+  &lt;img src=&quot;../data/Histogram.png&quot; width=&quot;100%&quot;&gt;
+&lt;/div&gt;
+&lt;/br&gt;
+&lt;div class=&quot;center&quot; height=&quot;500px&quot; width=&quot;100%&quot; position=&quot;absolute&quot;&gt;
+  &lt;img src=&quot;../data/Breaks.png&quot; width=&quot;100%&quot;&gt;
+&lt;/div&gt;
+
+<img src="part13_html_ee89519b36aecf0b.png" name="Image2" align="left" width="723" height="542" border="0"/>
+
+<img src="part13_html_90a9e4aa5cfccafa.png" name="Image3" align="left" width="723" height="542" border="0"/>
+</pre><p>
+<br/>
+<br/>
+
+</p>
+<p><b>Further Direction: GeoStreamable</b></p>
+<p>The next logical step is building the GeoStreamable application as
+outlined in the readme of this project. The data collection script
+will be continuously running to collect tweets about a low key
+subject so I don’t get destroyed in CPU fees. Might need to cap the
+directory to a certain size and delete older files.</p>
+<p>We would also need to run the streamhist script every few minutes
+to update the histogram image, along with a BASH script to move the
+files around on the server. We would also need the sentiment analysis
+and geocoder script to run every few minutes to geocode and get the
+sentiment of the tweets coming in. We would need to update the web
+application to include a popup info window to display the contents of
+the tweet but not the user (at least I think you can do that, I’d
+have to reread the terms of the tweepy API).</p>
+<p>That’s really all that’s left, just server rules. Might be
+easy. Might also be super expensive. Might just make this as a proof
+of concept. This would be so much easier with my own server but then
+I’d need a static IP.</p>
+<p><br/>
+<br/>
+
+</p>
+<p>This series is me chronicling my adventure making a data pipeline.
+This pipe is outlined on GitLab here in the readme:
+<a href="https://gitlab.com/davleifer/polarbearGIS">https://gitlab.com/davleifer/polarbearGIS</a></p>
+<p><strong>This is the </strong><strong><b>eleventh</b></strong><strong>
+part in a series used to build my website:</strong>
+<a href="https://davidjleifer.com/" target="_blank">https://</a><a href="https://davidjleifer.com/" target="_blank">www.</a><a href="https://davidjleifer.com/" target="_blank">davidjleifer.com/</a></p>
+<p><strong>Part </strong><strong>1</strong><strong>:
+</strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part</span></u></span></font></a></strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">1</span></u></span></font></a></strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">.html</span></u></span></font></a></strong></p>
+<p><strong>Part 2: </strong><strong><a href="https://www.davidjleifer.com/blogs/part2.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part2.html</span></u></span></font></a></strong></p>
+<p><strong>Part 3:</strong>
+<strong><a href="https://www.davidjleifer.com/blogs/part3.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part3.html</span></u></span></font></a></strong></p>
+<p><strong>Part 4: </strong><strong><a href="https://www.davidjleifer.com/blogs/part4.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part4.html</span></u></span></font></a></strong></p>
+<p><strong>Part 5: </strong><strong><a href="https://www.davidjleifer.com/blogs/part5.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part5.html</span></u></span></font></a></strong></p>
+<p><strong>Part 6: </strong><a href="https://www.davidjleifer.com/blogs/part6.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part6.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>7</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part7.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part7.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>8</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part8.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part8.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>9</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>9</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>1</strong><strong>0</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part10.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/par</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part10.html"><font color="#000080"><span lang="zxx"><u>t1</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part10.html"><font color="#000080"><span lang="zxx"><u>0</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part10.html"><font color="#000080"><span lang="zxx"><u>.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>1</strong><strong>1</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part11.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/par</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part11.html"><font color="#000080"><span lang="zxx"><u>t1</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part11.html"><font color="#000080"><span lang="zxx"><u>1</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part11.html"><font color="#000080"><span lang="zxx"><u>.html</u></span></font></a></p>
+<p><b>Part 12: </b><a href="https://www.davidjleifer.com/blogs/part12.html"><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part12.html</span></a></p>
+<p><b>Part 13: </b><a href="https://www.davidjleifer.com/blogs/part13.html"><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part13.html</span></a></p>
+</body>
+</html>

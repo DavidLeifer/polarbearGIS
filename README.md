@@ -74,6 +74,7 @@ Some of the technical details are outlined in my blog, which can be found on my 
   * SciPy: https://github.com/scipy/scipy
   * NumPy: https://github.com/numpy/numpy
   * SeaBorn: https://github.com/mwaskom/seaborn
+  * StreamHist: https://github.com/carsonfarmer/streamhist
 - R
   * Prism: https://github.com/ropensci/prism
 - JavaScript
@@ -93,17 +94,17 @@ Some of the technical details are outlined in my blog, which can be found on my 
   * GDAL: https://gdal.org/download.html
 
 ### TODO 
-06/26/2021:</br>
+06/27/2021:</br>
 - ~~Map maps of the average El Niño – neutral January temperature and the average La Niña – neutral January temperature. Map the same maps for the precipitation differences. Difficulty: Easy~~
 - ~~Build XYZ tiles for dif map and include it in another application, link in polar_landing. Difficulty: Easy~~
 - ~~Build XYZ tiles with GDAL for diff map. Difficulty: Easy~~
 - ~~Add a gdrive link to download the json of twitter sentiment so I can run the python scripts to split the data into a geojson file for each 15 minute time stamp to feed into the ol map. Difficulty: Easy~~
 - ~~Install npm and build the web files, follow steps from my blog that I did in Jan. Difficulty: Easy~~
+- ~~Add a streamhist function from ye ol farmer’s package to polar vortex Difficulty: Medium~~
 - Somehow getting wildly different ppt/nino34 cor values on debian as opposed to mac. e.g. mac=1.2e3; debian=1.2e12. - try copy gitlab code to debian instance and rerun - if that doesnt work reinstall - if that doesnt work, no idea. Difficulty: Hard (probably) 
 - Quantile breaks look better than equal intervals, but id have to calculate the correct quantile breaks for 33 years and put it in 33 .txt files, make a list of all the txt files and feed it into the coloring step in pipeline.sh, also have to change the legend for each xyz in the web app part to reflect the different breaks, probably could do it with a for loop in js and place all the legend .png into their own directory. Difficulty: Hard
 - Add logic to change year and slider position based on drop down input. Difficulty: Medium
 - Refactor code into OOP so it is more reusable. Difficulty: Hard
-- Add a streamhist function from ye ol farmer’s package to polar vortex? Difficulty: Medium
 - Finish GeoStreamable? Difficulty: Hard
 
 ### GeoStreamable
