@@ -119,3 +119,4 @@ Some of the technical details are outlined in my blog, which can be found on my 
 
 ### Polar Bears
 ![Polar Bears](/imgs/polar-bears.png?raw=true)
+@aesoprockwins
