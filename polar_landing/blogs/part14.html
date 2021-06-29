@@ -1,0 +1,363 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 7.0.3.1 (MacOSX)"/>
+	<meta name="created" content="2021-06-27T14:33:36.257321717"/>
+	<meta name="changed" content="2021-06-28T20:25:58.540738422"/>
+	<style type="text/css">
+		@page { size: 8.5in 11in; margin: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Serif", serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Songti SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "Arial Unicode MS"; font-size: 14pt; font-weight: bold }
+		pre { font-family: "Liberation Mono", monospace; font-size: 10pt; background: transparent }
+		strong { font-weight: bold }
+		a:link { color: #000080; so-language: zxx; text-decoration: underline }
+		a:visited { color: #800000; so-language: zxx; text-decoration: underline }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr"><h3 class="western">
+<font face="Liberation Serif, serif"><font size="4" style="font-size: 14pt"><b>Part
+1</b></font></font><font face="Liberation Serif, serif"><font size="4" style="font-size: 14pt"><b>4</b></font></font><font face="Liberation Serif, serif"><font size="4" style="font-size: 14pt"><b>:
+</b></font></font><font face="Liberation Serif, serif"><font size="4" style="font-size: 14pt"><b>Subtracting
+</b></font></font><font face="Liberation Serif, serif"><font size="4" style="font-size: 14pt"><b>Mean</b></font></font><font face="Liberation Serif, serif"><font size="4" style="font-size: 14pt"><b>
+</b></font></font><font face="Liberation Serif, serif"><font size="4" style="font-size: 14pt"><b>Rasters</b></font></font><font face="Liberation Serif, serif"><font size="4" style="font-size: 14pt"><b>
+</b></font></font><font face="Liberation Serif, serif"><font size="4" style="font-size: 14pt"><b>Using
+Open Source Python</b></font></font></h3>
+<p>This series is me chronicling my adventure making a data pipeline.
+This pipe is outlined on GitLab here in the readme:
+<a href="https://gitlab.com/davleifer/polarbearGIS">https://gitlab.com/davleifer/polarbearGIS</a></p>
+<p><strong>This is the </strong><strong><b>fourteenth</b></strong><strong>
+part in a series used to build my website:</strong>
+<a href="https://davidjleifer.com/" target="_blank">https://</a><a href="https://davidjleifer.com/" target="_blank">www.</a><a href="https://davidjleifer.com/" target="_blank">davidjleifer.com/</a></p>
+<p><strong>Part </strong><strong>1</strong><strong>:
+</strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part</span></u></span></font></a></strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">1</span></u></span></font></a></strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">.html</span></u></span></font></a></strong></p>
+<p><strong>Part 2: </strong><strong><a href="https://www.davidjleifer.com/blogs/part2.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part2.html</span></u></span></font></a></strong></p>
+<p><strong>Part 3:</strong>
+<strong><a href="https://www.davidjleifer.com/blogs/part3.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part3.html</span></u></span></font></a></strong></p>
+<p><strong>Part 4: </strong><strong><a href="https://www.davidjleifer.com/blogs/part4.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part4.html</span></u></span></font></a></strong></p>
+<p><strong>Part 5: </strong><strong><a href="https://www.davidjleifer.com/blogs/part5.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part5.html</span></u></span></font></a></strong></p>
+<p><strong>Part 6: </strong><a href="https://www.davidjleifer.com/blogs/part6.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part6.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>7</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part7.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part7.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>8</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part8.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part8.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>9</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>9</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>1</strong><strong>0</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part10.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/par</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part10.html"><font color="#000080"><span lang="zxx"><u>t1</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part10.html"><font color="#000080"><span lang="zxx"><u>0</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part10.html"><font color="#000080"><span lang="zxx"><u>.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>1</strong><strong>1</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part11.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/par</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part11.html"><font color="#000080"><span lang="zxx"><u>t1</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part11.html"><font color="#000080"><span lang="zxx"><u>1</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part11.html"><font color="#000080"><span lang="zxx"><u>.html</u></span></font></a></p>
+<p><b>Part 12: </b><a href="https://www.davidjleifer.com/blogs/part12.html"><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part12.html</span></a></p>
+<p><b>Part 13: </b><a href="https://www.davidjleifer.com/blogs/part13.html"><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part13.html</span></a></p>
+<p><b>Part 14: </b><a href="https://www.davidjleifer.com/blogs/part14.html"><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part14.html</span></a></p>
+<p style="font-weight: normal"><br/>
+<br/>
+
+</p>
+<p><span style="font-weight: normal">This section covers the
+difference between two summary values for temperature and
+precipitation. The summary values we are building are mean rasters
+examining El Nino Southern Oscillation climate data between 1981 and
+2014. First we will subtract the mean of neutral years from </span><span style="font-weight: normal">El
+Nino </span><span style="font-weight: normal">years. Then we will
+subtract neutral years from </span><span style="font-weight: normal">La
+Nina </span><span style="font-weight: normal">years.</span></p>
+<p><img src="part14_html_147ac455501c69d8.gif" name="Image1" align="left" width="240" height="240">
+  <br clear="left"/>
+</img>
+<br/>
+<br/>
+
+</p>
+<p><b>Part 1: </b><b>I</b><b>mporting the libraries and </b><b>setting
+up our nino34 index</b></p>
+<p><span style="font-weight: normal">The first thing you need is
+Prism data of the mean precipitation and temperature for the month of
+January for years between 1981 and 2014. This can be downloaded here:
+<a href="https://prism.oregonstate.edu/">https://prism.oregonstate.edu/</a></span></p>
+<p><span style="font-weight: normal">We also need the nino34 index
+for each of those years, which is a measurement of the sea surface
+temperature in the mid-equatorial Pacific ocean:</span></p>
+<p><a href="https://psl.noaa.gov/gcos_wgsp/Timeseries/Data/nino34.long.anom.data">https://psl.noaa.gov/gcos_wgsp/Timeseries/Data/nino34.long.anom.data</a></p>
+<p><span style="font-weight: normal">The Python packages needed are</span><span style="font-weight: normal">
+Rasterio, GDAL, Numpy, SciPy, Glob, and Pandas.</span></p>
+<p><span style="font-weight: normal">To get started, we</span><span style="font-weight: normal">
+read in the nino34 index as a csv file and set </span><i><span style="font-weight: normal">elnino</span></i><span style="font-style: normal"><span style="font-weight: normal">
+to be our index greater than </span></span><span style="font-style: normal"><span style="font-weight: normal">positive</span></span><span style="font-style: normal"><span style="font-weight: normal">
+.5, </span></span><i><span style="font-weight: normal">la nina </span></i><span style="font-style: normal"><span style="font-weight: normal">to
+be less than negative .5, and </span></span><i><span style="font-weight: normal">neither</span></i><span style="font-style: normal"><span style="font-weight: normal">
+to be the values between -.5 and .5.</span></span></p>
+<pre style="font-weight: normal">import rasterio
+import rasterio.plot
+from rasterio.plot import show
+import numpy as np
+import pandas as pd
+import pyproj
+import scipy.stats as stats
+from glob import glob
+import os
+import gdal
+from osgeo import osr
+
+cwd = os.getcwd()
+#nino index
+df = pd.read_csv(cwd + '/data/nino34.csv')
+#el nino
+elnino = df[df['Index'] &gt; .5]
+#la nina
+lanina = df[df['Index'] &lt; -0.5]
+#neither el nino or la nina
+less = df['Index'] &lt; .5
+great = df['Index'] &gt; -0.5
+neither = df[less &amp; great]
+</pre><p>
+<br/>
+<br/>
+
+</p>
+<p><b><span style="font-style: normal">P</span><span style="font-style: normal">art
+2: Making a list of files from folders</span></b></p>
+<p style="font-weight: normal"><span style="font-style: normal">Each
+year’s bil data is in it’s own folder. So we will set up a for
+loop to access the contents of each folder and append it to an empty
+array called </span><i>folder_bil_list</i><span style="font-style: normal">.
+In the for loop, we loop over the /data/mean/* directory, which we
+set previously as a </span><i>data_dir_list </i><span style="font-style: normal">variable
+with glob. </span><span style="font-style: normal">The variable
+</span><i>folder_bil</i><span style="font-style: normal"> accesses
+each folder in that list and is set with glob to the file path
+containing *bil. That variable is then appended into the empty array
+</span><i>folder_bil_list</i><span style="font-style: normal">. </span><span style="font-style: normal">This
+list will be accessed many times throughout the course of this
+tutorial.</span></p>
+<pre style="font-weight: normal"><span style="font-style: normal">#create list of el nino files based on year from elnino varible</span>
+<span style="font-style: normal">data_dir = cwd + '/data/tmean/*'</span>
+<span style="font-style: normal">data_dir_list = glob(data_dir)</span>
+
+<span style="font-style: normal">#create a list of bil paths from each sub folder</span>
+<span style="font-style: normal">folder_bil_list = []</span>
+<span style="font-style: normal">for i in data_dir_list:</span>
+    <span style="font-style: normal">folder_bil = glob(os.path.join(i, '*.bil'))</span>
+    <span style="font-style: normal">folder_bil_list.append(folder_bil)</span></pre><p>
+<br/>
+<br/>
+
+</p>
+<p><b>Part 3: Creating a list of El Nino files</b></p>
+<p style="font-weight: normal">Now we need to make a list of only the
+El Nino files, based on the nino34 index value. We first convert the
+<i>folder_bil_list </i><span style="font-style: normal">array into a
+pandas data frame and set it to the variable </span><i>df2</i><span style="font-style: normal">.
+Then we convert the </span><i>elnino</i><span style="font-style: normal">
+index values years to a list and call it </span><i>elnino_list</i><span style="font-style: normal">.
+Next we create an empty array called </span><i>df4</i><span style="font-style: normal">.
+We use a for loop to loop over the </span><i>elnino_list</i><span style="font-style: normal">
+variable. In this for loop, we set another variable called </span><i>df3</i><span style="font-style: normal">
+to see if the </span><i>elnino_list</i><span style="font-style: normal">
+year is in the </span><i>df2</i><span style="font-style: normal">
+variable (which contains all of the .bil paths). Then we append that
+value (held in</span><i> df3</i><span style="font-style: normal">)</span><i>
+</i><span style="font-style: normal">to the empty array </span><i>df4</i><span style="font-style: normal">.
+After the for loop, we concatenate </span><i>df4</i><span style="font-style: normal">
+into another variable called </span><i>df5</i><span style="font-style: normal">
+and convert that variable to a list called </span><i>elninolist2</i><span style="font-style: normal">.</span></p>
+<pre style="font-weight: normal"><span style="font-style: normal">#see if year is in folder_bil_list</span>
+<span style="font-style: normal">df2 = pd.DataFrame(folder_bil_list)</span>
+<span style="font-style: normal">elnino_list = elnino['Year'].tolist()</span>
+<span style="font-style: normal">df4 = []</span>
+<span style="font-style: normal">for nin in elnino_list:</span>
+    <span style="font-style: normal">df3 = df2[df2[0].str.contains(str(nin))]</span>
+    <span style="font-style: normal">df4.append(df3)</span>
+<span style="font-style: normal">df5 = pd.concat(df4)</span>
+<span style="font-style: normal">elninolist2 = df5[0].tolist()</span>
+</pre><p>
+<br/>
+<br/>
+
+</p>
+<p><b>Part 4: Creating a function to read in the bils as a list of
+Rasterio files</b></p>
+<p style="font-weight: normal">We create a function called <i>read_file</i><span style="font-style: normal">
+which will be used in a list comprehension to read in the list of el
+nino paths, held in the variable </span><i>elninolist2</i><span style="font-style: normal">.
+</span><span style="font-style: normal">This is b</span><span style="font-style: normal">asically
+as numpy arrays, </span><span style="font-style: normal">which are
+just list of lists</span><span style="font-style: normal">. </span><span style="font-style: normal">The
+list comprehension holds the list of Rasterio files in a variable
+called </span><i>array_list</i><span style="font-style: normal">. We
+then use numpy’</span><span style="font-style: normal">s</span><span style="font-style: normal">
+mean method to calculate the mean of these values and call it
+</span><i>elnino_array_out</i><span style="font-style: normal">.
+Because of the way we need to preserve our no data values, we set all
+-9999 values to -19998 in the variable </span><i>elnino_array_out</i><span style="font-style: normal">.
+</span><span style="font-style: normal">When we subtract the neutral
+</span><span style="font-style: normal">mean of means</span><span style="font-style: normal">
+from the El Nino </span><span style="font-style: normal">mean of
+means</span><span style="font-style: normal">, we </span><span style="font-style: normal">are</span><span style="font-style: normal">
+subtracting -9999 from this -19998 value, essentially adding 9999 to
+it, leaving us with our original no data values of -9999 in the
+resulting numpy array. </span><span style="font-style: normal">Isn’t
+matrix arithmetic fun!?</span></p>
+<pre style="font-weight: normal">
+<span style="font-style: normal">#calculate average of el nino arrays</span>
+<span style="font-style: normal">#https://gis.stackexchange.com/questions/244376/computing-mean-of-all-rasters-in-a-directory-using-python</span>
+<span style="font-style: normal">def read_file(file):</span>
+    <span style="font-style: normal">with rasterio.open(file) as src:</span>
+        <span style="font-style: normal">return(src.read(1))</span>
+<span style="font-style: normal"># Read all data as a list of numpy arrays </span>
+<span style="font-style: normal">array_list = [read_file(x) for x in elninolist2]</span>
+<span style="font-style: normal"># Perform averaging</span>
+<span style="font-style: normal">elnino_array_out = np.mean(array_list, axis=0)</span>
+<span style="font-style: normal">elnino_array_out[elnino_array_out == -9999] = -19998</span></pre><p style="font-weight: normal">
+<br/>
+<br/>
+
+</p>
+<p style="font-weight: normal"><span style="font-style: normal">We
+then repeat this step for the </span><i>neither</i><span style="font-style: normal">
+years, eventually arriving at the mean of the neither years. </span>
+</p>
+<pre style="font-weight: normal"><span style="font-style: normal">#create list of neither files based on year from neither varible</span>
+<span style="font-style: normal">neither_list = neither['Year'].tolist()</span>
+<span style="font-style: normal">neutral_df4 = []</span>
+<span style="font-style: normal">for nei in neither_list:</span>
+    <span style="font-style: normal">netural_df3 = df2[df2[0].str.contains(str(nei)+ &quot;01_bil&quot;)]</span>
+    <span style="font-style: normal">neutral_df4.append(netural_df3)</span>
+<span style="font-style: normal">neutral_df5 = pd.concat(neutral_df4)</span>
+<span style="font-style: normal">neither_list2 = neutral_df5[0].tolist()</span>
+<span style="font-style: normal">#calculate average of netural arrays</span>
+<span style="font-style: normal"># Read all data as a list of numpy arrays </span>
+<span style="font-style: normal">netural_array_list = [read_file(x) for x in neither_list2]</span>
+<span style="font-style: normal"># Perform averaging</span>
+<span style="font-style: normal">neutral_array_out = np.mean(netural_array_list, axis=0)</span>
+</pre><p>
+<b><span style="font-style: normal">Part 5: Subtracting the neutral
+mean of means from the El Nino mean of means</span></b></p>
+<p><span style="font-style: normal"><span style="font-weight: normal">We
+then subtract </span></span><span style="font-style: normal"><span style="font-weight: normal">the
+neutral from the El Nino and set it as</span></span><span style="font-style: normal"><span style="font-weight: normal">
+a variable named </span></span><i><span style="font-weight: normal">elnino_minus_neutral</span></i><span style="font-style: normal"><span style="font-weight: normal">.
+This is then saved with a long GDAL series of code.</span></span></p>
+<pre style="font-weight: normal"><span style="font-style: normal">#perform tha difference</span>
+<span style="font-style: normal">elnino_minus_neutral = elnino_array_out - neutral_array_out</span>
+
+<span style="font-style: normal">#create gdal variable example map to get transformation and projection from</span>
+<span style="font-style: normal">example_tif = cwd + &quot;/data/tmean/PRISM_tmean_stable_4kmM3_201001_bil/PRISM_tmean_stable_4kmM3_201001_bil.bil&quot;</span>
+<span style="font-style: normal">data0 = gdal.Open(example_tif)</span>
+<span style="font-style: normal">#https://gis.stackexchange.com/questions/37238/writing-numpy-array-to-raster-file</span>
+<span style="font-style: normal">#write array with gdal</span>
+<span style="font-style: normal">dst_filename = cwd + '/data/tmean_elnino_minus_neutral/tmean_elnino_minus_neutral.tif'</span>
+<span style="font-style: normal">x_pixels = 1405  # number of pixels in x</span>
+<span style="font-style: normal">y_pixels = 621  # number of pixels in y</span>
+<span style="font-style: normal">driver = gdal.GetDriverByName('GTiff')</span>
+<span style="font-style: normal">dataset = driver.Create(dst_filename,x_pixels, y_pixels, 1,gdal.GDT_Float32)</span>
+<span style="font-style: normal">dataset.GetRasterBand(1).WriteArray(elnino_minus_neutral)</span>
+<span style="font-style: normal"># follow code is adding GeoTranform and Projection</span>
+<span style="font-style: normal">geotrans=data0.GetGeoTransform()  #get GeoTranform from existed 'data0'</span>
+<span style="font-style: normal">proj=data0.GetProjection() #you can get from a exsited tif or import </span>
+<span style="font-style: normal">dataset.SetGeoTransform(geotrans)</span>
+<span style="font-style: normal">dataset.SetProjection(proj)</span>
+<span style="font-style: normal">dataset.FlushCache()</span>
+<span style="font-style: normal">band = dataset.GetRasterBand(1)</span>
+<span style="font-style: normal">band.SetNoDataValue(-9999)</span>
+<span style="font-style: normal">band=None</span>
+<span style="font-style: normal">dataset=None</span>
+</pre><p>
+<b>Part 6: We’re not done!</b></p>
+<p><span style="font-weight: normal">Now we have to do the same thing
+for La Nina minus Neutral years.</span></p>
+<pre style="font-weight: normal"><span style="font-style: normal">#create list of la nina files based on year from lanina varible</span>
+<span style="font-style: normal">lanina_df2 = pd.DataFrame(folder_bil_list)</span>
+<span style="font-style: normal">lanina_list = lanina['Year'].tolist()</span>
+<span style="font-style: normal">lanina_df4 = []</span>
+<span style="font-style: normal">for lan in lanina_list:</span>
+    <span style="font-style: normal">lanina_df3 = lanina_df2[lanina_df2[0].str.contains(str(lan)+ &quot;01_bil&quot;)]</span>
+    <span style="font-style: normal">lanina_df4.append(lanina_df3)</span>
+<span style="font-style: normal">lanina_df5 = pd.concat(df4)</span>
+<span style="font-style: normal">lanina_list2 = lanina_df5[0].tolist()</span>
+<span style="font-style: normal">#calculate average of la nina arrays</span>
+<span style="font-style: normal"># Read all data as a list of numpy arrays </span>
+<span style="font-style: normal">lanina_array_list = [read_file(x) for x in lanina_list2]</span>
+<span style="font-style: normal"># Perform averaging</span>
+<span style="font-style: normal">lanina_array_out = np.mean(lanina_array_list, axis=0)</span>
+<span style="font-style: normal">lanina_array_out[lanina_array_out == -9999] = -19998</span>
+<span style="font-style: normal">#perform tha difference</span>
+<span style="font-style: normal">lanina_minus_neutral = lanina_array_out - neutral_array_out</span>
+
+<span style="font-style: normal">#write array with gdal</span>
+<span style="font-style: normal">dst_filename = cwd + '/data/tmean_lanina_minus_neutral/tmean_lanina_minus_neutral.tif'</span>
+<span style="font-style: normal">x_pixels = 1405  # number of pixels in x</span>
+<span style="font-style: normal">y_pixels = 621  # number of pixels in y</span>
+<span style="font-style: normal">driver = gdal.GetDriverByName('GTiff')</span>
+<span style="font-style: normal">dataset = driver.Create(dst_filename,x_pixels, y_pixels, 1,gdal.GDT_Float32)</span>
+<span style="font-style: normal">dataset.GetRasterBand(1).WriteArray(lanina_minus_neutral)</span>
+<span style="font-style: normal"># follow code is adding GeoTranform and Projection</span>
+<span style="font-style: normal">geotrans=data0.GetGeoTransform()  #get GeoTranform from existed 'data0'</span>
+<span style="font-style: normal">proj=data0.GetProjection() #you can get from a exsited tif or import </span>
+<span style="font-style: normal">dataset.SetGeoTransform(geotrans)</span>
+<span style="font-style: normal">dataset.SetProjection(proj)</span>
+<span style="font-style: normal">dataset.FlushCache()</span>
+<span style="font-style: normal">band = dataset.GetRasterBand(1)</span>
+<span style="font-style: normal">band.SetNoDataValue(-9999)</span>
+<span style="font-style: normal">band=None</span>
+<span style="font-style: normal">dataset=None</span>
+
+<span style="font-style: normal">print(&quot;finished tmean_LaElNeu_diff.py&quot;)</span></pre><p>
+<br/>
+<br/>
+
+</p>
+<p><b>Part 7: The final and easiest step</b></p>
+<p style="font-weight: normal">Now you have to copy/paste this code
+and change all the “tmean” into “ppt”. Control find and
+replace should do the trick :). Then display in a method of your
+choice!</p>
+<p style="font-weight: normal"><img src="part14_html_e232d114b8e5ab6.png" name="Image2" align="left" width="783" height="392">
+  <br clear="left"/>
+</img>
+<br/>
+<br/>
+
+</p>
+<p style="font-weight: normal"><br/>
+<br/>
+
+</p>
+<p>This series is me chronicling my adventure making a data pipeline.
+This pipe is outlined on GitLab here in the readme:
+<a href="https://gitlab.com/davleifer/polarbearGIS">https://gitlab.com/davleifer/polarbearGIS</a></p>
+<p><strong>This is the </strong><strong><b>fourteenth</b></strong><strong>
+part in a series used to build my website:</strong>
+<a href="https://davidjleifer.com/" target="_blank">https://</a><a href="https://davidjleifer.com/" target="_blank">www.</a><a href="https://davidjleifer.com/" target="_blank">davidjleifer.com/</a></p>
+<p><strong>Part </strong><strong>1</strong><strong>:
+</strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part</span></u></span></font></a></strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">1</span></u></span></font></a></strong><strong><a href="https://www.davidjleifer.com/blogs/part1.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">.html</span></u></span></font></a></strong></p>
+<p><strong>Part 2: </strong><strong><a href="https://www.davidjleifer.com/blogs/part2.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part2.html</span></u></span></font></a></strong></p>
+<p><strong>Part 3:</strong>
+<strong><a href="https://www.davidjleifer.com/blogs/part3.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part3.html</span></u></span></font></a></strong></p>
+<p><strong>Part 4: </strong><strong><a href="https://www.davidjleifer.com/blogs/part4.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part4.html</span></u></span></font></a></strong></p>
+<p><strong>Part 5: </strong><strong><a href="https://www.davidjleifer.com/blogs/part5.html"><font color="#000080"><span lang="zxx"><u><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part5.html</span></u></span></font></a></strong></p>
+<p><strong>Part 6: </strong><a href="https://www.davidjleifer.com/blogs/part6.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part6.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>7</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part7.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part7.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>8</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part8.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part8.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>9</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/part</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>9</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part9.html"><font color="#000080"><span lang="zxx"><u>.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>1</strong><strong>0</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part10.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/par</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part10.html"><font color="#000080"><span lang="zxx"><u>t1</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part10.html"><font color="#000080"><span lang="zxx"><u>0</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part10.html"><font color="#000080"><span lang="zxx"><u>.html</u></span></font></a></p>
+<p><strong>Part </strong><strong>1</strong><strong>1</strong><strong>:
+</strong><a href="https://www.davidjleifer.com/blogs/part11.html"><font color="#000080"><span lang="zxx"><u>https://www.davidjleifer.com/blogs/par</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part11.html"><font color="#000080"><span lang="zxx"><u>t1</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part11.html"><font color="#000080"><span lang="zxx"><u>1</u></span></font></a><a href="https://www.davidjleifer.com/blogs/part11.html"><font color="#000080"><span lang="zxx"><u>.html</u></span></font></a></p>
+<p><b>Part 12: </b><a href="https://www.davidjleifer.com/blogs/part12.html"><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part12.html</span></a></p>
+<p><b>Part 13: </b><a href="https://www.davidjleifer.com/blogs/part13.html"><span style="font-weight: normal">https://www.davidjleifer.com/blogs/part13.html</span></a></p>
+<p><b>Part 14:</b><span style="font-weight: normal">
+<a href="https://www.davidjleifer.com/blogs/part14.html">https://www.davidjleifer.com/blogs/part14.html</a></span></p>
+<p><br/>
+<br/>
+
+</p>
+</body>
+</html>
