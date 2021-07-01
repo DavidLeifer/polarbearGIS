@@ -23,8 +23,6 @@
 
 <script src="./index.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-<!--
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <style>
@@ -33,25 +31,37 @@
   border: 3px solid green;
   text-align: center;
 }
-#center_2 {
-  padding: 70px 0;
-  border: 3px solid green;
-  text-align: center;
+.brightness {
+    background-color: white;
+    display: inline-block;
+
+}
+.brightness img:hover {
+    opacity: .5;
 }
 </style>
 
 <div class="center">
   <h1>Polarbear GIS</h1><br>
-  <h4>A GIS data pipeline for Raster climate data</h4><br>
-  <p>El Nino and La Nina is said to control precipitation and temperature in the United States Southeast and Pacific North West in what is known as the El Nino- Southern Oscillation (ENSO). El Nino 3.4 is an index based on a running mean of sea surface temperatures along the equator in the mid Pacific Ocean. Our first web app displays the correlation between El Nino 3.4 index and a raster of gridded measurements of temperature. The second web app does the same but for precipitation. The third displays mean temperature and precipitation grouped by El Nino, La Nina, and Neutral January means for 33 years of data (1981-2014). The fourth app displays the difference between La Nino and Neutral mean January temperatures and precipitation. It also shows the difference between El Nino and Neutral January mean. The fifth app displays timeseries radar data and sentiment analysis of geolocated tweets about the storm on January 29th.</p><br>
-  <p>Click pics to see web apps</p>
+  <h4>A pipeline for Raster climate data</h4><br>
+  <p>El Nino and La Nina is said to control precipitation and temperature in the United States Southeast and Pacific North West in what is known as the <a href="https://en.wikipedia.org/wiki/El_Ni%C3%B1o%E2%80%93Southern_Oscillation"> El Nino- Southern Oscillation (ENSO).</a> El Nino 3.4 is an index based on a running mean of sea surface temperatures along the equator in the mid Pacific Ocean.<br>
+    <br>
+  <b>1.)</b> The first web app displays the correlation between El Nino 3.4 index and a raster of gridded measurements of temperature.<br>
+  <b>2.)</b> The second web app does the same but for precipitation.<br>
+  <b>3.)</b> The third displays mean temperature and precipitation grouped by El Nino, La Nina, and Neutral January means for 33 years of data (1981-2014).<br>
+  <b>4.)</b> The fourth app displays the difference between La Nino and Neutral mean January temperatures and precipitation. It also shows the difference between El Nino and Neutral January mean.<br>
+  <b>5.)</b> The fifth app displays timeseries radar data and sentiment analysis of geolocated tweets about the storm on January 29th.</p>
 </div>
+<div class="center">
 <div class="row" id="gallery" data-toggle="modal" data-target="#exampleModal">
   <div class="col-12 col-sm-6 col-lg-3">
-    <p>Temperature correlated with El Nino 3.4 Index</p>
+    <b>Temperature correlated with El Nino 3.4 Index</b>
+      <div class="brightness">
      <a href="https://www.davidjleifer.com/pandamoniumGIS20210110_tmeanbuild/index.html">
-      <input type="image" class="w-100" src="./images/temp_cor.png" alt="First slide" data-target="#carouselExample" data-slide-to="0">
-     </a></br>
+       <img class="w-100" height="225" width="100" src="./images/temp_cor.png">
+     </a>
+      </div>
+     </br>
      <p>ANOVA between TEMP El Nino, La Nina, Neutral grouped means</br>
      <p id="tmean_fstat"></p>
      <p id="tmean_pvalue"></p>
@@ -70,10 +80,13 @@
      </script>
   </div>
   <div class="col-12 col-sm-6 col-lg-3">
-    <p>Precipitation correlated with El Nino 3.4 Index</p>
-     <a href="https://www.davidjleifer.com/polarbearGIS/index.html">
-      <input type="image" class="w-100" src="./images/ppt_cor.png" alt="First slide" data-target="#carouselExample" data-slide-to="1">
-     </a></br>
+    <b>Precipitation correlated with El Nino 3.4 Index</b>
+     <div class="brightness">
+      <a href="https://www.davidjleifer.com/polarbearGIS/index.html">
+      <img class="w-100" height="225" width="100"  src="./images/ppt_cor.png">
+      </a>
+     </div>
+     </br>
      <p>ANOVA between PPT El Nino, La Nina, Neutral grouped means</br>
      <p id="ppt_fstat"></p>
      <p id="ppt_pvalue"></p>
@@ -92,24 +105,32 @@
      </script>
   </div>
   <div class="col-12 col-sm-6 col-lg-3">
-    <p>Mean Temperature and Precipitation for Winter Classes</p>
+    <b>Mean Temperature and Precipitation for Winter Classes</b>
+    <div class="brightness">
      <a href="https://www.davidjleifer.com/pandamoniumGIS_part2Section2_build-dist/index.html">
-      <input type="image" class="w-100" src="./images/Part2Section2.png" alt="First slide" data-target="#carouselExample" data-slide-to="2">
+      <img height="225" width="100" class="w-100" src="./images/Part2Section2.png">
      </a>
+    </div>
   </div>
   <div class="col-12 col-sm-6 col-lg-3">
-    <p>Difference Between El Nino/Neutral and La Nina/Neutral</p>
-     <a href="  https://www.davidjleifer.com/tha_difference-dist/index.html">
-      <input type="image" class="w-100" src="./images/difference-image.png" alt="First slide" data-target="#carouselExample" data-slide-to="2">
+    <b>Difference Between El Nino/Neutral and La Nina/Neutral</b>
+    <div class="brightness">
+     <a href="https://www.davidjleifer.com/tha_difference-dist/index.html">
+      <img class="w-100" height="225" width="100"  src="./images/difference-image.png">
      </a>
+    </div>
   </div>
   <div class="col-12 col-sm-6 col-lg-3">
-    <p>2019 Polar Vortex: Twitter Sentiment and Weather Radar</p>
+    <b>2019 Polar Vortex: Twitter Sentiment and Weather Radar</b>
+    <div class="brightness">
      <a href="https://www.davidjleifer.com/polar_radar/index.html">
-      <input type="image" class="w-100" src="./images/polar_radar.png" alt="First slide" data-target="#carouselExample" data-slide-to="3">
+      <img class="w-100" height="225" width="100"  src="./images/polar_radar.png">
      </a>
+    </div>
   </div>
 </div>
+</div>
+<div class="center">
  <div style="margin: 0 auto; text-align: center">
   <H3>Blogs</H3>
     <p>
@@ -129,7 +150,8 @@
     <a href="https://www.davidjleifer.com/blogs/part13.html">Part 13: Using the Streamhist package to make histograms of the streams</a><br>
     <a href="https://www.davidjleifer.com/blogs/part14.html">Part 14: Subtracting Mean Rasters Using Open Source Python</a><br>
     </p></br>
-    <iframe width="420" height="315" src="https://www.youtube.com/embed/67X3UcXM5yw"></iframe>
+    <iframe width="375" height="315" src="https://www.youtube.com/embed/3rDjPLvOShM"></iframe>
+</div>
 </div>
 </body>
 </html>

@@ -12,30 +12,8 @@ sudo npm install ol-ext
 #report node
 node -r node-report app.js
 
-#RUN FOREVER IN PROJECT DIR
-cd polarbearGIS
-sudo forever start -c "npm start" ./
-cd pandamoniumGIS_part2Section2_build
-sudo forever start -c "npm start" ./
-cd ..
-cd pandamoniumGIS20210110_tmeanbuild
-sudo forever start -c "npm start" ./
-
-sudo forever list
-
-sudo forever stop 0
-
-sudo apt-get install psmisc
-sudo kill -9 [process_ID]
-sudo killall node
-ps aux | grep node
-
 #build static mini you dummy
 sudo npm run-script build
-
-sudo chmod -R ugo+rw /var/lib/tomcat8/webapps/geoserver/data/data/oregonmaptile
-
-polarbearGIS
 
 sudo chmod -R ugo+rw /var/lib/tomcat8/webapps/geoserver/data/www/localdata
 
@@ -44,14 +22,11 @@ sudo chmod -R ugo+rw /var/lib/tomcat8/webapps/geoserver/data/www/localdata
 print(gdal.__version__)
 
 #raterio docs https://readthedocs.org/projects/rasterio/downloads/pdf/latest/
-/Library/Frameworks/Python.framework/Versions/3.6/Resources/Python.app/Contents/MacOS/Python
-/Applications/QGIS.app/Contents/MacOS/bin/python3.7
-/Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/panda_testing/pandamoniumGIS/scripts/python/ppt_cor.py
 
 #here be the normal git add stuff
 git init
 git add .
-git commit -m "commit 112"
+git commit -m "commit 118"
 git push -u origin main
 
 #git remote add origin https://gitlab.com/davleifer/polarbearGIS.git
@@ -142,38 +117,28 @@ is a kernel function (i.e., a function that quantifies the similarity between tw
 
 Gaussian radial basis kernel
 
-
-
-168 hours a week
-49 hours on sleep
-down to 119 hours
-minus 40 hours of werk is 79
-minus 15 hours of extra work is 64
-minus 7 for walking/running is 57
-minus 7 for eating is 50
-minus 2 hours for coffee is 48
-minus 2 hours for driving/shopping is 46
-minus 7 hours of misc activities is 39
-what are misc activities? hiking, walking around campuses, listening to music, other
-WHAT DO I DO WITH THE OTHER 39?
-39 hours of internet?
-1 hour of indeed is 38
-1 hour of gmail is 37
-37 hours of youtube and wikipedia?
-maybe im underestimating somewhere
-
 $100 to $1,000 per ton of CO2 emission removal from the atmosphere
 43 billion tons emitted per year
 $4,300,000,000,000-$43,000,000,000,000
 earth gdp is 87,000,000,000,000
 
-Hell's bells every which way the the wind blows
-So I bang my head against any wall you can build, go
+Life is just two quarters in the machine
+But, either you got it or don't that's the thing
+I was still hittin' the buttons, "Game Over" on the screen
+Dollar movie theater, dingy foyer, little kid, not a penny to my name
+Fuckin' with the joystick, 
+Pretendin' I was really playin'
+Pretendin' I was really playin'
+Pretendin' I was really playin'
 
-I pay the rent in pennies and ride off into the ether
-On a donkey painted like a zebra, take me to your leader
-You can't imagine all the misery we leap frog
-I make maps, I ain't a muthafuckin' peacock
+It is something he must handle on his own; 
+the windblown way,
+wanna win? Don't play
 
+knowin aint half the battle
+thats a bullshit quip written by some asshole!
+
+At first light might nurse an aversion to Earth science
+Like this game comes with the worst prizes
 
 
