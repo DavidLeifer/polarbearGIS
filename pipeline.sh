@@ -124,6 +124,7 @@ TMEAN_COR_ACTUALLY="$VARIABLENAME/scripts/python/tmean_cor_actually.py"
 GEOSENT_2ROUNDED="$VARIABLENAME/scripts/python_weather/geosent_2rounded.py"
 TMEAN_LAELNEU_DIFF="$VARIABLENAME/scripts/python/tmean_LaElNeu_diff.py"
 PPT_LAELNEU_DIFF="$VARIABLENAME/scripts/python/ppt_LaElNeu_diff.py"
+QUANTILE_RECLASSIFY="$VARIABLENAME/scripts/python/quantile_reclassify.py"
 
 #Run the python scripts
 sudo python3 $PATH_PLUS_PPT_LaElNeu
@@ -137,6 +138,7 @@ sudo python3 $TMEAN_COR_ACTUALLY
 sudo python3 $GEOSENT_2ROUNDED
 sudo python3 $TMEAN_LAELNEU_DIFF
 sudo python3 $PPT_LAELNEU_DIFF
+sudo python3 $QUANTILE_RECLASSIFY
 
 #open the gates!
 sudo apt-get install apache2 -y
@@ -300,22 +302,78 @@ PPT_COR_XYZ_BASE="/var/www/html/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final_"
 
 increment=1981
 #loop over ppt_pearson_final, concat _color.tif to the output, build xyz tiles
-for ppt_index in "$ppt_pearson_final"/*.tif
+for ppt_index in "$ppt_pearson_final"/*_reclassed.tif
 do
-	 #make ppt_index_color_output concat the base of ppt_index with COLOR for color output
-	 ppt_index_color_output=${ppt_index%%.*}$COLOR
-    #make PPT_COR_XYZ_OUTPUT concat PPT_COR_XYZ_BASE with the year for xyz tile output folder
-	 PPT_COR_XYZ_OUTPUT=$PPT_COR_XYZ_BASE$increment
-	 sudo gdaldem color-relief $ppt_index $PPT_PEARSON_FINAL_COLOR $ppt_index_color_output -alpha
-	 echo "Color tif for year "$increment
+	#make ppt_index_color_output concat the base of ppt_index with COLOR for color output
+	ppt_index_color_output=${ppt_index%%.*}$COLOR
+   #make PPT_COR_XYZ_OUTPUT concat PPT_COR_XYZ_BASE with the year for xyz tile output folder
+	PPT_COR_XYZ_OUTPUT=$PPT_COR_XYZ_BASE$increment
+	sudo gdaldem color-relief $ppt_index $PPT_PEARSON_FINAL_COLOR $ppt_index_color_output -alpha
+	echo "Color tif for year "$increment
 	 sudo gdal2tiles.py --zoom=2-8 --tilesize=128 $ppt_index_color_output $PPT_COR_XYZ_OUTPUT
 	 echo "xyz tiles for year"$increment
     increment=$((increment+1))
-    if [[ $increment -eq 2015 ]];
-    then
-       break
-    fi
+   if [[ $increment -eq 2015 ]];
+   then
+      break
+   fi
 done
+
+##############################
+# test
+sudo gdaldem color-relief "/home/davleifer/polarbearGIS/data/ppt_bil2tif_resize/ppt_bil2tif_resize_1981.tif" $PPT_PEARSON_FINAL_COLOR "/home/davleifer/polarbearGIS/data/ppt_bil2tif_resize/ppt_bil2tif_resize_1981_color.tif" -alpha
+sudo gdal2tiles.py --zoom=2-8 --tilesize=128 "/home/davleifer/polarbearGIS/data/ppt_bil2tif_resize/ppt_bil2tif_resize_1981_color.tif" $PPT_COR_XYZ_OUTPUT
+
+
+#not real delete these notes dave
+DATA_PATH=$(pwd)
+export VARIABLENAME=$DATA_PATH
+PPT_COR_ACTUALLY="$VARIABLENAME/scripts/python/ppt_cor_actually.py"
+QUANTILE_RECLASSIFY="$VARIABLENAME/scripts/python/quantile_reclassify.py"
+PPT_COR="$VARIABLENAME/scripts/python/ppt_cor.py"
+
+
+
+SCRIPT_PATH_PLUS_PPT="$VARIABLENAME/scripts/rscripts_ppt/download_prism_data.R"
+sudo Rscript $SCRIPT_PATH_PLUS_PPT
+
+
+
+
+sudo rm /home/davleifer/polarbearGIS/scripts/python/ppt_cor_actually.py
+sudo nano /home/davleifer/polarbearGIS/scripts/python/ppt_cor_actually.py
+
+sudo rm /home/davleifer/polarbearGIS/scripts/python/quantile_reclassify.py
+sudo nano /home/davleifer/polarbearGIS/scripts/python/quantile_reclassify.py
+
+sudo rm /home/davleifer/polarbearGIS/data/ppt_pearson_final/*_reclassed*.tif
+
+sudo rm -R /home/davleifer/polarbearGIS/data/ppt_pearson_final
+sudo mkdir /home/davleifer/polarbearGIS/data/ppt_pearson_final
+
+sudo rm -R /var/www/html/ppt_cor_xyz/
+sudo mkdir /var/www/html/ppt_cor_xyz/
+
+#sudo rm -R /home/davleifer/polarbearGIS/data/ppt
+#sudo mkdir /home/davleifer/polarbearGIS/data/ppt
+
+#sudo rm -R /home/davleifer/polarbearGIS/data/ppt_bil2tif_resize
+#sudo mkdir /home/davleifer/polarbearGIS/data/ppt_bil2tif_resize
+
+sudo python3 $PPT_COR
+
+sudo python3 $PPT_COR_ACTUALLY
+sudo python3 $QUANTILE_RECLASSIFY
+
+http://XX.XX.xxx.XX/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final_1981/openlayers.html
+http://35.232.232.22/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final_1981/openlayers.html
+
+sudo rm -R /var/www/html/ppt_cor_xyz/
+sudo mkdir /var/www/html/ppt_cor_xyz/
+
+
+
+######################################
 
 #make tmean_pearson_final variable
 tmean_pearson_final="$VARIABLENAME/data/tmean_pearson_final"

@@ -26,7 +26,7 @@ print(gdal.__version__)
 #here be the normal git add stuff
 git init
 git add .
-git commit -m "commit 118"
+git commit -m "commit 119"
 git push -u origin main
 
 #git remote add origin https://gitlab.com/davleifer/polarbearGIS.git
@@ -116,29 +116,3 @@ Inverse Distance Weighting (IDW)- average in space and time following toblers la
 is a kernel function (i.e., a function that quantifies the similarity between two locations)
 
 Gaussian radial basis kernel
-
-$100 to $1,000 per ton of CO2 emission removal from the atmosphere
-43 billion tons emitted per year
-$4,300,000,000,000-$43,000,000,000,000
-earth gdp is 87,000,000,000,000
-
-Life is just two quarters in the machine
-But, either you got it or don't that's the thing
-I was still hittin' the buttons, "Game Over" on the screen
-Dollar movie theater, dingy foyer, little kid, not a penny to my name
-Fuckin' with the joystick, 
-Pretendin' I was really playin'
-Pretendin' I was really playin'
-Pretendin' I was really playin'
-
-It is something he must handle on his own; 
-the windblown way,
-wanna win? Don't play
-
-knowin aint half the battle
-thats a bullshit quip written by some asshole!
-
-At first light might nurse an aversion to Earth science
-Like this game comes with the worst prizes
-
-

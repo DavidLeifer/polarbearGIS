@@ -48,6 +48,90 @@ const osm = new TileLayer({
 map.addLayer(osm);
 map.addLayer(all_tile_layers[0]);
 
+const fs = require('fs')
+
+const ppt_pearson_final_1981_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_1981_reclassed.txt', 'utf8')
+const ppt_pearson_final_1982_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_1982_reclassed.txt', 'utf8')
+const ppt_pearson_final_1983_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_1983_reclassed.txt', 'utf8')
+const ppt_pearson_final_1984_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_1984_reclassed.txt', 'utf8')
+const ppt_pearson_final_1985_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_1985_reclassed.txt', 'utf8')
+const ppt_pearson_final_1986_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_1986_reclassed.txt', 'utf8')
+const ppt_pearson_final_1987_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_1987_reclassed.txt', 'utf8')
+const ppt_pearson_final_1988_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_1988_reclassed.txt', 'utf8')
+const ppt_pearson_final_1989_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_1989_reclassed.txt', 'utf8')
+const ppt_pearson_final_1990_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_1990_reclassed.txt', 'utf8')
+const ppt_pearson_final_1991_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_1991_reclassed.txt', 'utf8')
+const ppt_pearson_final_1992_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_1992_reclassed.txt', 'utf8')
+const ppt_pearson_final_1993_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_1993_reclassed.txt', 'utf8')
+const ppt_pearson_final_1994_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_1994_reclassed.txt', 'utf8')
+const ppt_pearson_final_1995_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_1995_reclassed.txt', 'utf8')
+const ppt_pearson_final_1996_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_1996_reclassed.txt', 'utf8')
+const ppt_pearson_final_1997_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_1997_reclassed.txt', 'utf8')
+const ppt_pearson_final_1998_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_1998_reclassed.txt', 'utf8')
+const ppt_pearson_final_1999_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_1999_reclassed.txt', 'utf8')
+const ppt_pearson_final_2000_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_2000_reclassed.txt', 'utf8')
+const ppt_pearson_final_2001_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_2001_reclassed.txt', 'utf8')
+const ppt_pearson_final_2002_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_2002_reclassed.txt', 'utf8')
+const ppt_pearson_final_2003_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_2003_reclassed.txt', 'utf8')
+const ppt_pearson_final_2004_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_2004_reclassed.txt', 'utf8')
+const ppt_pearson_final_2005_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_2005_reclassed.txt', 'utf8')
+const ppt_pearson_final_2006_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_2006_reclassed.txt', 'utf8')
+const ppt_pearson_final_2007_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_2007_reclassed.txt', 'utf8')
+const ppt_pearson_final_2008_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_2008_reclassed.txt', 'utf8')
+const ppt_pearson_final_2009_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_2009_reclassed.txt', 'utf8')
+const ppt_pearson_final_2010_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_2010_reclassed.txt', 'utf8')
+const ppt_pearson_final_2011_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_2011_reclassed.txt', 'utf8')
+const ppt_pearson_final_2012_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_2012_reclassed.txt', 'utf8')
+const ppt_pearson_final_2013_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_2013_reclassed.txt', 'utf8')
+const ppt_pearson_final_2014_reclassed = fs.readFileSync('./data/reclassed_txt/ppt_pearson_final_2014_reclassed.txt', 'utf8')
+
+const list_of_txt_var = [ppt_pearson_final_1981_reclassed,
+                         ppt_pearson_final_1982_reclassed,
+                         ppt_pearson_final_1983_reclassed,
+                         ppt_pearson_final_1984_reclassed,
+                         ppt_pearson_final_1985_reclassed,
+                         ppt_pearson_final_1986_reclassed,
+                         ppt_pearson_final_1987_reclassed,
+                         ppt_pearson_final_1988_reclassed,
+                         ppt_pearson_final_1989_reclassed,
+                         ppt_pearson_final_1990_reclassed,
+                         ppt_pearson_final_1991_reclassed,
+                         ppt_pearson_final_1992_reclassed,
+                         ppt_pearson_final_1993_reclassed,
+                         ppt_pearson_final_1994_reclassed,
+                         ppt_pearson_final_1995_reclassed,
+                         ppt_pearson_final_1996_reclassed,
+                         ppt_pearson_final_1997_reclassed,
+                         ppt_pearson_final_1998_reclassed,
+                         ppt_pearson_final_1999_reclassed,
+                         ppt_pearson_final_2000_reclassed,
+                         ppt_pearson_final_2001_reclassed,
+                         ppt_pearson_final_2002_reclassed,
+                         ppt_pearson_final_2003_reclassed,
+                         ppt_pearson_final_2004_reclassed,
+                         ppt_pearson_final_2005_reclassed,
+                         ppt_pearson_final_2006_reclassed,
+                         ppt_pearson_final_2007_reclassed,
+                         ppt_pearson_final_2008_reclassed,
+                         ppt_pearson_final_2009_reclassed,
+                         ppt_pearson_final_2010_reclassed,
+                         ppt_pearson_final_2011_reclassed,
+                         ppt_pearson_final_2012_reclassed,
+                         ppt_pearson_final_2013_reclassed,
+                         ppt_pearson_final_2014_reclassed
+                          ]
+
+var words = list_of_txt_var[0].split(" ");
+var zero_value = words[0].substr(0, 22);
+document.getElementById('percentile_0').innerHTML = zero_value;
+var twenty_value = words[1].substr(0, 22);
+document.getElementById('percentile_20').innerHTML = twenty_value;
+var forty_value = words[2].substr(0, 22);
+document.getElementById('percentile_40').innerHTML = forty_value;
+var sixty_value = words[3].substr(0, 22);
+document.getElementById('percentile_60').innerHTML = sixty_value;
+var eighty_value = words[4].substr(0, 22);
+document.getElementById('percentile_80').innerHTML = eighty_value;
 
 $(function() {
     $( "#slider" ).slider({
@@ -68,6 +152,18 @@ $(document).ready(function(){
     Object.keys(all_tile_layers).forEach(function(key){
       if (v == year[key]){
         map.addLayer(all_tile_layers[key]);
+        //split the txt file by space and send it to the p id in html doc
+        var words = list_of_txt_var[key].split(" ");
+        var zero_value = words[0].substr(0, 22);
+        document.getElementById('percentile_0').innerHTML = zero_value;
+        var twenty_value = words[1].substr(0, 22);
+        document.getElementById('percentile_20').innerHTML = twenty_value;
+        var forty_value = words[2].substr(0, 22);
+        document.getElementById('percentile_40').innerHTML = forty_value;
+        var sixty_value = words[3].substr(0, 22);
+        document.getElementById('percentile_60').innerHTML = sixty_value;
+        var eighty_value = words[4].substr(0, 22);
+        document.getElementById('percentile_80').innerHTML = eighty_value;
       }
       else {
         map.removeLayer(all_tile_layers[key]);

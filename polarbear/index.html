@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Temperature Raster Correlation</title>
+    <title>Precipitation Raster Correlation</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" content="A cluster layer for OpenLayers (ol/ol3) that animates clusters on zoom change." />
+    <meta name="description" content="Precipitation Raster Correlation" />
     <meta name="keywords" content="ol3,cluster,animation,layer,selectio,animate,animated clusters,openlayers" />
   
     <meta charset="utf-8" />
@@ -20,6 +20,8 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
   
     <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -54,11 +56,19 @@
        }  
     #legend {
         position: absolute;
-        left:10px; 
-        top:149px; 
-        z-index:0; 
-        width:69px; 
-        height:420px; 
+        left:10px;
+        top:149px;
+        z-index:1;
+      }
+    #legend-numbers {
+        position: absolute;
+        left:30px;
+        top:.001px;
+        z-index:1;
+        background-color:White;
+        text-align: center;
+        font-size: medium;
+        padding: 1px;
       }
     .map {
         width: 100%;
@@ -96,20 +106,27 @@
     <div class="about" style="display:none" position="absolute" z-index="0">
       <h1 class="button">About...</h1>
       <p>
-        This is Pearson Correlation (-.0004 to .0004) between temperature
-        compared with the year's El Nino index (degrees C above/below 5 month running mean).
+        This is Pearson Correlation between precipitation
+        compared with the year's El Nino index (degrees C above/below 5 month running mean) with quantile breaks.
       </p>
       <p class="buttons">
         <button class='button'>OK</button>
       </p>
     </div>
-    <div id="button1" class="button1">
-        <button onclick="e()" id="button_change" style="height:42.0px; width:69px">Hide Legend</button>
-      </div>
-      <div id="legend">
-        <img src="./data/legend_image/ppt_corr_legend.png" height="200px" width="69px">
-      </div>
 
+    <div id="button1" class="button1">
+      <button onclick="e()" id="button_change" style="height:42.0px; width:69px">Hide Legend</button>
+    </div>
+    <div id="legend">
+      <img src="./data/legend_image/ppt_corr_legend.png" height="186px" width="29px">
+      <div id="legend-numbers">
+        <p id="percentile_0"></p>
+        <p id="percentile_20"></p>
+        <p id="percentile_40"></p>
+        <p id="percentile_60"></p>
+        <p id="percentile_80"></p>
+    </div>
+    </div>
     <div id="year">
       <h4>Year</h4>
     </div>
@@ -152,9 +169,10 @@
     </select>
 
     <div id = "slider"></div>
-    <script src="./js/layer/layers.js"></script>
-    <script src="./index.js"></script>
 
+    <script src="./js/layer/layers.js"></script>
+
+    <script src="./index.js"></script>
     <script>
       function e() {
         var x = document.getElementById("legend");
