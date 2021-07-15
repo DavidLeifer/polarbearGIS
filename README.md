@@ -94,10 +94,11 @@ Some of the technical details are outlined in my blog, which can be found on my 
   * GDAL: https://gdal.org/download.html
 
 ### TODO 
-07/6/2021:</br>
-- ~~Quantile breaks look better than equal intervals, but id have to calculate the correct quantile breaks for 33 years and put it in 33 .txt files, make a list of all the txt files and feed it into the coloring step in pipeline.sh, also have to change the legend for each xyz in the web app part to reflect the different breaks, probably could do it with a for loop in js and place all the legend .png into their own directory. Difficulty: Hard ~~
-- Somehow getting wildly different ppt/nino34 cor values on debian as opposed to mac. e.g. mac=1.2e3; debian=1.2e12. - ~~try copying gitlab code to debian instance and rerun~~ - if that doesnt work reinstall - if that doesnt work, no idea. Difficulty: Hard (probably) 
-- Add logic to change year and slider position based on drop down input. Difficulty: Medium
+07/14/2021:</br>
+- ~~Make slider work on mobile. Difficulty: Easy~~
+- Getting different ppt/nino34 cor values on debian as opposed to mac. Some of the values are the same, some are not. Think its how linux represents small numbers: https://stackoverflow.com/questions/6913532/display-a-decimal-in-scientific-notation Difficulty: Hard
+- Add logic to change year and slider position based on drop down input. https://jqueryui.com/slider/#hotelrooms Difficulty: Medium
+- Correlation between co2 and temp/ppt, would probably have to average yearly values and co2 ppm: https://www.co2.earth/historical-co2-datasets Difficulty: Medium?
 - Refactor code into OOP so it is more reusable. Difficulty: Hard
 - Finish GeoStreamable? Difficulty: Hard
 
@@ -113,4 +114,7 @@ Some of the technical details are outlined in my blog, which can be found on my 
 
 ### Polar Bears
 ![Polar Bears](/imgs/polar-bears.png?raw=true)
-@aesoprockwins
+
+
+
+
