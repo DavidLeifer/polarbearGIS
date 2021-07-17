@@ -1,7 +1,8 @@
 # PolarbearGIS
 A pipeline for GIS climate raster data. A script of scripts, using GCP.</br>
 
-### A BASH script that automatically installs the R, python, and npm libraries, downloads the data from Prism, does analysis with python, and creates four npm web applications that display climate and weather data.
+
+
 
 + [Support PolarbearGIS](#support-polarbeargis)
 + [Screenshots](#screenshots)
@@ -82,6 +83,8 @@ Some of the technical details are outlined in my blog, which can be found on my 
   * OpenLayers: https://github.com/openlayers/openlayers
   * ParcelBundler: https://github.com/parcel-bundler/parcel
   * OpenLayers-Ext: https://github.com/Viglino/ol-ext
+  * jQuery: https://github.com/jquery/jquery
+  * AngularJS Slider: https://github.com/angular-slider/angularjs-slider
 - BASH
   * WGET: https://savannah.gnu.org/git/?group=wget
   * Git: https://github.com/git/git
@@ -94,13 +97,15 @@ Some of the technical details are outlined in my blog, which can be found on my 
   * GDAL: https://gdal.org/download.html
 
 ### TODO 
-07/14/2021:</br>
-- ~~Make slider work on mobile. Difficulty: Easy~~
+07/16/2021:</br>
+- ~~Implement Angular for time slider on two corr apps (replaces jQuery). Difficulty: Medium~~
+- ~~Disable drop down list minbeds next to slider. Difficulty: Easy~~
+- ~~Include jQuery mobile touch for the two jQuery apps. Difficulty: Easy~~
+- Update temp app with quantile breaks. Difficulty: Easy
 - Getting different ppt/nino34 cor values on debian as opposed to mac. Some of the values are the same, some are not. Think its how linux represents small numbers: https://stackoverflow.com/questions/6913532/display-a-decimal-in-scientific-notation Difficulty: Hard
-- Add logic to change year and slider position based on drop down input. https://jqueryui.com/slider/#hotelrooms Difficulty: Medium
-- Correlation between co2 and temp/ppt, would probably have to average yearly values and co2 ppm: https://www.co2.earth/historical-co2-datasets Difficulty: Medium?
-- Refactor code into OOP so it is more reusable. Difficulty: Hard
-- Finish GeoStreamable? Difficulty: Hard
+- Correlation between co2 and temp/ppt, would probably have to average yearly values?: https://www.co2.earth/historical-co2-datasets Difficulty: Medium
+- Refactor code into OOP so it is more reusable. Difficulty: Time Consuming
+- Finish GeoStreamable? Difficulty: Time Consuming
 
 ### GeoStreamable
 - SCRIPT

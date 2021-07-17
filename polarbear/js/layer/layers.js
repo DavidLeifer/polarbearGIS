@@ -133,43 +133,43 @@ document.getElementById('percentile_60').innerHTML = sixty_value;
 var eighty_value = words[4].substr(0, 22);
 document.getElementById('percentile_80').innerHTML = eighty_value;
 
-$(function() {
-    $( "#slider" ).slider({
-        value:3,
-        step: 1,
-        min: 1981,
-        max: 2014,
-       slide: function( event, ui ) {
-          $( "#minbeds" ).val( ui.value );
-       }    
-    });
-    $( "#minbeds" ).val( $( "#slider" ).slider( "value" ) );
-});
-
-$(document).ready(function(){
-  $("#slider").on("slide", function(event, ui){
-    var v = ui.value;
-    Object.keys(all_tile_layers).forEach(function(key){
-      if (v == year[key]){
-        map.addLayer(all_tile_layers[key]);
-        //split the txt file by space and send it to the p id in html doc
-        var words = list_of_txt_var[key].split(" ");
-        var zero_value = words[0].substr(0, 22);
-        document.getElementById('percentile_0').innerHTML = zero_value;
-        var twenty_value = words[1].substr(0, 22);
-        document.getElementById('percentile_20').innerHTML = twenty_value;
-        var forty_value = words[2].substr(0, 22);
-        document.getElementById('percentile_40').innerHTML = forty_value;
-        var sixty_value = words[3].substr(0, 22);
-        document.getElementById('percentile_60').innerHTML = sixty_value;
-        var eighty_value = words[4].substr(0, 22);
-        document.getElementById('percentile_80').innerHTML = eighty_value;
+//angular
+var myApp = angular.module('myApp', ['rzSlider'])
+myApp.controller('GreetingController', ['$scope', function($scope) {
+    var dates = [];
+    for (var i = 1981; i <= 2014; i++) {
+      dates.push(i);
+    }
+    $scope.slider = {
+      value: dates[0],
+      options: {
+        stepsArray: dates,
+        id: 'slider-id',
+        onChange: function(event, id) {
+          var v = id;
+          Object.keys(all_tile_layers).forEach(function(key){
+            if (v == year[key]){
+              map.addLayer(all_tile_layers[key]);
+              //split the txt file by space and send it to the p id in html doc
+              var words = list_of_txt_var[key].split(" ");
+              var zero_value = words[0].substr(0, 22);
+              document.getElementById('percentile_0').innerHTML = zero_value;
+              var twenty_value = words[1].substr(0, 22);
+              document.getElementById('percentile_20').innerHTML = twenty_value;
+              var forty_value = words[2].substr(0, 22);
+              document.getElementById('percentile_40').innerHTML = forty_value;
+              var sixty_value = words[3].substr(0, 22);
+              document.getElementById('percentile_60').innerHTML = sixty_value;
+              var eighty_value = words[4].substr(0, 22);
+              document.getElementById('percentile_80').innerHTML = eighty_value;
+            }
+            else {
+              map.removeLayer(all_tile_layers[key]);
+            }
+          });
+        }
       }
-      else {
-        map.removeLayer(all_tile_layers[key]);
-      }
-    });
- });
-});
+    };
+}]);
 
 export {all_tile_layers, osm}

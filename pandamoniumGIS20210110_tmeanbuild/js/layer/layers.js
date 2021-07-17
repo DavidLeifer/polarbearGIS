@@ -47,32 +47,33 @@ const osm = new TileLayer({
 /* Add to map */
 map.addLayer(osm);
 map.addLayer(all_tile_layers[0]);
-$(function() {
-    $( "#slider" ).slider({
-        value:3,
-        step: 1,
-        min: 1981,
-        max: 2014,
-       slide: function( event, ui ) {
-          $( "#minbeds" ).val( ui.value );
-       }    
-    });
-    $( "#minbeds" ).val( $( "#slider" ).slider( "value" ) );
-});
 
-
-$(document).ready(function(){
-  $("#slider").on("slide", function(event, ui){
-    var v = ui.value;
-    Object.keys(all_tile_layers).forEach(function(key){
-      if (v == year[key]){
-        map.addLayer(all_tile_layers[key]);
+//angular
+var myApp = angular.module('myApp', ['rzSlider'])
+myApp.controller('GreetingController', ['$scope', function($scope) {
+    var dates = [];
+    for (var i = 1981; i <= 2014; i++) {
+      dates.push(i);
+    }
+    $scope.slider = {
+      value: dates[0],
+      options: {
+        stepsArray: dates,
+        id: 'slider-id',
+        onChange: function(event, id) {
+          var v = id;
+          console.log(v)
+          Object.keys(all_tile_layers).forEach(function(key){
+            if (v == year[key]){
+              map.addLayer(all_tile_layers[key]);
+            }
+            else {
+              map.removeLayer(all_tile_layers[key]);
+            }
+          });
+        }
       }
-      else {
-        map.removeLayer(all_tile_layers[key]);
-      }
-    });
- });
-});
+    };
+}]);
 
 export {all_tile_layers, osm}

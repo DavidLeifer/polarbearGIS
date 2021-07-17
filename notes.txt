@@ -8,11 +8,17 @@ npm install -g npm@7.11.2
 sudo npm install ol
 sudo npm install -g parcel-bundler
 sudo npm install ol-ext
+sudo npm i angularjs-slider
+
+sudo npm uninstall cssnano
+sudo npm i -D cssnano@4.1.11
 
 #report node
 node -r node-report app.js
 
 #build static mini you dummy
+sudo npm run-script build --no-minify
+OR
 sudo npm run-script build
 
 sudo chmod -R ugo+rw /var/lib/tomcat8/webapps/geoserver/data/www/localdata
@@ -26,7 +32,7 @@ print(gdal.__version__)
 #here be the normal git add stuff
 git init
 git add .
-git commit -m "commit 130"
+git commit -m "commit 135"
 git push -u origin main
 
 #git remote add origin https://gitlab.com/davleifer/polarbearGIS.git

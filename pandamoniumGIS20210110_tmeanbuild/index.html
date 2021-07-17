@@ -20,10 +20,14 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
   
     <!-- jQuery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+    <!-- Angular -->
+    <link rel="stylesheet" href="rzslider.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="rzslider.min.js"></script>
 
     <!-- Fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -45,13 +49,6 @@
         width:50px; 
         height:17px; 
        }
-    #slider {
-        position: absolute;
-        bottom:25px;
-        left:20px;
-        width:250px; 
-        height:17px; 
-       }  
     #legend {
         position: absolute;
         left:10px; 
@@ -84,6 +81,13 @@
         top:100px;
         z-index:1000; 
       }
+    .slider-guy{
+        bottom: 25px;
+        left: 20px;
+        position: absolute;
+        width:90%;
+        z-index:1;
+    }
     </style>
   </head>
   <body>
@@ -110,48 +114,11 @@
         <img src="./data/legend_image/ppt_corr_legend.png" height="200px" width="69px">
       </div>
 
-    <div id="year">
-      <h4>Year</h4>
+    <div ng-app="myApp" ng-controller="GreetingController" class="slider-guy">
+        <rzslider rz-slider-model="slider.value"
+                  rz-slider-options="slider.options"></rzslider>
     </div>
-
-    <select name="minbeds" id="minbeds">
-      <option value="1981">1981</option>
-      <option value="1982">1982</option>
-      <option value="1983">1983</option>
-      <option value="1984">1984</option>
-      <option value="1985">1985</option>
-      <option value="1986">1986</option>
-      <option value="1987">1987</option>
-      <option value="1988">1988</option>
-      <option value="1989">1989</option>
-      <option value="1990">1990</option>
-      <option value="1991">1991</option>
-      <option value="1992">1992</option>
-      <option value="1993">1993</option>
-      <option value="1994">1994</option>
-      <option value="1995">1995</option>
-      <option value="1996">1996</option>
-      <option value="1997">1997</option>
-      <option value="1998">1998</option>
-      <option value="1999">1999</option>
-      <option value="2000">2000</option>
-      <option value="2001">2001</option>
-      <option value="2002">2002</option>
-      <option value="2003">2003</option>
-      <option value="2004">2004</option>
-      <option value="2005">2005</option>
-      <option value="2006">2006</option>
-      <option value="2007">2007</option>
-      <option value="2008">2008</option>
-      <option value="2009">2009</option>
-      <option value="2010">2010</option>
-      <option value="2011">2011</option>
-      <option value="2012">2012</option>
-      <option value="2013">2013</option>
-      <option value="2014">2014</option>
-    </select>
-
-    <div id = "slider"></div>
+    
     <script src="./js/layer/layers.js"></script>
     <script src="./index.js"></script>
 

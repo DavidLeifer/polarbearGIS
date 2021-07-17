@@ -1,7 +1,8 @@
 {
   "name": "wms-time",
   "dependencies": {
-    "ol": "^6.5.0"
+    "ol": "^6.5.0",
+    "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {
     "parcel": "^2.0.0-beta.1"

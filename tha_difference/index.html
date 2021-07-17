@@ -23,7 +23,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+    <script type="text/javascript" src="jquery.ui.touch-punch.min.js"></script>
 
     <!-- Fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -42,7 +42,7 @@
         position: absolute;
         bottom:110px;
         left:20px;
-        width:50px; 
+        width:100px; 
         height:17px; 
        }
     #slider {
@@ -113,10 +113,10 @@
       </div>
 
       <div id="year">
-        <h4>Year</h4>
+        <h4>Difference</h4>
       </div>
 
-      <select name="minbeds" id="minbeds">
+      <select name="minbeds" id="minbeds" disabled="disabled">
         <option value="0">Temp Mean El Nino Diff</option>
         <option value="1">Temp Mean La Nina Diff</option>
         <option value="2">PPT Mean El Nino Diff</option>

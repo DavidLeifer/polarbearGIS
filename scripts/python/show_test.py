@@ -2,7 +2,7 @@ import rasterio
 from rasterio.plot import show
 
 #read tif back in and show it
-pearsonr_test = "/home/davleifer/polarbearGIS/data/ppt_pearson_final/ppt_pearson_final_1981.tif"
+pearsonr_test = "/home/davleifer/polarbearGIS/data/tmean_pearson_final/tmean_pearson_final_1981.tif"
 
 width = 1405
 height = 621

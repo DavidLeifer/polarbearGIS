@@ -1,0 +1,1 @@
+F_onewayResult(statistic=2384.3854824501223, pvalue=0.0)

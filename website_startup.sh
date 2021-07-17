@@ -36,6 +36,7 @@ sudo mv Part2Section2.png /var/www/html/images
 sudo mv ppt_cor.png /var/www/html/images
 sudo mv temp_cor.png /var/www/html/images
 sudo mv polar_radar.png /var/www/html/images
+sudo mv difference-image.png /var/www/html/images
 cd ..
 cd ..
 sudo rm -R polar_landing

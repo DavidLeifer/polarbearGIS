@@ -4,7 +4,6 @@ from rasterio.plot import show
 import numpy as np
 import pandas as pd
 import pyproj
-import seaborn as sns
 import scipy.stats as stats
 from glob import glob
 import os
