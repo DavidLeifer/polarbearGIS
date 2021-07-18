@@ -37,7 +37,7 @@ A pipeline for GIS climate raster data. A script of scripts, using GCP.</br>
 2. Install Git `sudo apt install git`
 3. Clone Repository `sudo git clone https://gitlab.com/davleifer/polarbearGIS.git`
 4. `cd polarbearGIS`
-5. Make executable `chmod u+x pipeline.sh`
+5. Make executable `sudo chmod u+x pipeline.sh`
 6. Run the program `./pipeline.sh`
 
 ### Summary
@@ -97,12 +97,11 @@ Some of the technical details are outlined in my blog, which can be found on my 
   * GDAL: https://gdal.org/download.html
 
 ### TODO 
-07/16/2021:</br>
-- ~~Implement Angular for time slider on two corr apps (replaces jQuery). Difficulty: Medium~~
-- ~~Disable drop down list minbeds next to slider. Difficulty: Easy~~
-- ~~Include jQuery mobile touch for the two jQuery apps. Difficulty: Easy~~
-- Update temp app with quantile breaks. Difficulty: Easy
-- Getting different ppt/nino34 cor values on debian as opposed to mac. Some of the values are the same, some are not. Think its how linux represents small numbers: https://stackoverflow.com/questions/6913532/display-a-decimal-in-scientific-notation Difficulty: Hard
+07/18/2021:</br>
+- ~~Getting different ppt/nino34 cor values on debian as opposed to mac. Some of the values are the same, some are not. Difficulty: Hard~~
+- ~~Include nino34 index in the apps. Difficulty: Easy~~
+- ~~Build xyz tiles with quantile for ppt and temp and include in cor apps. Difficulty: Medium~~
+- ~~Update temp cor app with quantile breaks and build xyz files. Difficulty: Easy~~
 - Correlation between co2 and temp/ppt, would probably have to average yearly values?: https://www.co2.earth/historical-co2-datasets Difficulty: Medium
 - Refactor code into OOP so it is more reusable. Difficulty: Time Consuming
 - Finish GeoStreamable? Difficulty: Time Consuming

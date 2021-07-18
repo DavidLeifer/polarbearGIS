@@ -3,7 +3,7 @@
   <head>
     <title>Temperature Raster Correlation</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" content="A cluster layer for OpenLayers (ol/ol3) that animates clusters on zoom change." />
+    <meta name="description" content="Temperature Raster Correlation" />
     <meta name="keywords" content="ol3,cluster,animation,layer,selectio,animate,animated clusters,openlayers" />
   
     <meta charset="utf-8" />
@@ -23,7 +23,7 @@
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+    
     <!-- Angular -->
     <link rel="stylesheet" href="rzslider.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
@@ -35,13 +35,6 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="index.css">
         <style>
-    #minbeds { 
-        position: absolute;
-        bottom:60px;
-        left:20px;
-        width:50px; 
-        height:17px; 
-       }
     #year { 
         position: absolute;
         bottom:110px;
@@ -51,12 +44,30 @@
        }
     #legend {
         position: absolute;
-        left:10px; 
-        top:149px; 
-        z-index:0; 
-        width:69px; 
-        height:420px; 
+        left:10px;
+        top:149px;
+        z-index:0;
       }
+    #legend-numbers {
+        position: absolute;
+        left:30px;
+        top:.001px;
+        z-index:0;
+        background-color:White;
+        text-align: center;
+        font-size: medium;
+        padding: 1px;
+      }
+    #legend-numbers-mm{
+        position: absolute;
+        left:100px;
+        top:.001px;
+        z-index:0;
+        background-color:White;
+        text-align: center;
+        font-size: medium;
+        padding: 1px;
+    }
     .map {
         width: 100%;
         height: 100%;
@@ -74,13 +85,22 @@
         justify-content: center;
         text-align: center;
         height:30px;
-      }
+    }
     #button1 {
         position: absolute;
         left:10px; 
         top:100px;
         z-index:1000; 
-      }
+    }
+    #ninoindex-holder {
+        position: absolute;
+        left:10px;
+        bottom:100px;
+        z-index:1000;
+        background-color: white;
+        padding: 3px;
+        text-align: center;
+    }
     .slider-guy{
         bottom: 25px;
         left: 20px;
@@ -100,28 +120,54 @@
     <div class="about" style="display:none" position="absolute" z-index="0">
       <h1 class="button">About...</h1>
       <p>
-        This is Pearson Correlation (-.0004 to .0004) between temperature
-        compared with the year's El Nino index (degrees C above/below 5 month running mean).
+        This is Pearson Correlation between temperature
+        compared with the year's El Nino index (degrees C above/below 5 month running mean) with quantile breaks.
       </p>
       <p class="buttons">
         <button class='button'>OK</button>
       </p>
     </div>
+
     <div id="button1" class="button1">
-        <button onclick="e()" id="button_change" style="height:42.0px; width:69px">Hide Legend</button>
+      <button onclick="e()" id="button_change" style="height:42.0px; width:69px">Hide Legend</button>
+    </div>
+    <div id="legend">
+      <img src="./data/legend_image/ppt_corr_legend.png" height="208px" width="29px">
+      <div id="legend-numbers">
+         corr
+        <p id="percentile_0"></p>
+        <p id="percentile_20"></p>
+        <p id="percentile_40"></p>
+        <p id="percentile_60"></p>
+        <p id="percentile_80"></p>
       </div>
-      <div id="legend">
-        <img src="./data/legend_image/ppt_corr_legend.png" height="200px" width="69px">
+      <div id="legend-numbers-mm">
+         °C
+        <p id="percentile_0_tmean_og"></p>
+        <p id="percentile_20_tmean_og"></p>
+        <p id="percentile_40_tmean_og"></p>
+        <p id="percentile_60_tmean_og"></p>
+        <p id="percentile_80_tmean_og"></p>
       </div>
+    </div>
+
+    <div id="ninoindex-holder">
+        El Nino 3.4 Index: 
+        <div id="nino">
+        </div>
+        Year Type:
+        <div id="year_type">
+        </div>
+    </div>
 
     <div ng-app="myApp" ng-controller="GreetingController" class="slider-guy">
         <rzslider rz-slider-model="slider.value"
                   rz-slider-options="slider.options"></rzslider>
     </div>
-    
-    <script src="./js/layer/layers.js"></script>
-    <script src="./index.js"></script>
 
+    <script src="./js/layer/layers.js"></script>
+
+    <script src="./index.js"></script>
     <script>
       function e() {
         var x = document.getElementById("legend");

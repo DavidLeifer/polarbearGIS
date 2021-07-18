@@ -6,15 +6,14 @@ from glob import glob
 
 #shamelessly stolen from:
 #https://gis.stackexchange.com/questions/229796/reclassify-a-raster-file-with-quantiles
-#/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3 /Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/polarbearGIS/gitLab/polarbearGIS/scripts/python/quantile_reclassify.py
+#/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3 /Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/polarbearGIS/gitLab/polarbearGIS/scripts/python/tmean_quantile_reclassify.py
 #https://numpy.org/doc/stable/reference/generated/numpy.nanquantile.html#numpy.nanquantile
 
 cwd = os.getcwd()
-input_raster_folder = cwd + '/data/ppt_pearson_final/'
-#input_raster_folder = '/Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/data/ppt_pearson_final(backup)'
+input_raster_folder = cwd + '/data/tmean_pearson_final/'
+#input_raster_folder = '/Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/data/tmean_pearson_final(backup)'
 input_raster_folder_list = glob(os.path.join(input_raster_folder, '*.tif'))
 input_raster_folder_list.sort()
-
 for input_raster in input_raster_folder_list:
 
     # open the dataset and retrieve raster data as an array
@@ -32,11 +31,17 @@ for input_raster in input_raster_folder_list:
     output = np.zeros_like(array).astype(np.uint8)
 
     # use the numpy percentile function to calculate percentile thresholds, gotta round for scientific notation
-    percentile_80 = round(np.percentile(array_ignored_nan, 80), 5)
-    percentile_60 = round(np.percentile(array_ignored_nan, 60), 5)
-    percentile_40 = round(np.percentile(array_ignored_nan, 40), 5)
-    percentile_20 = round(np.percentile(array_ignored_nan, 20), 5)
-    percentile_0 = round(np.percentile(array_ignored_nan, 0), 5)
+    percentile_80 = np.percentile(array_ignored_nan, 80)
+    percentile_60 = np.percentile(array_ignored_nan, 60)
+    percentile_40 = np.percentile(array_ignored_nan, 40)
+    percentile_20 = np.percentile(array_ignored_nan, 20)
+    percentile_0 = np.percentile(array_ignored_nan, 0)
+
+    percentile_80 = round(percentile_80,5)
+    percentile_60 = round(percentile_60,5)
+    percentile_40 = round(percentile_40,5)
+    percentile_20 = round(percentile_20,5)
+    percentile_0 = round(percentile_0,5)
 
     print(percentile_0, percentile_20, percentile_40, percentile_60, percentile_80)
 

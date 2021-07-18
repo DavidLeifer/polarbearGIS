@@ -6,12 +6,12 @@ from glob import glob
 
 #shamelessly stolen from:
 #https://gis.stackexchange.com/questions/229796/reclassify-a-raster-file-with-quantiles
-#/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3 /Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/polarbearGIS/gitLab/polarbearGIS/scripts/python/quantile_reclassify.py
+#/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3 /Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/polarbearGIS/gitLab/polarbearGIS/scripts/python/ppt_og_quantile_reclassify.py
 #https://numpy.org/doc/stable/reference/generated/numpy.nanquantile.html#numpy.nanquantile
 
 cwd = os.getcwd()
-input_raster_folder = cwd + '/data/ppt_pearson_final/'
-#input_raster_folder = '/Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/data/ppt_pearson_final(backup)'
+input_raster_folder = cwd + '/data/ppt_bil2tif_resize/'
+#input_raster_folder = '/Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/data/ppt_bil2tif_resize'
 input_raster_folder_list = glob(os.path.join(input_raster_folder, '*.tif'))
 input_raster_folder_list.sort()
 
@@ -56,5 +56,5 @@ for input_raster in input_raster_folder_list:
     gdal_array.SaveArray(output, outname, "gtiff", prototype=dataset)
 
     print(outname)
-print("quantile_reclassify.py complete")
+print("ppt_og_quantile_reclassify.py complete")
 

@@ -17,8 +17,10 @@ sudo apt-get install libcurl4-openssl-dev libssl-dev
 sudo apt install python3-pip
 sudo add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
 sudo apt install sqlite3
+sudo apt install libsqlite3-dev
+sudo apt-get install -y libtiff5-dev
 #gdal python install stuff
-sudo apt-get install python3-gdal
+#sudo apt-get remove python-gdal
 #install geopandas stuf
 sudo apt install libspatialindex-dev
 #install node and npm
@@ -47,7 +49,6 @@ sudo mkdir tmeanJanLANin
 sudo mkdir tmeanJanNeutral
 sudo mkdir tmean_pearson_final
 sudo mkdir ppt_pearson_final
-
 sudo mkdir ppt_elnino_minus_neutral
 sudo mkdir ppt_lanina_minus_neutral
 sudo mkdir tmean_elnino_minus_neutral
@@ -71,7 +72,6 @@ echo downloaded ppt data
 
 #install python libraries with pip3
 sudo pip3 install rasterio
-sudo pip3 install pandas
 sudo pip3 install seaborn
 sudo pip3 install guppy3
 sudo pip3 install --upgrade pip
@@ -79,6 +79,9 @@ sudo pip3 install pyproj
 sudo pip3 install fiona
 sudo pip3 install geopandas
 sudo pip3 install rtree
+sudo pip3 install pandas==0.25.3
+sudo pip3 install streamhist
+sudo pip3 install gdal==3.3.0
 
 #install proj-7
 cd ..
@@ -92,10 +95,11 @@ cd ..
 sudo wget download.osgeo.org/gdal/3.3.0/gdal330.zip
 sudo unzip gdal330.zip
 cd gdal-3.3.0
-sudo ./configure --with-proj=/usr/local
+sudo ./configure --with-proj=/usr/local --with-python3
 sudo make clean && sudo make && sudo make install
 # Set LD_LIBRARY_PATH so that recompiled GDAL is used
 export LD_LIBRARY_PATH=/usr/local/lib
+sudo ldconfig
 
 ## Check if it works
 #gdalinfo --version
@@ -110,21 +114,27 @@ cd data
 sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1hN8TKgep0bBL2x0NtkEX666Ge-WMLASZ' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1hN8TKgep0bBL2x0NtkEX666Ge-WMLASZ" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
 sudo unzip xyz-timeseries-data
 sudo rm xyz-timeseries-data
+sudo chmod -R 775 polar_radar_unsplit
 cd ..
 
 #make path variables to python scripts
 PATH_PLUS_PPT_LaElNeu="$VARIABLENAME/scripts/python/ppt_bil2tif_LaElNeu_analysis.py"
 PATH_PLUS_TMEAN_LaElNeu="$VARIABLENAME/scripts/python/tmean_bil2tif_LaElNeu_analysis.py"
-#PATH_PLUS_PPT_ANOVA="$VARIABLENAME/scripts/python/ppt_ANOVA_analysis.py"
-#PATH_PLUS_TMEAN_ANOVA="$VARIABLENAME/scripts/python/tmean_ANOVA_analysis.py"
+PATH_PLUS_PPT_ANOVA="$VARIABLENAME/scripts/python/ppt_ANOVA_analysis.py"
+PATH_PLUS_TMEAN_ANOVA="$VARIABLENAME/scripts/python/tmean_ANOVA_analysis.py"
 PPT_COR="$VARIABLENAME/scripts/python/ppt_cor.py"
 TMEAN_COR="$VARIABLENAME/scripts/python/tmean_cor.py"
-PPT_COR_ACTUALLY="$VARIABLENAME/scripts/python/ppt_cor_actually.py"
 TMEAN_COR_ACTUALLY="$VARIABLENAME/scripts/python/tmean_cor_actually.py"
 GEOSENT_2ROUNDED="$VARIABLENAME/scripts/python_weather/geosent_2rounded.py"
+GEO_STREAMHIST="$VARIABLENAME/scripts/python_weather/Geo_streamhist.py"
+PPT_COR_ACTUALLY="$VARIABLENAME/scripts/python/ppt_cor_actually.py"
+PPT_QUANTILE_RECLASSIFY="$VARIABLENAME/scripts/python/quantile_reclassify.py"
+TMEAN_COR_ACTUALLY="$VARIABLENAME/scripts/python/tmean_cor_actually.py"
+TMEAN_QUANTILE_RECLASSIFY="$VARIABLENAME/scripts/python/tmean_quantile_reclassify.py"
 TMEAN_LAELNEU_DIFF="$VARIABLENAME/scripts/python/tmean_LaElNeu_diff.py"
 PPT_LAELNEU_DIFF="$VARIABLENAME/scripts/python/ppt_LaElNeu_diff.py"
-QUANTILE_RECLASSIFY="$VARIABLENAME/scripts/python/quantile_reclassify.py"
+PPT_OG_QUANTILE_RECLASSIFY="$VARIABLENAME/scripts/python/ppt_og_quantile_reclassify.py"
+TMEAN_OG_QUANTILE_RECLASSIFY="$VARIABLENAME/scripts/python/tmean_og_quantile_reclassify.py"
 
 #Run the python scripts
 sudo python3 $PATH_PLUS_PPT_LaElNeu
@@ -133,12 +143,19 @@ sudo python3 $PATH_PLUS_PPT_ANOVA
 sudo python3 $PATH_PLUS_TMEAN_ANOVA
 sudo python3 $PPT_COR
 sudo python3 $TMEAN_COR
-sudo python3 $PPT_COR_ACTUALLY
-sudo python3 $TMEAN_COR_ACTUALLY
 sudo python3 $GEOSENT_2ROUNDED
+sudo python3 $GEO_STREAMHIST
+sudo python3 $PPT_COR_ACTUALLY
+sudo python3 $PPT_QUANTILE_RECLASSIFY
+sudo python3 $TMEAN_COR_ACTUALLY
+sudo python3 $TMEAN_QUANTILE_RECLASSIFY
 sudo python3 $TMEAN_LAELNEU_DIFF
 sudo python3 $PPT_LAELNEU_DIFF
-sudo python3 $QUANTILE_RECLASSIFY
+sudo python3 $PPT_OG_QUANTILE_RECLASSIFY
+sudo python3 $TMEAN_OG_QUANTILE_RECLASSIFY
+
+#move the geojson to /data/
+sudo mv $VARIABLENAME/*geojson $VARIABLENAME/data
 
 #open the gates!
 sudo apt-get install apache2 -y
@@ -163,8 +180,12 @@ sudo mkdir /var/www/html/ppt_bil2tif_LaElNeu_analysis_xyz/xyz_pptJanNeutral
 sudo mkdir /var/www/html/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanELNin
 sudo mkdir /var/www/html/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanLANin
 sudo mkdir /var/www/html/tmean_bil2tif_LaElNeu_analysis_xyz/xyz_tmeanJanNeutral
-sudo mkdir /var/www/html/tmean_cor_xyz/tmean_cor_xyz_tmean_pearson_final
-sudo mkdir /var/www/html/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final
+sudo mkdir /var/www/html/tmean_elnino_minus_neutral_xyz
+sudo mkdir /var/www/html/tmean_lanina_minus_neutral_xyz
+sudo mkdir /var/www/html/ppt_elnino_minus_neutral_xyz
+sudo mkdir /var/www/html/ppt_lanina_minus_neutral_xyz
+sudo mkdir /var/www/html/tmean_bil2tif_resize_xyz
+sudo mkdir /var/www/html/ppt_bil2tif_resize_xyz
 
 #copy over the ANOVA files onto web server
 sudo cp ~/polarbearGIS/data/tmean_ANOVA_output.txt /var/www/html
@@ -319,100 +340,99 @@ do
    fi
 done
 
-##############################
-# test
-sudo gdaldem color-relief "/home/davleifer/polarbearGIS/data/ppt_bil2tif_resize/ppt_bil2tif_resize_1981.tif" $PPT_PEARSON_FINAL_COLOR "/home/davleifer/polarbearGIS/data/ppt_bil2tif_resize/ppt_bil2tif_resize_1981_color.tif" -alpha
-sudo gdal2tiles.py --zoom=2-8 --tilesize=128 "/home/davleifer/polarbearGIS/data/ppt_bil2tif_resize/ppt_bil2tif_resize_1981_color.tif" $PPT_COR_XYZ_OUTPUT
-
-
-#not real delete these notes dave
-DATA_PATH=$(pwd)
-export VARIABLENAME=$DATA_PATH
-PPT_COR_ACTUALLY="$VARIABLENAME/scripts/python/ppt_cor_actually.py"
-QUANTILE_RECLASSIFY="$VARIABLENAME/scripts/python/quantile_reclassify.py"
-PPT_COR="$VARIABLENAME/scripts/python/ppt_cor.py"
-
-
-
-SCRIPT_PATH_PLUS_PPT="$VARIABLENAME/scripts/rscripts_ppt/download_prism_data.R"
-sudo Rscript $SCRIPT_PATH_PLUS_PPT
-
-
-
-
-sudo rm /home/davleifer/polarbearGIS/scripts/python/ppt_cor_actually.py
-sudo nano /home/davleifer/polarbearGIS/scripts/python/ppt_cor_actually.py
-
-sudo rm /home/davleifer/polarbearGIS/scripts/python/quantile_reclassify.py
-sudo nano /home/davleifer/polarbearGIS/scripts/python/quantile_reclassify.py
-
-sudo rm /home/davleifer/polarbearGIS/data/ppt_pearson_final/*_reclassed*.tif
-
-sudo rm -R /home/davleifer/polarbearGIS/data/ppt_pearson_final
-sudo mkdir /home/davleifer/polarbearGIS/data/ppt_pearson_final
-
-sudo rm -R /var/www/html/ppt_cor_xyz/
-sudo mkdir /var/www/html/ppt_cor_xyz/
-
-#sudo rm -R /home/davleifer/polarbearGIS/data/ppt
-#sudo mkdir /home/davleifer/polarbearGIS/data/ppt
-
-#sudo rm -R /home/davleifer/polarbearGIS/data/ppt_bil2tif_resize
-#sudo mkdir /home/davleifer/polarbearGIS/data/ppt_bil2tif_resize
-
-sudo python3 $PPT_COR
-
-sudo python3 $PPT_COR_ACTUALLY
-sudo python3 $QUANTILE_RECLASSIFY
-
-http://XX.XX.xxx.XX/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final_1981/openlayers.html
-http://35.232.232.22/ppt_cor_xyz/ppt_cor_xyz_ppt_pearson_final_1981/openlayers.html
-
-sudo rm -R /var/www/html/ppt_cor_xyz/
-sudo mkdir /var/www/html/ppt_cor_xyz/
-
-
-
-######################################
-
 #make tmean_pearson_final variable
 tmean_pearson_final="$VARIABLENAME/data/tmean_pearson_final"
-#tmean_pearson_final_color
-TMEAN_PEARSON_FINAL_COLOR=$VARIABLENAME/data/tmean_pearson_final_color.txt
+#ppt_pearson_final_color
+TMEAN_PEARSON_FINAL_COLOR=$VARIABLENAME/data/ppt_pearson_final_color.txt
 COLOR="_color.tif"
 #TMEAN_COR_XYZ_BASE folders for xyz tiles
 TMEAN_COR_XYZ_BASE="/var/www/html/tmean_cor_xyz/tmean_cor_xyz_tmean_pearson_final_"
 
-#one caveat in tmean cor is that the 0 values are being set to transparent in the tmean_pearson_final_color.txt
-#this differs from ppt cor, where 0 values are set to -9999 in the python script
-#then -9999 is set to transparent in ppt_pearson_final_color.txt
-#hope this makes sense future dave!
 increment=1981
 #loop over tmean_pearson_final, concat _color.tif to the output, build xyz tiles
-for tmean_index in "$tmean_pearson_final"/*.tif
+for tmean_index in "$tmean_pearson_final"/*_reclassed.tif
 do
-	 #make tmean_index_color_output concat the base of tmean_index with COLOR for color output
-	 tmean_index_color_output=${tmean_index%%.*}$COLOR
-    #make TMEAN_COR_XYZ_OUTPUT concat TMEAN_COR_XYZ_BASE with the year for xyz tile output folder
-	 TMEAN_COR_XYZ_OUTPUT=$TMEAN_COR_XYZ_BASE$increment
-	 sudo gdaldem color-relief $tmean_index $TMEAN_PEARSON_FINAL_COLOR $tmean_index_color_output -alpha
-	 echo "Color tif for year "$increment
+	#make tmean_index_color_output concat the base of tmean_index with COLOR for color output
+	tmean_index_color_output=${tmean_index%%.*}$COLOR
+   #make TMEAN_COR_XYZ_OUTPUT concat TMEAN_COR_XYZ_BASE with the year for xyz tile output folder
+	TMEAN_COR_XYZ_OUTPUT=$TMEAN_COR_XYZ_BASE$increment
+	sudo gdaldem color-relief $tmean_index $TMEAN_PEARSON_FINAL_COLOR $tmean_index_color_output -alpha
+	echo "Color tif for year "$increment
 	 sudo gdal2tiles.py --zoom=2-8 --tilesize=128 $tmean_index_color_output $TMEAN_COR_XYZ_OUTPUT
 	 echo "xyz tiles for year"$increment
     increment=$((increment+1))
-    if [[ $increment -eq 2015 ]];
-    then
-       break
-    fi
+   if [[ $increment -eq 2015 ]];
+   then
+      break
+   fi
 done
 
-#sudo rm /home/davleifer/polarbearGIS/data/tmean_pearson_final/*_color.tif
-#sudo rm -R /var/www/html/tmean_cor_xyz/
-#sudo mkdir /var/www/html/tmean_cor_xyz/
+#make tmean_bil2tif_resize variable
+tmean_bil2tif_resize="$VARIABLENAME/data/tmean_bil2tif_resize"
+#ppt_pearson_final_color
+TMEAN_BIL2TIF_RESIZE_FINAL_COLOR=$VARIABLENAME/data/ppt_pearson_final_color.txt
+COLOR="_color.tif"
+#PPT_COR_XYZ_BASE folders for xyz tiles
+TMEAN_BIL2TIF_XYZ_BASE="/var/www/html/tmean_bil2tif_resize_xyz/tmean_bil2tif_resize_xyz_tmean_bil2tif_resize_"
 
-http://XX.XX.xxx.XX/tmean_cor_xyz/tmean_cor_xyz_tmean_pearson_final_1981/openlayers.html
+increment=1981
+#loop over tmean_bil2tif_resize, concat _color.tif to the output, build xyz tiles
+for tmean_resize in "$tmean_bil2tif_resize"/*_reclassed.tif
+do
+	#make tmean_resize_color_output concat the base of tmean_resize with COLOR for color output
+	tmean_resize_color_output=${tmean_resize%%.*}$COLOR
+   #make TMEAN_BIL2TIF_XYZ_OUTPUT concat TMEAN_BIL2TIF_XYZ_BASE with the year for xyz tile output folder
+	TMEAN_BIL2TIF_XYZ_OUTPUT=$TMEAN_BIL2TIF_XYZ_BASE$increment
+	sudo gdaldem color-relief $tmean_resize $TMEAN_BIL2TIF_RESIZE_FINAL_COLOR $tmean_resize_color_output -alpha
+	echo "Color tif for year "$increment
+	 sudo gdal2tiles.py --zoom=2-8 --tilesize=128 $tmean_resize_color_output $TMEAN_BIL2TIF_XYZ_OUTPUT
+	 echo "xyz tiles for year"$increment
+    increment=$((increment+1))
+   if [[ $increment -eq 2015 ]];
+   then
+      break
+   fi
+done
 
+#make ppt_bil2tif_resize variable
+ppt_bil2tif_resize="$VARIABLENAME/data/ppt_bil2tif_resize"
+#ppt_pearson_final_color
+PPT_BIL2TIF_RESIZE_FINAL_COLOR=$VARIABLENAME/data/ppt_pearson_final_color.txt
+COLOR="_color.tif"
+#PPT_COR_XYZ_BASE folders for xyz tiles
+PPT_BIL2TIF_XYZ_BASE="/var/www/html/ppt_bil2tif_resize_xyz/ppt_bil2tif_resize_xyz_ppt_bil2tif_resize_"
+
+increment=1981
+#loop over ppt_bil2tif_resize, concat _color.tif to the output, build xyz tiles
+for ppt_resize in "$ppt_bil2tif_resize"/*_reclassed.tif
+do
+	#make ppt_resize_color_output concat the base of ppt_resize with COLOR for color output
+	ppt_resize_color_output=${ppt_resize%%.*}$COLOR
+   #make PPT_BIL2TIF_XYZ_OUTPUT concat PPT_BIL2TIF_XYZ_BASE with the year for xyz tile output folder
+	PPT_BIL2TIF_XYZ_OUTPUT=$PPT_BIL2TIF_XYZ_BASE$increment
+	sudo gdaldem color-relief $ppt_resize $PPT_BIL2TIF_RESIZE_FINAL_COLOR $ppt_resize_color_output -alpha
+	echo "Color tif for year "$increment
+	 sudo gdal2tiles.py --zoom=2-8 --tilesize=128 $ppt_resize_color_output $PPT_BIL2TIF_XYZ_OUTPUT
+	 echo "xyz tiles for year"$increment
+    increment=$((increment+1))
+   if [[ $increment -eq 2015 ]];
+   then
+      break
+   fi
+done
+
+######################################
+# test
+# http://XX.XX.xxx.XX/tmean_cor_xyz/tmean_cor_xyz_tmean_pearson_final_1981/openlayers.html
 ###################
+
+#move the quantile txt files from /data/ to server for legend
+sudo mv $VARIABLENAME/data/tmean_pearson_final/*txt $VARIABLENAME/pandamoniumGIS20210110_tmeanbuild/data/reclassed_txt
+sudo mv $VARIABLENAME/data/ppt_pearson_final/*txt $VARIABLENAME/polarbear/data/reclassed_txt
+
+sudo mv $VARIABLENAME/data/tmean_pearson_final/*txt $VARIABLENAME/pandamoniumGIS20210110_tmeanbuild/data/reclassed_txt_tmean_og
+sudo mv $VARIABLENAME/data/ppt_pearson_final/*txt $VARIABLENAME/polarbear/data/reclassed_txt_ppt_og
+
 #build node applications with npm
 cd pandamoniumGIS20210110_tmeanbuild
 sudo npm run-script build

@@ -81,7 +81,6 @@ print("Finished tmean_cor_actually.py")
 #read tif back in and show it
 pearsonr_test = "/Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/panda_testing/pandamoniumGIS/data/pearsonr_test.tif"
 pearsonr_test_interpolated = "/Users/davidleifer/Documents/20170101-20190604/Geog531/Assignment2/panda_testing/pandamoniumGIS/data/pearsonr_test_interpolated.tif"
-
 width = 1405
 height = 621
 with rasterio.open(pearsonr_test, mode="r+") as src:
@@ -99,7 +98,3 @@ show(interpolation)
 #show(np.dstack(msk))
 #show(pearsonr_test_var)
 '''
-
-
-
-

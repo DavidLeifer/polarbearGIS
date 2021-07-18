@@ -49,6 +49,22 @@ sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=dow
 sudo unzip xyz-timeseries-data
 sudo rm xyz-timeseries-data
 
+#ppt_bil2tif_resize_xyz.zip
+#https://drive.google.com/file/d/15O_zc0sBq21aPrnc9DHt9H62ZnFKUmEV/view?usp=sharing
+
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=15O_zc0sBq21aPrnc9DHt9H62ZnFKUmEV' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=15O_zc0sBq21aPrnc9DHt9H62ZnFKUmEV" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+
+sudo unzip xyz-timeseries-data
+sudo rm xyz-timeseries-data
+
+#tmean_bil2tif_resize_xyz.zip
+#https://drive.google.com/file/d/1r44Tts5Grp5nFbJBQJdBNi7-G7Z2fvHz/view?usp=sharing
+
+sudo wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1r44Tts5Grp5nFbJBQJdBNi7-G7Z2fvHz' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1r44Tts5Grp5nFbJBQJdBNi7-G7Z2fvHz" -O xyz-timeseries-data && rm -rf /tmp/cookies.txt
+
+sudo unzip xyz-timeseries-data
+sudo rm xyz-timeseries-data
+
 #tmean_bil2tif_LaElNeu_analysis_xyz
 #https://drive.google.com/file/d/1kjvAl3BRLuD6fNSOftoqDHZRjOqjbyDk/view?usp=sharing
 

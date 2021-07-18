@@ -35,13 +35,6 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="index.css">
         <style>
-    #minbeds { 
-        position: absolute;
-        bottom:60px;
-        left:20px;
-        width:50px; 
-        height:17px; 
-       }
     #year { 
         position: absolute;
         bottom:110px;
@@ -53,18 +46,28 @@
         position: absolute;
         left:10px;
         top:149px;
-        z-index:1;
+        z-index:0;
       }
     #legend-numbers {
         position: absolute;
         left:30px;
         top:.001px;
-        z-index:1;
+        z-index:0;
         background-color:White;
         text-align: center;
         font-size: medium;
         padding: 1px;
       }
+    #legend-numbers-mm{
+        position: absolute;
+        left:100px;
+        top:.001px;
+        z-index:0;
+        background-color:White;
+        text-align: center;
+        font-size: medium;
+        padding: 1px;
+    }
     .map {
         width: 100%;
         height: 100%;
@@ -88,6 +91,15 @@
         left:10px; 
         top:100px;
         z-index:1000; 
+    }
+    #ninoindex-holder {
+        position: absolute;
+        left:10px;
+        bottom:100px;
+        z-index:1000;
+        background-color: white;
+        padding: 3px;
+        text-align: center;
     }
     .slider-guy{
         bottom: 25px;
@@ -120,14 +132,32 @@
       <button onclick="e()" id="button_change" style="height:42.0px; width:69px">Hide Legend</button>
     </div>
     <div id="legend">
-      <img src="./data/legend_image/ppt_corr_legend.png" height="186px" width="29px">
+      <img src="./data/legend_image/ppt_corr_legend.png" height="208px" width="29px">
       <div id="legend-numbers">
+        ppt corr
         <p id="percentile_0"></p>
         <p id="percentile_20"></p>
         <p id="percentile_40"></p>
         <p id="percentile_60"></p>
         <p id="percentile_80"></p>
+      </div>
+      <div id="legend-numbers-mm">
+         mm
+        <p id="percentile_0_ppt_og"></p>
+        <p id="percentile_20_ppt_og"></p>
+        <p id="percentile_40_ppt_og"></p>
+        <p id="percentile_60_ppt_og"></p>
+        <p id="percentile_80_ppt_og"></p>
+      </div>
     </div>
+
+    <div id="ninoindex-holder">
+        El Nino 3.4 Index: 
+        <div id="nino">
+        </div>
+        Year Type:
+        <div id="year_type">
+        </div>
     </div>
 
     <div ng-app="myApp" ng-controller="GreetingController" class="slider-guy">
